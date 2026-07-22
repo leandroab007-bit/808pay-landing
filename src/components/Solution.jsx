@@ -131,6 +131,31 @@ export default function Solution() {
             )
           })}
         </div>
+
+        {/* Real scenario image */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.65 }}
+          style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', marginTop: '48px', height: '260px', border: '1px solid rgba(255,255,255,0.06)', boxShadow: '0 24px 48px rgba(0,0,0,0.4)' }}
+        >
+          <img
+            src="/images/depois.jpg"
+            alt="Operação organizada com a 808Pay"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'brightness(0.55) saturate(1.05)' }}
+          />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(9,9,11,0.3) 0%, transparent 40%, rgba(9,9,11,0.75) 100%)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'rgba(34,197,94,0.05)' }} />
+          <div style={{ position: 'absolute', bottom: '24px', left: '28px', right: '28px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+            <div>
+              <p style={{ fontSize: '16px', fontWeight: 700, color: '#FAFAFA', margin: '0 0 4px', textShadow: '0 2px 12px rgba(0,0,0,0.9)' }}>A operação depois do 808Pay</p>
+              <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', margin: 0, textShadow: '0 1px 8px rgba(0,0,0,0.9)' }}>Fluxo contínuo, equipe focada, cliente satisfeito</p>
+            </div>
+            <div style={{ backgroundColor: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: '8px', padding: '5px 12px', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}>
+              <span style={{ fontSize: '11px', fontWeight: 700, color: '#22C55E', letterSpacing: '0.06em', textTransform: 'uppercase' }}>Depois</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

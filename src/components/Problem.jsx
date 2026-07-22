@@ -71,6 +71,31 @@ export default function Problem() {
         Sem uma estrutura, o crescimento vira problema.
       </motion.p>
 
+      {/* Real scenario image */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, delay: 0.08 }}
+        style={{ position: 'relative', borderRadius: '16px', overflow: 'hidden', marginBottom: '40px', height: '260px', border: '1px solid rgba(255,255,255,0.06)', boxShadow: '0 24px 48px rgba(0,0,0,0.4)' }}
+      >
+        <img
+          src="/images/antes.jpg"
+          alt="A realidade de uma operação sem estrutura"
+          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'brightness(0.45) saturate(0.8)' }}
+        />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(9,9,11,0.3) 0%, transparent 40%, rgba(9,9,11,0.8) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(239,68,68,0.06)' }} />
+        <div style={{ position: 'absolute', bottom: '24px', left: '28px', right: '28px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+          <div>
+            <p style={{ fontSize: '16px', fontWeight: 700, color: '#FAFAFA', margin: '0 0 4px', textShadow: '0 2px 12px rgba(0,0,0,0.9)' }}>Parece familiar?</p>
+            <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', margin: 0, textShadow: '0 1px 8px rgba(0,0,0,0.9)' }}>A realidade sem uma estrutura de operação</p>
+          </div>
+          <div style={{ backgroundColor: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: '8px', padding: '5px 12px', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, color: '#F87171', letterSpacing: '0.06em', textTransform: 'uppercase' }}>Antes</span>
+          </div>
+        </div>
+      </motion.div>
+
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
         {problems.map((item, i) => {
           const { Icon } = item

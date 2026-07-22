@@ -1,6 +1,7 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Problem from './components/Problem'
+import BeforeAfter from './components/BeforeAfter'
 import Solution from './components/Solution'
 import Benefits from './components/Benefits'
 import HowItWorks from './components/HowItWorks'
@@ -17,6 +18,7 @@ export default function App() {
       <main>
         <Hero />
         <Problem />
+        <BeforeAfter />
         <Solution />
         <Benefits />
         <HowItWorks />
