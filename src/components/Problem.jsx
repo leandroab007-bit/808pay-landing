@@ -1,24 +1,29 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { Users, FileX, Wallet, ChefHat } from 'lucide-react'
 
 const problems = [
   {
-    icon: '⏱️',
+    Icon: Users,
+    color: '#F87171',
     title: 'Fila que não anda',
     description: 'Clientes esperando enquanto a equipe procura o pedido. A pressa gera erro, o erro gera retrabalho.',
   },
   {
-    icon: '📝',
+    Icon: FileX,
+    color: '#FB923C',
     title: 'Pedido que se perde',
     description: 'Anotação no papel, grito para a cozinha, comanda rasgada. O pedido chega errado ou não chega.',
   },
   {
-    icon: '💸',
+    Icon: Wallet,
+    color: '#FBBF24',
     title: 'Caixa que trava',
     description: 'Troco errado, Pix não confirmado, cliente esperando. Cada segundo parado é venda que vai embora.',
   },
   {
-    icon: '🔥',
+    Icon: ChefHat,
+    color: '#F97316',
     title: 'Cozinha no caos',
     description: 'Sem prioridade, sem sequência. Prato saindo fora de ordem, tempo de espera aumentando.',
   },
@@ -38,20 +43,11 @@ export default function Problem() {
         margin: '0 auto',
       }}
     >
-      {/* Label */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
         transition={{ duration: 0.5 }}
-        style={{
-          textAlign: 'center',
-          color: '#A1A1AA',
-          fontSize: '11px',
-          fontWeight: 600,
-          letterSpacing: '0.12em',
-          textTransform: 'uppercase',
-          marginBottom: '16px',
-        }}
+        style={{ textAlign: 'center', color: '#A1A1AA', fontSize: '11px', fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '16px' }}
       >
         O problema
       </motion.div>
@@ -60,15 +56,7 @@ export default function Problem() {
         initial={{ opacity: 0, y: 16 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.55, delay: 0.05 }}
-        style={{
-          textAlign: 'center',
-          fontSize: 'clamp(28px, 4vw, 48px)',
-          fontWeight: 700,
-          letterSpacing: '-0.03em',
-          color: '#FAFAFA',
-          margin: '0 auto 16px',
-          maxWidth: '640px',
-        }}
+        style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 700, letterSpacing: '-0.03em', color: '#FAFAFA', margin: '0 auto 16px', maxWidth: '640px' }}
       >
         Crescer sem organização amplifica o caos
       </motion.h2>
@@ -77,60 +65,48 @@ export default function Problem() {
         initial={{ opacity: 0, y: 12 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, delay: 0.1 }}
-        style={{
-          textAlign: 'center',
-          color: '#A1A1AA',
-          fontSize: '16px',
-          lineHeight: 1.6,
-          maxWidth: '520px',
-          margin: '0 auto 64px',
-        }}
+        style={{ textAlign: 'center', color: '#A1A1AA', fontSize: '16px', lineHeight: 1.6, maxWidth: '520px', margin: '0 auto 64px' }}
       >
         Mais clientes significa mais pedidos, mais pressão e mais margem para erro.
         Sem uma estrutura, o crescimento vira problema.
       </motion.p>
 
-      {/* Cards grid */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-          gap: '16px',
-        }}
-      >
-        {problems.map((item, i) => (
-          <motion.div
-            key={item.title}
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
-            style={{
-              backgroundColor: '#18181B',
-              border: '1px solid rgba(255,255,255,0.07)',
-              borderRadius: '16px',
-              padding: '28px',
-            }}
-          >
-            <div style={{ fontSize: '28px', marginBottom: '16px' }}>{item.icon}</div>
-            <h3
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+        {problems.map((item, i) => {
+          const { Icon } = item
+          return (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
               style={{
-                fontSize: '17px',
-                fontWeight: 600,
-                color: '#FAFAFA',
-                margin: '0 0 8px',
-                letterSpacing: '-0.02em',
+                backgroundColor: '#18181B',
+                border: '1px solid rgba(255,255,255,0.07)',
+                borderRadius: '16px',
+                padding: '28px',
               }}
             >
-              {item.title}
-            </h3>
-            <p style={{ fontSize: '14px', color: '#71717A', lineHeight: 1.6, margin: 0 }}>
-              {item.description}
-            </p>
-          </motion.div>
-        ))}
+              <div style={{
+                width: '44px', height: '44px', borderRadius: '10px',
+                backgroundColor: `${item.color}15`,
+                border: `1px solid ${item.color}25`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                marginBottom: '18px',
+              }}>
+                <Icon size={20} color={item.color} strokeWidth={1.8} />
+              </div>
+              <h3 style={{ fontSize: '17px', fontWeight: 600, color: '#FAFAFA', margin: '0 0 8px', letterSpacing: '-0.02em' }}>
+                {item.title}
+              </h3>
+              <p style={{ fontSize: '14px', color: '#71717A', lineHeight: 1.6, margin: 0 }}>
+                {item.description}
+              </p>
+            </motion.div>
+          )
+        })}
       </div>
 
-      {/* Bottom callout */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
