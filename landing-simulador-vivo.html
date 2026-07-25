@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>808Pay — Organizando Crescimento</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: '#22c55e', // Verde Neon / Esmeralda
+                            dark: '#14532d',
+                            light: '#4ade80',
+                            glow: 'rgba(34, 197, 94, 0.2)',
+                            charcoal: '#09090b', // Preto profundo
+                            card: '#121215'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #09090b;
+            color: #f4f4f5;
+            overflow-x: hidden;
+        }
+        .slide-transition {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .neon-glow {
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.2);
+        }
+        .neon-glow-lg {
+            box-shadow: 0 0 50px rgba(34, 197, 94, 0.25);
+        }
+        .neon-border {
+            border-color: rgba(34, 197, 94, 0.4);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #22c55e;
+        }
+        /* Simulador mobile */
+        .sim-mobile-cart-visible #view-demo {
+            padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+        }
+        @keyframes pix-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .pix-pulse { animation: pix-pulse 1.2s ease-in-out infinite; }
+        @keyframes pix-check {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .pix-check { animation: pix-check 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        /* ===== Device Mockups (Simulador Vivo) — acabamento premium ===== */
+        .device-stack { width: 100%; position: relative; }
+        .device-frame {
+            position: relative;
+            background: linear-gradient(160deg, #444249 0%, #201f22 22%, #0a0a0c 78%);
+            box-shadow:
+                0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+                0 1px 0 rgba(255, 255, 255, 0.12) inset,
+                0 1px 2px rgba(0, 0, 0, 0.45),
+                0 16px 28px -14px rgba(0, 0, 0, 0.6),
+                0 40px 70px -24px rgba(0, 0, 0, 0.75);
+        }
+        .device-screen {
+            position: relative;
+            background: #08080a;
+            overflow: hidden;
+        }
+        .device-screen::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 22%);
+            pointer-events: none;
+        }
+        .device-btn {
+            position: absolute;
+            background: linear-gradient(180deg, #58585f, #0c0c0e);
+            border-radius: 2px;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4);
+        }
+        /* Sombra de contato sob cada aparelho, para dar peso/profundidade real (apoiado, não flutuando) */
+        .device-contact-shadow {
+            width: 65%;
+            max-width: 18rem;
+            height: 1.1rem;
+            margin: 0.6rem auto 0;
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 0%, transparent 75%);
+            filter: blur(4px);
+        }
+        /* Celular (Cliente) — frame espesso estilo smartphone, cor quase preta, notch grande */
+        .device-frame-phone {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 44px;
+            padding: 11px;
+            background: linear-gradient(160deg, #2a2a2a 0%, #1a1a1a 100%);
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+        .device-frame-phone .device-screen {
+            border-radius: 33px;
+        }
+        .device-btn-power { right: -2px; top: 96px; width: 2px; height: 52px; border-radius: 0 2px 2px 0; }
+        .device-btn-vol-up { left: -2px; top: 72px; width: 2px; height: 22px; border-radius: 2px 0 0 2px; }
+        .device-btn-vol-down { left: -2px; top: 100px; width: 2px; height: 22px; border-radius: 2px 0 0 2px; }
+        .device-island {
+            position: absolute;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 20px;
+            background: #000;
+            border-radius: 999px;
+            z-index: 20;
+        }
+        .device-island::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 12px;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 999px;
+            background: #2c2c31;
+        }
+        /* Monitor (Cozinha / KDS) — bisel fino, cor quase preta, sobre pedestal em "T" */
+        .device-frame-monitor {
+            width: 100%;
+            max-width: 27rem;
+            margin: 0 auto;
+            border-radius: 14px;
+            padding: 9px;
+            background: linear-gradient(160deg, #2a2a2a 0%, #1a1a1a 100%);
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+        .device-frame-monitor .device-screen {
+            border-radius: 6px;
+        }
+        .device-cam-dot {
+            position: absolute;
+            top: 0.16rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0.2rem;
+            height: 0.2rem;
+            border-radius: 999px;
+            background: #46464d;
+            z-index: 20;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+        }
+        .device-monitor-neck {
+            width: 4px;
+            height: 22px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #3d3d43, #0e0e10);
+        }
+        .device-monitor-base {
+            width: 130px;
+            height: 7px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #48484f, #0e0e10);
+            border-radius: 4px;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset;
+        }
+        /* Notebook (Dashboard do dono) — bisel + dobradiça/base larga com entalhe central, como tampa fechada */
+        .device-frame-laptop {
+            width: 100%;
+            max-width: 29rem;
+            margin: 0 auto;
+            border-radius: 14px 14px 4px 4px;
+            padding: 9px;
+            background: linear-gradient(160deg, #2a2a2a 0%, #1a1a1a 100%);
+            box-shadow:
+                0 8px 16px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+        .device-frame-laptop .device-screen {
+            border-radius: 7px 7px 2px 2px;
+        }
+        .device-laptop-cam {
+            position: absolute;
+            top: 0.15rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0.2rem;
+            height: 0.2rem;
+            border-radius: 999px;
+            background: #46464d;
+            z-index: 20;
+        }
+        .device-laptop-hinge {
+            width: 96%;
+            height: 6px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #232326, #0a0a0c);
+            border-radius: 0 0 2px 2px;
+        }
+        .device-laptop-base {
+            position: relative;
+            width: 112%;
+            margin: 0 -6%;
+            height: 18px;
+            background: linear-gradient(180deg, #48484f, #101012);
+            border-radius: 0 0 16px 16px;
+            box-shadow:
+                0 24px 40px -12px rgba(0, 0, 0, 0.75),
+                0 1px 0 rgba(255, 255, 255, 0.07) inset;
+        }
+        .device-laptop-base::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 56px;
+            height: 4px;
+            background: #0a0a0c;
+            border-radius: 0 0 4px 4px;
+        }
+        /* TV (Painel de Senha) — bisel visível e fino, pedestal em "T" invertido, brilho de tela acesa */
+        .device-frame-tv {
+            width: 100%;
+            max-width: 27rem;
+            margin: 0 auto;
+            border-radius: 10px;
+            padding: 5px;
+            background: linear-gradient(160deg, #2a2a2a 0%, #1a1a1a 100%);
+            box-shadow:
+                0 0 60px rgba(34, 197, 94, 0.12),
+                0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+        .device-frame-tv .device-screen {
+            border-radius: 6px;
+        }
+        .device-frame-tv .device-screen::after {
+            background: linear-gradient(112deg,
+                rgba(255, 255, 255, 0) 38%,
+                rgba(255, 255, 255, 0.045) 47%,
+                rgba(255, 255, 255, 0.09) 50%,
+                rgba(255, 255, 255, 0.03) 54%,
+                rgba(255, 255, 255, 0) 64%);
+        }
+        .device-tv-glow {
+            position: absolute;
+            inset: -2.25rem;
+            background: radial-gradient(ellipse at center, rgba(34, 197, 94, 0.22), transparent 70%);
+            filter: blur(34px);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .device-tv-neck {
+            width: 3px;
+            height: 20px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #3d3d43, #0e0e10);
+        }
+        .device-tv-base {
+            width: 120px;
+            height: 6px;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #48484f, #0e0e10);
+            border-radius: 3px;
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset;
+        }
+        /* Step transition (mobile, um aparelho por vez) */
+        @keyframes sim-step-in {
+            0% { opacity: 0; transform: translateY(16px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .sim-step-enter { animation: sim-step-in 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        /* ===== Comunicação entre módulos: pulso sutil de "dado recebido" ===== */
+        .device-frame::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            border: 2px solid rgba(34, 197, 94, 0.55);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 30;
+        }
+        .device-frame.device-pulse::before {
+            animation: device-pulse-ring 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes device-pulse-ring {
+            0% { opacity: 0.85; inset: -1px; }
+            100% { opacity: 0; inset: -12px; }
+        }
+        /* KDS: transição suave de cor entre estágios do pedido */
+        #sim-kds-status-badge, #sim-kds-status-dot {
+            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+        }
+        /* TV: entrada suave do número da senha */
+        @keyframes tv-number-in {
+            0% { transform: scale(0.6); opacity: 0; }
+            60% { transform: scale(1.08); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .tv-number-in { animation: tv-number-in 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        /* TV: flash verde sutil ao ficar pronta */
+        .tv-flash-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(34, 197, 94, 0.55), transparent 70%);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 15;
+        }
+        @keyframes tv-flash {
+            0% { opacity: 0; }
+            18% { opacity: 0.4; }
+            100% { opacity: 0; }
+        }
+        .tv-flash-overlay.tv-flash-play { animation: tv-flash 0.9s ease-out; }
+        /* TV: glow ambiente reforça por instantes quando a senha chega */
+        @keyframes tv-glow-pulse {
+            0% { filter: blur(34px) brightness(1); }
+            35% { filter: blur(28px) brightness(2.1); }
+            100% { filter: blur(34px) brightness(1); }
+        }
+        .device-tv-glow.tv-glow-boost { animation: tv-glow-pulse 1.6s ease-out; }
+
+        /* ===== Linha de transmissão real entre os aparelhos (desktop) ===== */
+        .sim-connector {
+            position: absolute;
+            top: 46%;
+            width: 2.2rem;
+            height: 2px;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(90deg, rgba(63, 63, 70, 0.7), rgba(63, 63, 70, 0.7));
+            z-index: 5;
+            overflow: visible;
+            pointer-events: none;
+        }
+        .sim-connector-dot {
+            position: absolute;
+            top: 50%;
+            left: 0%;
+            width: 0.5rem;
+            height: 0.5rem;
+            margin-top: -0.25rem;
+            margin-left: -0.25rem;
+            border-radius: 999px;
+            background: #22c55e;
+            box-shadow: 0 0 10px 3px rgba(34, 197, 94, 0.85);
+            opacity: 0;
+        }
+        .sim-connector.sim-connector-active .sim-connector-dot {
+            animation: sim-connector-travel 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes sim-connector-travel {
+            0% { opacity: 0; left: 0%; }
+            12% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { opacity: 0; left: 100%; }
+        }
+
+        /* ===== Microinterações premium (camada aditiva — não altera cores, espaçamentos ou HTML estrutural) ===== */
+        .reveal-init {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 600ms cubic-bezier(0.16, 1, 0.3, 1), transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-init.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .hero-line-1, .hero-line-2 { display: inline-block; }
+        .hero-glow { animation: heroGlowBreathe 5.5s ease-in-out infinite; }
+        @keyframes heroGlowBreathe {
+            0%, 100% { opacity: 0.65; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+        }
+        .premium-card {
+            transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 350ms cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .premium-card:hover { transform: translateY(-4px); }
+        .premium-card:not(.neon-glow):hover {
+            box-shadow: 0 20px 45px -20px rgba(34, 197, 94, 0.28);
+        }
+        button:not(:disabled):hover { transform: translateY(-1px) scale(1.015); }
+        button:not(:disabled):active { transform: translateY(0) scale(0.98); }
+        button.bg-brand:not(:disabled):hover,
+        button.bg-brand-light:not(:disabled):hover {
+            box-shadow: 0 10px 30px -8px rgba(34, 197, 94, 0.45);
+        }
+        button[onclick="closeLeadModal()"],
+        button[onclick="cancelSimPix()"] {
+            transition: color 200ms ease, transform 200ms ease;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal-init { opacity: 1; transform: none; transition: none; }
+            .hero-glow { animation: none; }
+            .premium-card, button { transition: none; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-brand-charcoal text-zinc-100 antialiased selection:bg-brand selection:text-black">
+    <!-- Navigation / Header Bar -->
+    <header class="sticky top-0 z-50 w-full px-3 sm:px-4 lg:px-8 py-2 sm:py-3 bg-brand-charcoal/90 backdrop-blur-md border-b border-zinc-800/80 transition-all">
+        <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                <a href="#" onclick="switchView('landing')" class="flex items-center gap-2 group">
+                    <div class="w-8 h-8 rounded-lg bg-brand/10 border border-brand/30 flex items-center justify-center group-hover:bg-brand/20 transition-all">
+                        <span class="text-brand font-black text-lg">8</span>
+                    </div>
+                    <span class="text-lg sm:text-xl font-extrabold tracking-tight text-white flex items-center gap-1">
+                        <span class="text-brand">808</span>Pay
+                    </span>
+                </a>
+                <span class="hidden md:inline-block text-xs text-zinc-500 font-medium pl-3 border-l border-zinc-800 tracking-wider uppercase">
+                    Organizando crescimento.
+                </span>
+            </div>
+            <!-- Header CTA -->
+            <div class="hidden sm:flex items-center gap-3 shrink-0">
+                <button onclick="openLeadModal('Demonstração Solicitada')" class="px-4 py-2 bg-brand hover:bg-brand-light text-zinc-950 text-xs font-bold rounded-lg transition-all shadow-md shadow-brand/20 flex items-center gap-2">
+                    <span>Teste Grátis de 15 Dias</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+            </div>
+        </div>
+        <!-- View Switcher Tabs -->
+        <div class="flex items-center justify-center mt-2 sm:mt-3">
+            <div class="flex items-center bg-zinc-900/90 p-1 rounded-xl border border-zinc-800 text-xs font-semibold max-w-full overflow-x-auto">
+                <button id="btn-tab-landing" onclick="switchView('landing')" class="px-2.5 sm:px-3.5 py-2 sm:py-1.5 rounded-lg text-white bg-zinc-800 shadow transition-all flex items-center gap-1.5 shrink-0">
+                    <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    <span class="hidden sm:inline">Site & Solução</span>
+                    <span class="sm:hidden">Site</span>
+                </button>
+                <button id="btn-tab-demo" onclick="switchView('demo')" class="px-2.5 sm:px-3.5 py-2 sm:py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all flex items-center gap-1.5 shrink-0">
+                    <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span class="hidden sm:inline">Simulador Vivo</span>
+                    <span class="sm:hidden">Demo</span>
+                </button>
+                <button id="btn-tab-pitch" onclick="switchView('pitch')" class="px-2.5 sm:px-3.5 py-2 sm:py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all flex items-center gap-1.5 shrink-0">
+                    <svg class="w-4 h-4 sm:w-3.5 sm:h-3.5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12H4z"/></svg>
+                    <span class="hidden sm:inline">Pitch Deck</span>
+                    <span class="sm:hidden">Pitch</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <!-- MAIN CONTAINER -->
+    <main class="flex-1 w-full">
+        <!-- VIEW 1: LANDING PAGE -->
+        <div id="view-landing" class="w-full space-y-24 pb-20">
+            <!-- Hero Section -->
+            <section class="relative pt-12 lg:pt-20 px-6 max-w-7xl mx-auto flex flex-col items-center text-center space-y-8">
+                <!-- Background Accent Glow -->
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-brand/10 rounded-full blur-[120px] pointer-events-none"></div>
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-medium text-brand">
+                    <span class="w-2 h-2 rounded-full bg-brand animate-ping"></span>
+                    <span>Ecossistema Completo para Restaurantes em Crescimento</span>
+                </div>
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.1] max-w-5xl">
+                    <span class="hero-line-1">Seu restaurante está crescendo.</span> <br>
+                    <span class="hero-line-2 text-transparent bg-clip-text bg-gradient-to-r from-brand via-brand-light to-emerald-200">
+                        Sua operação está acompanhando esse ritmo?
+                    </span>
+                </h1>
+                <p class="text-lg sm:text-xl font-light text-zinc-400 max-w-3xl leading-relaxed">
+                    Um sistema completo para organizar o crescimento do seu negócio: menos fila, menos erro na cozinha e mais faturamento, com controle total da operação.
+                </p>
+                <!-- Hero CTA Buttons -->
+                <div class="flex flex-col sm:flex-row items-center gap-4 pt-2 w-full sm:w-auto">
+                    <button onclick="openLeadModal('Hero CTA')" class="w-full sm:w-auto px-8 py-4 bg-brand hover:bg-brand-light text-zinc-950 font-extrabold rounded-xl text-base transition-all shadow-xl shadow-brand/20 flex items-center justify-center gap-2 group">
+                        <span>Começar Teste Grátis de 15 Dias</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    </button>
+                    <button onclick="switchView('demo')" class="w-full sm:w-auto px-8 py-4 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white font-bold rounded-xl text-base transition-all flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span>Ver a Operação Funcionando</span>
+                    </button>
+                </div>
+                <!-- Live Metrics Bar -->
+                <div class="pt-10 grid grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl text-left">
+                    <div class="bg-zinc-900/60 p-4 rounded-xl border border-zinc-800/80">
+                        <div class="text-2xl lg:text-3xl font-extrabold text-brand">+18%</div>
+                        <div class="text-xs text-zinc-400 mt-1">Aumento no Ticket Médio</div>
+                    </div>
+                    <div class="bg-zinc-900/60 p-4 rounded-xl border border-zinc-800/80">
+                        <div class="text-2xl lg:text-3xl font-extrabold text-white">-65%</div>
+                        <div class="text-xs text-zinc-400 mt-1">Redução no Tempo de Espera</div>
+                    </div>
+                    <div class="bg-zinc-900/60 p-4 rounded-xl border border-zinc-800/80">
+                        <div class="text-2xl lg:text-3xl font-extrabold text-brand">0%</div>
+                        <div class="text-xs text-zinc-400 mt-1">Erros na Comunicação com a Cozinha</div>
+                    </div>
+                    <div class="bg-zinc-900/60 p-4 rounded-xl border border-zinc-800/80">
+                        <div class="text-2xl lg:text-3xl font-extrabold text-white">100%</div>
+                        <div class="text-xs text-zinc-400 mt-1">dos Pagamentos Conferidos Automaticamente</div>
+                    </div>
+                </div>
+            </section>
+            <!-- Comparação: Caos x Organização -->
+            <section class="px-6 max-w-7xl mx-auto">
+                <div class="text-center space-y-3 mb-12">
+                    <span class="text-xs font-bold text-brand tracking-widest uppercase">Raio-X da Operação</span>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white">O problema não é vender. É continuar crescendo sem perder o controle da operação.</h2>
+                    <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto">Compare o antes e o depois de organizar o crescimento do seu estabelecimento.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Lado A: Sem 808Pay -->
+                    <div class="bg-gradient-to-b from-red-950/20 to-zinc-950 p-6 sm:p-8 rounded-2xl border border-red-900/30 relative">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></span>
+                            <h3 class="text-lg font-bold text-red-200 uppercase tracking-wider">Antes: Operação no Limite</h3>
+                        </div>
+                        <ul class="space-y-4 text-sm text-zinc-400">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                <span>Filas no balcão nos horários de pico, com clientes impacientes e equipe sob pressão.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                <span>Vendas de adicionais perdidas porque o atendente não tem tempo de oferecer.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                <span>Pedidos anotados à mão viram erro de preparo, desperdício e retrabalho na cozinha.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                <span>Conferência manual de pagamento trava o caixa e atrasa toda a fila.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Lado B: Com 808Pay -->
+                    <div class="bg-gradient-to-b from-zinc-900 via-zinc-900/90 to-brand-card p-6 sm:p-8 rounded-2xl border border-brand/30 neon-glow relative">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="w-3 h-3 rounded-full bg-brand"></span>
+                            <h3 class="text-lg font-bold text-brand uppercase tracking-wider">Depois: Crescimento sob Controle</h3>
+                        </div>
+                        <ul class="space-y-4 text-sm text-zinc-200">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-brand shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                <span>Cliente faz o próprio pedido, no seu tempo, sem fila e sem pressão.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-brand shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                <span>Sugestões automáticas de adicionais aumentam o ticket médio em até 18%.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-brand shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                <span>Pedido chega direto na cozinha, com observações exatas e zero erro de anotação.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-brand shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                <span>Pagamento confirmado e conferido automaticamente, sem depender de ninguém no caixa.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <!-- Calculadora de ROI / Retorno -->
+            <section class="px-6 max-w-7xl mx-auto">
+                <div class="bg-gradient-to-r from-zinc-900 via-zinc-950 to-zinc-900 border border-zinc-800 rounded-3xl p-6 sm:p-10">
+                    <div class="grid lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-5 space-y-4">
+                            <span class="text-xs font-bold text-brand uppercase tracking-widest">Projeção de Faturamento</span>
+                            <h2 class="text-2xl sm:text-4xl font-extrabold text-white">Quanto sua operação organizada pode faturar a mais por mês?</h2>
+                            <p class="text-zinc-400 text-sm leading-relaxed">
+                                Ajuste os controles de acordo com a escala atual do seu estabelecimento e veja a estimativa de ganho com venda sugestiva e mais giro de mesa.
+                            </p>
+                        </div>
+                        <div class="lg:col-span-7 bg-zinc-900/80 p-6 rounded-2xl border border-zinc-800/80 space-y-6">
+                            <!-- Input 1: Pedidos Diários -->
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <label class="font-semibold text-zinc-300">Pedidos Diários Atuais:</label>
+                                    <span id="roi-orders-val" class="font-mono text-brand font-bold">120 pedidos/dia</span>
+                                </div>
+                                <input type="range" id="roi-orders" min="30" max="600" value="120" step="10" oninput="updateRoiCalc()" class="w-full accent-brand bg-zinc-800 h-2 rounded-lg cursor-pointer">
+                            </div>
+                            <!-- Input 2: Ticket Médio -->
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <label class="font-semibold text-zinc-300">Ticket Médio Atual (R$):</label>
+                                    <span id="roi-ticket-val" class="font-mono text-brand font-bold">R$ 45,00</span>
+                                </div>
+                                <input type="range" id="roi-ticket" min="15" max="150" value="45" step="5" oninput="updateRoiCalc()" class="w-full accent-brand bg-zinc-800 h-2 rounded-lg cursor-pointer">
+                            </div>
+                            <!-- Dynamic Results Box -->
+                            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-zinc-800">
+                                <div class="bg-zinc-950 p-4 rounded-xl border border-zinc-800/60">
+                                    <span class="text-xs text-zinc-500 block mb-1">Aumento Estimado por Mês:</span>
+                                    <span id="roi-monthly-gain" class="text-2xl sm:text-3xl font-black text-brand">+ R$ 2.916,00</span>
+                                </div>
+                                <div class="bg-zinc-950 p-4 rounded-xl border border-zinc-800/60">
+                                    <span class="text-xs text-zinc-500 block mb-1">Mais Pedidos Atendidos por Dia:</span>
+                                    <span id="roi-speed-gain" class="text-2xl sm:text-3xl font-black text-white">+35% pedidos</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Planos & Preços -->
+            <section class="px-6 max-w-7xl mx-auto space-y-12">
+                <div class="text-center space-y-3">
+                    <span class="text-xs font-bold text-brand tracking-widest uppercase">Investimento Transparente</span>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white">Escolha o plano certo para o momento do seu negócio</h2>
+                    <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto">Sem fidelidade forçada. Cancele quando quiser.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Starter -->
+                    <div class="bg-zinc-900/40 p-8 rounded-2xl border border-zinc-800 flex flex-col justify-between space-y-6">
+                        <div class="space-y-4">
+                            <span class="text-xs font-bold text-zinc-500 uppercase tracking-widest">Iniciante</span>
+                            <h3 class="text-2xl font-bold text-white">Starter</h3>
+                            <p class="text-xs text-zinc-400">Ideal para cafeterias, docerias e pequenos balcões.</p>
+                            <div class="text-3xl font-black text-white">R$ 199 <span class="text-xs font-normal text-zinc-500">/mês</span></div>
+                            <ul class="space-y-2.5 text-xs text-zinc-300 pt-4 border-t border-zinc-800">
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Pedido no balcão sem fila (QR Code)</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cardápio interativo com sugestões automáticas</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Pagamento Pix conferido automaticamente</li>
+                            </ul>
+                        </div>
+                        <button onclick="openLeadModal('Plano Starter')" class="w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs rounded-xl transition-all">Começar no Starter</button>
+                    </div>
+                    <!-- Pro (Featured) -->
+                    <div class="bg-zinc-900 border-2 border-brand p-8 rounded-2xl flex flex-col justify-between space-y-6 neon-glow relative">
+                        <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand text-zinc-950 px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest">Mais Escolhido</span>
+                        <div class="space-y-4">
+                            <span class="text-xs font-bold text-brand uppercase tracking-widest">Recomendado</span>
+                            <h3 class="text-2xl font-bold text-white">Pro Kiosk</h3>
+                            <p class="text-xs text-zinc-400">Para hamburguerias, restaurantes e operações de ritmo alto.</p>
+                            <div class="text-3xl font-black text-brand">R$ 399 <span class="text-xs font-normal text-zinc-400">/mês</span></div>
+                            <ul class="space-y-2.5 text-xs text-zinc-200 pt-4 border-t border-zinc-800">
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Tudo do Starter +</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Autoatendimento completo por totem</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cozinha organizada com painel de produção (KDS)</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Chamada de senha automática na TV</li>
+                            </ul>
+                        </div>
+                        <button onclick="openLeadModal('Plano Pro Kiosk')" class="w-full py-3.5 bg-brand hover:bg-brand-light text-zinc-950 font-black text-xs rounded-xl transition-all shadow-lg shadow-brand/20">Solicitar Teste Grátis (15 Dias)</button>
+                    </div>
+                    <!-- Enterprise -->
+                    <div class="bg-zinc-900/40 p-8 rounded-2xl border border-zinc-800 flex flex-col justify-between space-y-6">
+                        <div class="space-y-4">
+                            <span class="text-xs font-bold text-zinc-500 uppercase tracking-widest">Multi-lojas</span>
+                            <h3 class="text-2xl font-bold text-white">Enterprise</h3>
+                            <p class="text-xs text-zinc-400">Para redes de franquias e praças de alimentação.</p>
+                            <div class="text-3xl font-black text-white">Sob Consulta</div>
+                            <ul class="space-y-2.5 text-xs text-zinc-300 pt-4 border-t border-zinc-800">
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Operação padronizada em todas as unidades</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Gerente de Conta Dedicado</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Integração com ERP Próprio</li>
+                            </ul>
+                        </div>
+                        <button onclick="openLeadModal('Plano Enterprise')" class="w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs rounded-xl transition-all">Falar com Consultor</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- VIEW 2: INTERACTIVE SIMULATOR -->
+        <div id="view-demo" class="hidden w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8">
+            <div class="text-center space-y-2">
+                <span class="text-xs font-bold text-brand uppercase tracking-widest">Veja Funcionando</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Acompanhe um pedido do início ao fim, em tempo real</h2>
+                <p id="sim-intro-text" class="text-zinc-400 text-xs sm:text-sm">Monte um pedido, pague e veja a operação se organizar sozinha: a cozinha recebe, a senha é chamada, o cliente é avisado automaticamente e o dono vê tudo fechado no painel de gestão.</p>
+            </div>
+            <!-- Mobile step progress (lg:hidden) -->
+            <div id="sim-mobile-nav" class="lg:hidden flex items-center gap-1.5 px-1 overflow-x-auto">
+                <button type="button" onclick="goSimMobileStep(1)" id="sim-step-btn-1" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-brand text-zinc-950 transition-all">1. Menu</button>
+                <button type="button" onclick="goSimMobileStep(2)" id="sim-step-btn-2" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-500 transition-all" disabled>2. Pix</button>
+                <button type="button" onclick="goSimMobileStep(3)" id="sim-step-btn-3" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-500 transition-all" disabled>3. Cozinha</button>
+                <button type="button" onclick="goSimMobileStep(4)" id="sim-step-btn-4" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-500 transition-all" disabled>4. Senha</button>
+                <button type="button" onclick="goSimMobileStep(5)" id="sim-step-btn-5" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-500 transition-all" disabled>5. Pronto</button>
+                <button type="button" onclick="goSimMobileStep(6)" id="sim-step-btn-6" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-500 transition-all" disabled>6. Painel</button>
+            </div>
+            <!-- Simulator Container -->
+            <div id="sim-panels-grid" class="relative grid lg:grid-cols-4 gap-10 lg:gap-5 items-start">
+                <!-- Linhas de transmissão entre módulos (só no desktop, onde os 4 ficam lado a lado) -->
+                <div id="sim-connector-1" class="sim-connector hidden lg:block" style="left: 25%;"><span class="sim-connector-dot"></span></div>
+                <div id="sim-connector-2" class="sim-connector hidden lg:block" style="left: 50%;"><span class="sim-connector-dot"></span></div>
+                <div id="sim-connector-3" class="sim-connector hidden lg:block" style="left: 75%;"><span class="sim-connector-dot"></span></div>
+
+                <!-- SIMULATOR STEP 1 / 6: CELULAR DO CLIENTE (mockup de smartphone) -->
+                <div id="sim-panel-totem" class="sim-panel space-y-3">
+                    <div class="flex items-center justify-between px-1">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-brand"></span>
+                            <h3 class="text-sm font-bold text-white">1. Celular do Cliente</h3>
+                        </div>
+                        <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded font-mono">Cliente</span>
+                    </div>
+                    <div class="device-frame device-frame-phone mx-auto">
+                        <span class="device-btn device-btn-power"></span>
+                        <span class="device-btn device-btn-vol-up"></span>
+                        <span class="device-btn device-btn-vol-down"></span>
+                        <div class="device-island"></div>
+                        <div class="device-screen p-4 sm:p-5 pt-9 max-h-[70vh] overflow-y-auto">
+                            <!-- Sub-tela: Cardápio / Carrinho -->
+                            <div id="sim-totem-menu" class="space-y-4">
+                                <!-- Products Grid -->
+                                <div class="space-y-3">
+                                    <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/80 flex items-center justify-between">
+                                        <div>
+                                            <h4 class="text-xs font-bold text-white">808 Burger Duplo</h4>
+                                            <p class="text-[10px] text-zinc-500">Pão brioche, 2x smash 90g, queijo cheddar</p>
+                                            <span class="text-xs font-bold text-brand mt-1 block">R$ 32,90</span>
+                                        </div>
+                                        <button onclick="addSimItem('808 Burger Duplo', 32.90)" class="px-4 py-2.5 sm:px-3 sm:py-1.5 bg-brand text-zinc-950 text-xs font-black rounded-lg hover:bg-brand-light transition-all min-h-[44px] sm:min-h-0">+ Add</button>
+                                    </div>
+                                    <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/80 flex items-center justify-between">
+                                        <div>
+                                            <h4 class="text-xs font-bold text-white">Batata Suprema</h4>
+                                            <p class="text-[10px] text-zinc-500">Com molho especial e bacon crocante</p>
+                                            <span class="text-xs font-bold text-brand mt-1 block">R$ 16,00</span>
+                                        </div>
+                                        <button onclick="addSimItem('Batata Suprema', 16.00)" class="px-4 py-2.5 sm:px-3 sm:py-1.5 bg-brand text-zinc-950 text-xs font-black rounded-lg hover:bg-brand-light transition-all min-h-[44px] sm:min-h-0">+ Add</button>
+                                    </div>
+                                    <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/80 flex items-center justify-between">
+                                        <div>
+                                            <h4 class="text-xs font-bold text-white">Refrigerante 350ml</h4>
+                                            <p class="text-[10px] text-zinc-500">Lata gelada</p>
+                                            <span class="text-xs font-bold text-brand mt-1 block">R$ 7,50</span>
+                                        </div>
+                                        <button onclick="addSimItem('Refrigerante 350ml', 7.50)" class="px-4 py-2.5 sm:px-3 sm:py-1.5 bg-brand text-zinc-950 text-xs font-black rounded-lg hover:bg-brand-light transition-all min-h-[44px] sm:min-h-0">+ Add</button>
+                                    </div>
+                                </div>
+                                <!-- Cart Summary -->
+                                <div class="pt-3 border-t border-zinc-800 space-y-3">
+                                    <div class="text-xs font-semibold text-zinc-400">Carrinho Atual:</div>
+                                    <div id="sim-cart-list" class="text-xs text-zinc-500 min-h-[40px] space-y-1">
+                                        Nenhum item adicionado ainda.
+                                    </div>
+                                    <div class="flex justify-between items-center pt-2 font-bold text-sm">
+                                        <span>Total:</span>
+                                        <span id="sim-cart-total" class="text-brand">R$ 0,00</span>
+                                    </div>
+                                    <button id="btn-sim-pay" onclick="checkoutSimOrder()" class="hidden lg:block w-full py-3 bg-zinc-800 text-zinc-500 font-bold text-xs rounded-xl cursor-not-allowed transition-all" disabled>
+                                        Pagar com Pix Instantâneo
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Sub-tela: Notificação de pedido pronto (push automático) -->
+                            <div id="sim-totem-notified" class="hidden flex-col items-center justify-center text-center gap-4 py-10 min-h-[50vh]">
+                                <div class="w-16 h-16 rounded-full bg-brand/15 border border-brand/40 flex items-center justify-center pix-check">
+                                    <svg class="w-8 h-8 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2a2 2 0 01-.6 1.4L4 17h5m6 0a3 3 0 11-6 0m6 0H9"/></svg>
+                                </div>
+                                <div>
+                                    <p id="sim-totem-notified-ordernum" class="text-xs font-mono text-zinc-500 mb-1">Pedido #—</p>
+                                    <p class="text-lg font-black text-white">Seu pedido está pronto!</p>
+                                    <p class="text-xs text-zinc-400 mt-1">Pode retirar no balcão. Bom apetite!</p>
+                                </div>
+                                <button type="button" onclick="startNewSimOrder()" class="mt-2 px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold rounded-xl transition-all min-h-[44px]">
+                                    Fazer Novo Pedido
+                                </button>
+                            </div>
+                        </div>
+                        <div class="device-contact-shadow"></div>
+                    </div>
+                </div>
+                <!-- SIMULATOR STEP 3: KDS DA COZINHA (mockup de monitor) -->
+                <div id="sim-panel-kds" class="sim-panel space-y-3">
+                    <div class="flex items-center justify-between px-1">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping"></span>
+                            <h3 class="text-sm font-bold text-white">3. Cozinha (KDS)</h3>
+                        </div>
+                        <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded font-mono">Produção</span>
+                    </div>
+                    <div class="device-stack">
+                        <div class="relative device-frame device-frame-monitor">
+                            <div class="device-cam-dot"></div>
+                            <div class="device-screen p-4 sm:p-5">
+                                <div id="sim-kds-container" class="space-y-3 min-h-[300px] lg:min-h-[360px] flex flex-col justify-center items-center text-center p-6 border border-dashed border-zinc-800 rounded-xl text-zinc-600 text-xs">
+                                    Aguardando envio do pedido pelo Totem...
+                                </div>
+                            </div>
+                        </div>
+                        <div class="device-monitor-neck"></div>
+                        <div class="device-monitor-base"></div>
+                        <div class="device-contact-shadow"></div>
+                    </div>
+                </div>
+                <!-- SIMULATOR STEP 4: PAINEL DE SENHAS NA TV (mockup de TV) -->
+                <div id="sim-panel-tv" class="sim-panel space-y-3">
+                    <div class="flex items-center justify-between px-1">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                            <h3 class="text-sm font-bold text-white">4. Chamada de Senha</h3>
+                        </div>
+                        <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded font-mono">Painel TV</span>
+                    </div>
+                    <div class="device-stack">
+                        <div class="relative device-frame device-frame-tv">
+                            <div class="device-tv-glow"></div>
+                            <div class="device-screen p-2">
+                                <div id="sim-tv-container" class="bg-black rounded-md p-6 text-center space-y-4 min-h-[300px] lg:min-h-[360px] flex flex-col justify-center items-center">
+                                    <span class="text-[10px] font-mono tracking-widest text-zinc-500 uppercase">Status do Pedido</span>
+                                    <div id="sim-tv-number" class="text-5xl font-black text-zinc-700"># ---</div>
+                                    <div id="sim-tv-status" class="text-xs text-zinc-500 font-semibold">Nenhum pedido pronto no momento</div>
+                                </div>
+                                <div id="sim-tv-flash" class="tv-flash-overlay"></div>
+                            </div>
+                        </div>
+                        <div class="device-tv-neck"></div>
+                        <div class="device-tv-base"></div>
+                        <div class="device-contact-shadow"></div>
+                    </div>
+                </div>
+                <!-- SIMULATOR STEP 6: DASHBOARD DO DONO (mockup de notebook) — fecha o fluxo -->
+                <div id="sim-panel-dashboard" class="sim-panel space-y-3">
+                    <div class="flex items-center justify-between px-1">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
+                            <h3 class="text-sm font-bold text-white">6. Dashboard do Dono</h3>
+                        </div>
+                        <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded font-mono">Gestão</span>
+                    </div>
+                    <div class="device-stack">
+                        <div class="device-frame device-frame-laptop">
+                            <div class="device-laptop-cam"></div>
+                            <div class="device-screen p-4 sm:p-5 space-y-4 min-h-[300px] lg:min-h-[360px]">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[11px] font-bold text-white flex items-center gap-1"><span class="text-brand">808</span>Pay <span class="text-zinc-500 font-normal">— Painel</span></span>
+                                    <span class="text-[9px] text-zinc-500 font-mono flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-brand animate-pulse"></span>Ao vivo</span>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="bg-zinc-950 border border-zinc-800/80 rounded-lg p-3">
+                                        <span class="text-[9px] text-zinc-500 block">Pedidos hoje</span>
+                                        <span id="sim-dash-orders-count" class="text-lg font-black text-white">0</span>
+                                    </div>
+                                    <div class="bg-zinc-950 border border-zinc-800/80 rounded-lg p-3">
+                                        <span class="text-[9px] text-zinc-500 block">Faturamento hoje</span>
+                                        <span id="sim-dash-revenue" class="text-lg font-black text-brand">R$ 0,00</span>
+                                    </div>
+                                </div>
+                                <div id="sim-dash-order-card" class="bg-zinc-950 border border-zinc-800/80 rounded-lg p-3">
+                                    <div class="text-[10px] text-zinc-600 text-center py-4">Nenhum pedido concluído ainda.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="device-laptop-hinge"></div>
+                        <div class="device-laptop-base"></div>
+                        <div class="device-contact-shadow"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile sticky cart bar (Simulador) -->
+        <div id="sim-mobile-cart-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-40 translate-y-full transition-transform duration-300 bg-zinc-900/95 backdrop-blur-md border-t border-zinc-800 px-4 py-3 flex items-center gap-3" style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom));">
+            <div class="flex-1 min-w-0">
+                <div id="sim-mobile-cart-count" class="text-[10px] text-zinc-500 font-semibold uppercase tracking-wide">0 itens</div>
+                <div id="sim-mobile-cart-total" class="text-lg font-black text-brand">R$ 0,00</div>
+            </div>
+            <button id="btn-sim-pay-mobile" onclick="checkoutSimOrder()" disabled class="shrink-0 px-5 py-3.5 bg-zinc-800 text-zinc-500 font-black text-xs rounded-xl cursor-not-allowed transition-all min-h-[48px]">
+                Pagar com Pix
+            </button>
+        </div>
+        <!-- Pix simulation overlay -->
+        <div id="sim-pix-overlay" class="fixed inset-0 z-[60] hidden items-end sm:items-center justify-center bg-black/85 backdrop-blur-sm p-0 sm:p-4">
+            <div class="bg-zinc-900 border border-zinc-800 w-full sm:max-w-sm rounded-t-2xl sm:rounded-2xl p-6 space-y-5 shadow-2xl" style="padding-bottom: max(1.5rem, env(safe-area-inset-bottom));">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-brand uppercase tracking-widest">Simulação de Pagamento</span>
+                    <button type="button" onclick="cancelSimPix()" class="text-zinc-500 hover:text-white text-xl font-bold leading-none px-2">&times;</button>
+                </div>
+                <div class="text-center space-y-4">
+                    <div id="sim-pix-qr" class="mx-auto w-40 h-40 bg-white rounded-xl p-3 flex items-center justify-center">
+                        <svg class="w-full h-full text-zinc-900" viewBox="0 0 100 100" fill="currentColor"><rect x="10" y="10" width="25" height="25"/><rect x="65" y="10" width="25" height="25"/><rect x="10" y="65" width="25" height="25"/><rect x="40" y="40" width="8" height="8"/><rect x="52" y="40" width="8" height="8"/><rect x="40" y="52" width="8" height="8"/><rect x="65" y="65" width="12" height="12"/><rect x="80" y="65" width="10" height="10"/><rect x="65" y="80" width="10" height="10"/></svg>
+                    </div>
+                    <div>
+                        <p class="text-xs text-zinc-500 mb-1">Valor do pedido</p>
+                        <p id="sim-pix-amount" class="text-3xl font-black text-white">R$ 0,00</p>
+                    </div>
+                    <div id="sim-pix-status" class="flex items-center justify-center gap-2 text-sm text-zinc-400 pix-pulse">
+                        <span class="w-2 h-2 rounded-full bg-brand"></span>
+                        <span>Aguardando confirmação Pix...</span>
+                    </div>
+                </div>
+                <button type="button" id="sim-pix-confirm-btn" onclick="confirmSimPix()" class="hidden w-full py-3.5 bg-brand hover:bg-brand-light text-zinc-950 font-black rounded-xl text-sm transition-all">
+                    Confirmar Pagamento (Demo)
+                </button>
+            </div>
+        </div>
+        <!-- VIEW 3: PITCH DECK SLIDE PRESENTATION MODE -->
+        <div id="view-pitch" class="hidden w-full h-[calc(100vh-65px)] flex flex-col justify-between relative bg-black overflow-hidden">
+            
+            <!-- Slide Progress Header -->
+            <div class="w-full px-6 py-3 flex items-center justify-between z-30 bg-zinc-950/80 border-b border-zinc-900">
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-brand uppercase tracking-widest">Pitch Deck 808Pay</span>
+                </div>
+                <div class="flex gap-1.5 flex-1 max-w-md mx-6" id="pitch-progress-bars">
+                    <!-- Progress bars generated via JS -->
+                </div>
+                <div class="text-xs font-mono text-zinc-500" id="pitch-slide-counter">
+                    01 / 05
+                </div>
+            </div>
+            <!-- Slide Content Wrapper -->
+            <div class="relative flex-1 w-full overflow-hidden">
+                <div class="absolute inset-0 flex slide-transition" id="pitch-wrapper" style="width: 500vw;">
+                    
+                    <!-- SLIDE 1 -->
+                    <section class="w-screen h-full flex flex-col justify-center px-6 md:px-24 relative bg-gradient-to-r from-black via-zinc-950 to-zinc-900">
+                        <div class="max-w-4xl space-y-6">
+                            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-zinc-900 border border-zinc-800 text-brand tracking-wider uppercase">
+                                Slide 01 — Diagnóstico Inicial
+                            </span>
+                            <h1 class="text-4xl md:text-7xl font-extrabold text-white tracking-tight leading-none">
+                                Seu negócio está <br><span class="text-brand">crescendo.</span>
+                            </h1>
+                            <p class="text-lg md:text-2xl font-light text-zinc-400 max-w-2xl">
+                                A pergunta é: sua operação está crescendo junto, ou só está aguentando o tranco?
+                            </p>
+                        </div>
+                    </section>
+                    <!-- SLIDE 2 -->
+                    <section class="w-screen h-full flex flex-col justify-center px-6 md:px-24 bg-zinc-950">
+                        <div class="max-w-5xl space-y-8">
+                            <span class="text-xs font-bold text-brand tracking-widest uppercase">Slide 02 — O Problema</span>
+                            <h2 class="text-3xl md:text-5xl font-extrabold text-white">
+                                O gargalo invisível do faturamento.
+                            </h2>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="bg-zinc-900/40 border border-zinc-800 rounded-2xl p-6">
+                                    <h3 class="text-base font-bold text-red-400 mb-2">Fila do Caixa</h3>
+                                    <p class="text-xs text-zinc-400 leading-relaxed">Clientes desistem ao ver filas grandes nos horários de pico. Perda direta de vendas espontâneas.</p>
+                                </div>
+                                <div class="bg-zinc-900/40 border border-zinc-800 rounded-2xl p-6">
+                                    <h3 class="text-base font-bold text-red-400 mb-2">Refugo de Cozinha</h3>
+                                    <p class="text-xs text-zinc-400 leading-relaxed">Anotações verbais ou manuais geram erros de preparo e custos extras invisíveis.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- SLIDE 3 -->
+                    <section class="w-screen h-full flex flex-col justify-center px-6 md:px-24 bg-zinc-950">
+                        <div class="max-w-5xl space-y-8">
+                            <span class="text-xs font-bold text-brand tracking-widest uppercase">Slide 03 — A Solução</span>
+                            <h2 class="text-3xl md:text-5xl font-extrabold text-white">
+                                Automação Fluida de Balcão.
+                            </h2>
+                            <div class="grid md:grid-cols-3 gap-6">
+                                <div class="bg-zinc-900/60 border border-brand/20 p-6 rounded-2xl">
+                                    <div class="text-brand font-black text-xl mb-2">01. Pedido sem Fila</div>
+                                    <p class="text-xs text-zinc-300">Cliente escolhe no próprio ritmo, com sugestão automática de adicionais (totem e QR Code).</p>
+                                </div>
+                                <div class="bg-zinc-900/60 border border-brand/20 p-6 rounded-2xl">
+                                    <div class="text-brand font-black text-xl mb-2">02. Cozinha Organizada</div>
+                                    <p class="text-xs text-zinc-300">Pedidos chegam por ordem cronológica, com observações exatas, direto no painel de produção (KDS).</p>
+                                </div>
+                                <div class="bg-zinc-900/60 border border-brand/20 p-6 rounded-2xl">
+                                    <div class="text-brand font-black text-xl mb-2">03. Retirada Automática</div>
+                                    <p class="text-xs text-zinc-300">Chamada de senha automatizada reduz o barulho e o tempo de balcão.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- SLIDE 4 -->
+                    <section class="w-screen h-full flex flex-col justify-center px-6 md:px-24 bg-zinc-950">
+                        <div class="max-w-5xl space-y-8">
+                            <span class="text-xs font-bold text-brand tracking-widest uppercase">Slide 04 — Impacto Financeiro</span>
+                            <h2 class="text-3xl md:text-5xl font-extrabold text-white">Resultados Medidos em 30 Dias.</h2>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                <div class="bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800">
+                                    <span class="text-3xl font-extrabold text-brand block">+18%</span>
+                                    <span class="text-xs text-zinc-400">Ticket Médio</span>
+                                </div>
+                                <div class="bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800">
+                                    <span class="text-3xl font-extrabold text-white block">-60%</span>
+                                    <span class="text-xs text-zinc-400">Tempo de Espera</span>
+                                </div>
+                                <div class="bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800">
+                                    <span class="text-3xl font-extrabold text-brand block">100%</span>
+                                    <span class="text-xs text-zinc-400">Pix Confirmado</span>
+                                </div>
+                                <div class="bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800">
+                                    <span class="text-3xl font-extrabold text-white block">0</span>
+                                    <span class="text-xs text-zinc-400">Filas Travadas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- SLIDE 5 -->
+                    <section class="w-screen h-full flex flex-col justify-center px-6 md:px-24 bg-zinc-950">
+                        <div class="max-w-4xl space-y-8">
+                            <span class="text-xs font-bold text-brand tracking-widest uppercase">Slide 05 — Próximo Passo</span>
+                            <h2 class="text-4xl md:text-6xl font-black text-white uppercase">
+                                Menos caos.<br><span class="text-brand">Mais crescimento.</span>
+                            </h2>
+                            <p class="text-sm md:text-base text-zinc-400 max-w-xl">
+                                Experimente a plataforma 808Pay por 15 dias sem compromisso e veja a transformação na sua operação.
+                            </p>
+                            <button onclick="openLeadModal('Pitch Deck Slide 5')" class="px-8 py-4 bg-brand text-zinc-950 font-black rounded-xl text-sm transition-all hover:bg-brand-light shadow-xl shadow-brand/20">
+                                Começar Teste Grátis de 15 Dias
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <!-- Slide Navigation Buttons Footer -->
+            <div class="w-full px-6 py-4 flex justify-between items-center bg-zinc-950 border-t border-zinc-900 z-30">
+                <button id="pitch-prev-btn" onclick="prevPitchSlide()" class="p-3 text-zinc-500 hover:text-white transition-all rounded-lg disabled:opacity-20" disabled>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <span class="text-[10px] uppercase tracking-widest text-zinc-600 font-bold hidden sm:block">
+                    Use as setas do teclado ou deslize para navegar
+                </span>
+                <button id="pitch-next-btn" onclick="nextPitchSlide()" class="p-3 text-zinc-300 hover:text-white transition-all rounded-lg">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+        </div>
+    </main>
+    <!-- Modal de Agendamento / Captura de Lead -->
+    <div id="lead-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 sm:p-8 space-y-6 relative shadow-2xl">
+            <button onclick="closeLeadModal()" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl font-bold">&times;</button>
+            
+            <div class="space-y-2">
+                <span class="text-xs font-bold text-brand uppercase tracking-widest">Atendimento Comercial</span>
+                <h3 class="text-xl font-extrabold text-white">Comece seu Teste Grátis de 15 Dias</h3>
+                <p class="text-xs text-zinc-400">Preencha seus dados e nossa equipe entra em contato para ativar o 808Pay no seu estabelecimento.</p>
+            </div>
+            <form onsubmit="submitLeadForm(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block text-zinc-300 font-semibold mb-1">Seu Nome / Responsável:</label>
+                    <input type="text" required id="lead-name" placeholder="Ex: Carlos Silva" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-brand">
+                </div>
+                <div>
+                    <label class="block text-zinc-300 font-semibold mb-1">Nome do Estabelecimento:</label>
+                    <input type="text" required id="lead-company" placeholder="Ex: Burger 808" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-brand">
+                </div>
+                <div>
+                    <label class="block text-zinc-300 font-semibold mb-1">WhatsApp de Contato:</label>
+                    <input type="tel" required id="lead-phone" placeholder="(11) 99999-9999" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-brand">
+                </div>
+                <button type="submit" class="w-full py-3.5 bg-brand hover:bg-brand-light text-zinc-950 font-black rounded-xl transition-all text-sm mt-2">
+                    Iniciar Contato no WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+    <!-- SCRIPT LOGIC -->
+    <script>
+        // 1. Navigation & View Switcher
+        function switchView(viewName) {
+            const landingView = document.getElementById('view-landing');
+            const demoView = document.getElementById('view-demo');
+            const pitchView = document.getElementById('view-pitch');
+            const btnLanding = document.getElementById('btn-tab-landing');
+            const btnDemo = document.getElementById('btn-tab-demo');
+            const btnPitch = document.getElementById('btn-tab-pitch');
+            // Reset tabs style
+            [btnLanding, btnDemo, btnPitch].forEach(btn => {
+                btn.className = "px-2.5 sm:px-3.5 py-2 sm:py-1.5 rounded-lg text-zinc-400 hover:text-white transition-all flex items-center gap-1.5 shrink-0";
+            });
+            // Hide views
+            landingView.classList.add('hidden');
+            demoView.classList.add('hidden');
+            pitchView.classList.add('hidden');
+            if (viewName === 'landing') {
+                landingView.classList.remove('hidden');
+                btnLanding.className = "px-3.5 py-1.5 rounded-lg text-white bg-zinc-800 shadow transition-all flex items-center gap-1.5";
+            } else             if (viewName === 'demo') {
+                demoView.classList.remove('hidden');
+                btnDemo.className = "px-2.5 sm:px-3.5 py-2 sm:py-1.5 rounded-lg text-white bg-zinc-800 shadow transition-all flex items-center gap-1.5 shrink-0";
+                resetSimFlow();
+                updateSimMobileView();
+            } else if (viewName === 'pitch') {
+                pitchView.classList.remove('hidden');
+                btnPitch.className = "px-2.5 sm:px-3.5 py-2 sm:py-1.5 rounded-lg text-white bg-zinc-800 shadow transition-all flex items-center gap-1.5 shrink-0";
+                updatePitchSlider();
+            }
+        }
+        // 2. ROI Calculator Logic
+        function updateRoiCalc() {
+            const orders = parseInt(document.getElementById('roi-orders').value);
+            const ticket = parseFloat(document.getElementById('roi-ticket').value);
+            document.getElementById('roi-orders-val').textContent = `${orders} pedidos/dia`;
+            document.getElementById('roi-ticket-val').textContent = `R$ ${ticket.toFixed(2).replace('.', ',')}`;
+            // Calculation: 18% increase on ticket * 30 days
+            const monthlyIncrease = (orders * (ticket * 0.18)) * 30;
+            document.getElementById('roi-monthly-gain').textContent = `+ R$ ${monthlyIncrease.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+        }
+        // 3. Live Simulator Logic
+        // Fluxo: 1 Menu (celular) -> 2 Pix (overlay) -> 3 Cozinha (KDS, estágios automáticos) -> 4 Senha (TV) -> 5 Pronto (celular) -> 6 Dashboard (notebook, fecha o fluxo) -> reinício automático
+        let cartItems = [];
+        let pendingOrderItems = [];
+        let simOrderCount = 101;
+        let simPixTimer = null;
+        let simNotifyTimer = null;
+        let simDashTimer = null;
+        let simMobileStep = 1;
+        let simMaxUnlockedStep = 1;
+        let simLastRenderedStep = null;
+        let simDashOrdersCount = 0;
+        let simDashRevenue = 0;
+        let simDashTransactions = [];
+        let lastCompletedOrder = null;
+        // Estágios automáticos do KDS (sem clique do visitante)
+        let kdsElapsedSeconds = 0;
+        let simKdsTimerInterval = null;
+        let simKdsStageTimer1 = null;
+        let simKdsStageTimer2 = null;
+        let simKdsStageTimer3 = null;
+        let simAutoResetTimer = null;
+        const KDS_STAGE_DELAY_1 = 1200;  // Recebido -> Em preparo
+        const KDS_STAGE_DELAY_2 = 1700;  // Em preparo -> Finalizando
+        const KDS_STAGE_DELAY_3 = 1700;  // Finalizando -> Pronto
+        const SIM_NOTIFY_DELAY = 1300;   // Pronto -> aviso no celular (Dashboard -> Cliente)
+        const SIM_DASHBOARD_REVEAL_DELAY = 1600; // aviso no celular -> revela o dashboard (passo 6)
+        const SIM_AUTO_RESET_DELAY = 5500; // dashboard revelado -> reinício automático do sistema
+        const KDS_STAGES = {
+            received:  { label: 'Recebido',    dot: 'bg-amber-400',  badge: 'bg-amber-500/15 text-amber-400 border border-amber-500/30' },
+            preparing: { label: 'Em preparo',  dot: 'bg-sky-400',    badge: 'bg-sky-500/15 text-sky-400 border border-sky-500/30' },
+            finishing: { label: 'Finalizando', dot: 'bg-orange-400', badge: 'bg-orange-500/15 text-orange-400 border border-orange-500/30' },
+            ready:     { label: 'Pronto',      dot: 'bg-brand',      badge: 'bg-brand/15 text-brand border border-brand/30' }
+        };
+
+        function formatMMSS(totalSeconds) {
+            const m = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+            const s = (totalSeconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        // Pulso sutil no aparelho que acabou de "receber" um dado de outro módulo
+        function pulseDeviceFrame(panelId) {
+            const el = document.querySelector(`#${panelId} .device-frame`);
+            if (!el) return;
+            el.classList.remove('device-pulse');
+            void el.offsetWidth; // reinicia a animação
+            el.classList.add('device-pulse');
+        }
+
+        // Linha de transmissão real entre módulos, visível no desktop (1: Celular->KDS, 2: KDS->TV, 3: KDS->Dashboard)
+        function pulseConnector(index) {
+            const el = document.getElementById(`sim-connector-${index}`);
+            if (!el) return;
+            el.classList.remove('sim-connector-active');
+            void el.offsetWidth; // reinicia a animação
+            el.classList.add('sim-connector-active');
+        }
+
+        function isMobileSimLayout() {
+            return window.matchMedia('(max-width: 1023px)').matches;
+        }
+
+        function addSimItem(name, price) {
+            cartItems.push({ name, price });
+            renderCart();
+        }
+
+        function cartTotal() {
+            return cartItems.reduce((sum, item) => sum + item.price, 0);
+        }
+
+        function renderCart() {
+            const listEl = document.getElementById('sim-cart-list');
+            const totalEl = document.getElementById('sim-cart-total');
+            const payBtn = document.getElementById('btn-sim-pay');
+            const mCount = document.getElementById('sim-mobile-cart-count');
+            const mTotal = document.getElementById('sim-mobile-cart-total');
+            const mPayBtn = document.getElementById('btn-sim-pay-mobile');
+            if (cartItems.length === 0) {
+                listEl.innerHTML = 'Nenhum item adicionado ainda.';
+                totalEl.textContent = 'R$ 0,00';
+                payBtn.disabled = true;
+                payBtn.className = "w-full py-3 bg-zinc-800 text-zinc-500 font-bold text-xs rounded-xl cursor-not-allowed transition-all";
+                mCount.textContent = '0 itens';
+                mTotal.textContent = 'R$ 0,00';
+                mPayBtn.disabled = true;
+                mPayBtn.className = "shrink-0 px-5 py-3.5 bg-zinc-800 text-zinc-500 font-black text-xs rounded-xl cursor-not-allowed transition-all min-h-[48px]";
+                updateSimMobileCartBar();
+                return;
+            }
+            const total = cartTotal();
+            listEl.innerHTML = cartItems.map(item => {
+                return `<div class="flex justify-between text-zinc-300"><span>• ${item.name}</span><span>R$ ${item.price.toFixed(2).replace('.', ',')}</span></div>`;
+            }).join('');
+            const totalStr = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            totalEl.textContent = totalStr;
+            payBtn.disabled = false;
+            payBtn.className = "w-full py-3 bg-brand hover:bg-brand-light text-zinc-950 font-black text-xs rounded-xl cursor-pointer transition-all shadow-lg shadow-brand/20";
+            mCount.textContent = `${cartItems.length} ${cartItems.length === 1 ? 'item' : 'itens'}`;
+            mTotal.textContent = totalStr;
+            mPayBtn.disabled = false;
+            mPayBtn.className = "shrink-0 px-5 py-3.5 bg-brand hover:bg-brand-light text-zinc-950 font-black text-xs rounded-xl cursor-pointer transition-all min-h-[48px] shadow-lg shadow-brand/20";
+            updateSimMobileCartBar();
+        }
+
+        // --- Mobile step navigation ---
+        function updateSimMobileNavButtons() {
+            for (let i = 1; i <= 6; i++) {
+                const btn = document.getElementById(`sim-step-btn-${i}`);
+                if (!btn) continue;
+                const unlocked = i <= simMaxUnlockedStep || i === simMobileStep;
+                const isManuallyNavigable = i !== 2; // "Pix" só existe como overlay transitório
+                btn.disabled = !(isManuallyNavigable && i <= simMaxUnlockedStep);
+                if (i === simMobileStep) {
+                    btn.className = "shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-brand text-zinc-950 transition-all";
+                } else if (unlocked) {
+                    btn.className = "shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-300 transition-all";
+                } else {
+                    btn.className = "shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-500 transition-all";
+                }
+            }
+        }
+
+        function goSimMobileStep(step) {
+            if (step === 2) return; // "Pix" só aparece via overlay durante o checkout
+            if (step > simMaxUnlockedStep) return;
+            simMobileStep = step;
+            updateSimMobileView();
+        }
+
+        function updateSimMobileCartBar() {
+            const bar = document.getElementById('sim-mobile-cart-bar');
+            const shouldShow = isMobileSimLayout() && simMobileStep === 1 && cartItems.length > 0;
+            bar.classList.toggle('translate-y-full', !shouldShow);
+            document.body.classList.toggle('sim-mobile-cart-visible', shouldShow);
+        }
+
+        function playSimStepTransition(panelEl) {
+            panelEl.classList.remove('sim-step-enter');
+            void panelEl.offsetWidth; // força reflow para reiniciar a animação
+            panelEl.classList.add('sim-step-enter');
+        }
+
+        // Sincroniza a tela do celular: cardápio/carrinho (passos 1-2) vs. aviso de pedido pronto (passo 5)
+        function syncTotemSubview() {
+            const menu = document.getElementById('sim-totem-menu');
+            const notified = document.getElementById('sim-totem-notified');
+            if (simMobileStep === 5) {
+                const wasHidden = notified.classList.contains('hidden');
+                menu.classList.add('hidden');
+                notified.classList.remove('hidden');
+                notified.classList.add('flex');
+                if (wasHidden) playSimStepTransition(notified); // também anima no desktop, não só no mobile
+            } else if (simMobileStep <= 2) {
+                notified.classList.add('hidden');
+                notified.classList.remove('flex');
+                menu.classList.remove('hidden');
+            }
+        }
+
+        function updateSimMobileView() {
+            const totem = document.getElementById('sim-panel-totem');
+            const kds = document.getElementById('sim-panel-kds');
+            const tv = document.getElementById('sim-panel-tv');
+            const dashboard = document.getElementById('sim-panel-dashboard');
+            syncTotemSubview();
+            if (!isMobileSimLayout()) {
+                [totem, kds, tv, dashboard].forEach(p => p.classList.remove('hidden'));
+                updateSimMobileCartBar();
+                return;
+            }
+            // No mobile só um aparelho fica visível por vez, em destaque (nunca lado a lado)
+            totem.classList.toggle('hidden', ![1, 2, 5].includes(simMobileStep));
+            kds.classList.toggle('hidden', simMobileStep !== 3);
+            tv.classList.toggle('hidden', simMobileStep !== 4);
+            dashboard.classList.toggle('hidden', simMobileStep !== 6);
+            if (simLastRenderedStep !== simMobileStep) {
+                const stepPanelMap = { 3: kds, 4: tv, 6: dashboard };
+                const activePanel = stepPanelMap[simMobileStep] || totem;
+                playSimStepTransition(activePanel);
+                simLastRenderedStep = simMobileStep;
+            }
+            updateSimMobileNavButtons();
+            updateSimMobileCartBar();
+        }
+
+        function showTotemMenu() {
+            simMobileStep = 1;
+            updateSimMobileView();
+        }
+
+        // Atalho manual: cancela qualquer automação pendente (inclusive o reinício automático) e já deixa pronto para um novo pedido
+        function startNewSimOrder() {
+            resetSimFlow();
+        }
+
+        // --- Checkout / Pix simulation ---
+        function checkoutSimOrder() {
+            if (cartItems.length === 0) return;
+            pendingOrderItems = cartItems;
+            cartItems = [];
+            renderCart();
+            openSimPixOverlay(pendingOrderItems.reduce((sum, i) => sum + i.price, 0));
+        }
+
+        function openSimPixOverlay(total) {
+            simMobileStep = 2;
+            updateSimMobileNavButtons();
+            document.getElementById('sim-pix-amount').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            document.getElementById('sim-pix-qr').classList.remove('hidden');
+            const statusEl = document.getElementById('sim-pix-status');
+            statusEl.className = "flex items-center justify-center gap-2 text-sm text-zinc-400 pix-pulse";
+            statusEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-brand"></span><span>Aguardando confirmação Pix...</span>`;
+            const confirmBtn = document.getElementById('sim-pix-confirm-btn');
+            confirmBtn.classList.add('hidden');
+            const overlay = document.getElementById('sim-pix-overlay');
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+            clearTimeout(simPixTimer);
+            simPixTimer = setTimeout(() => {
+                confirmBtn.classList.remove('hidden');
+            }, 1500);
+        }
+
+        function closeSimPixOverlay() {
+            const overlay = document.getElementById('sim-pix-overlay');
+            overlay.classList.add('hidden');
+            overlay.classList.remove('flex');
+        }
+
+        function cancelSimPix() {
+            clearTimeout(simPixTimer);
+            closeSimPixOverlay();
+            // Devolve os itens ao carrinho, já que o pagamento foi cancelado
+            cartItems = pendingOrderItems.concat(cartItems);
+            pendingOrderItems = [];
+            simMobileStep = 1;
+            updateSimMobileView();
+            renderCart();
+        }
+
+        function confirmSimPix() {
+            clearTimeout(simPixTimer);
+            const statusEl = document.getElementById('sim-pix-status');
+            const confirmBtn = document.getElementById('sim-pix-confirm-btn');
+            confirmBtn.classList.add('hidden');
+            document.getElementById('sim-pix-qr').classList.add('hidden');
+            statusEl.className = "flex items-center justify-center gap-2 text-sm text-brand font-bold";
+            statusEl.innerHTML = `<svg class="w-6 h-6 pix-check" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg><span>Pagamento confirmado!</span>`;
+            // A partir daqui, o visitante não clica em mais nada — o fluxo inteiro é automático
+            setTimeout(() => {
+                closeSimPixOverlay();
+                const orderNum = simOrderCount++;
+                lastCompletedOrder = {
+                    orderNum,
+                    items: pendingOrderItems,
+                    total: pendingOrderItems.reduce((sum, i) => sum + i.price, 0)
+                };
+                sendSimOrderToKDS(pendingOrderItems, orderNum);
+                pendingOrderItems = [];
+                simMaxUnlockedStep = 3; // Cozinha já fica disponível
+                simMobileStep = 3;
+                updateSimMobileView();
+            }, 900);
+        }
+
+        // --- KDS / TV flow (100% automático após o Pix, com estágios e cronômetro) ---
+        function sendSimOrderToKDS(items, orderNum) {
+            pulseConnector(1); // comunicação Pix -> KDS
+            pulseDeviceFrame('sim-panel-kds');
+            kdsElapsedSeconds = 0;
+            const kdsContainer = document.getElementById('sim-kds-container');
+            kdsContainer.className = "w-full space-y-3 text-left";
+            kdsContainer.innerHTML = `
+                <div class="w-full bg-zinc-950 border border-zinc-800 p-4 rounded-xl space-y-3 sim-step-enter">
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+                        <span class="font-extrabold text-brand text-sm">Pedido #${orderNum}</span>
+                        <span id="sim-kds-timer" class="text-[10px] text-zinc-500 font-mono">00:00</span>
+                    </div>
+                    <div class="space-y-1 text-xs text-zinc-300">
+                        ${items.map(i => `<div>- ${i.name}</div>`).join('')}
+                    </div>
+                    <div id="sim-kds-status-badge" class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1.5 rounded-lg ${KDS_STAGES.received.badge}">
+                        <span id="sim-kds-status-dot" class="w-1.5 h-1.5 rounded-full ${KDS_STAGES.received.dot}"></span>
+                        <span id="sim-kds-status-label">${KDS_STAGES.received.label}</span>
+                    </div>
+                </div>
+            `;
+            clearInterval(simKdsTimerInterval);
+            simKdsTimerInterval = setInterval(() => {
+                kdsElapsedSeconds++;
+                const timerEl = document.getElementById('sim-kds-timer');
+                if (timerEl) timerEl.textContent = formatMMSS(kdsElapsedSeconds);
+            }, 1000);
+            runKdsStageSequence(orderNum);
+        }
+
+        // Monitor industrial: muda de cor sozinho conforme o estágio de produção
+        function setKdsStage(stage) {
+            const info = KDS_STAGES[stage];
+            const badge = document.getElementById('sim-kds-status-badge');
+            const dot = document.getElementById('sim-kds-status-dot');
+            const label = document.getElementById('sim-kds-status-label');
+            if (!badge || !info) return;
+            badge.className = `flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1.5 rounded-lg ${info.badge}`;
+            dot.className = `w-1.5 h-1.5 rounded-full ${info.dot}`;
+            label.textContent = info.label;
+        }
+
+        function runKdsStageSequence(orderNum) {
+            clearTimeout(simKdsStageTimer1);
+            clearTimeout(simKdsStageTimer2);
+            clearTimeout(simKdsStageTimer3);
+            setKdsStage('received');
+            simKdsStageTimer1 = setTimeout(() => {
+                setKdsStage('preparing');
+                simKdsStageTimer2 = setTimeout(() => {
+                    setKdsStage('finishing');
+                    simKdsStageTimer3 = setTimeout(() => {
+                        setKdsStage('ready');
+                        finishSimOrder(orderNum);
+                    }, KDS_STAGE_DELAY_3);
+                }, KDS_STAGE_DELAY_2);
+            }, KDS_STAGE_DELAY_1);
+        }
+
+        function flashTvScreen() {
+            const overlay = document.getElementById('sim-tv-flash');
+            if (!overlay) return;
+            overlay.classList.remove('tv-flash-play');
+            void overlay.offsetWidth;
+            overlay.classList.add('tv-flash-play');
+        }
+
+        function boostTvGlow() {
+            const glow = document.querySelector('#sim-panel-tv .device-tv-glow');
+            if (!glow) return;
+            glow.classList.remove('tv-glow-boost');
+            void glow.offsetWidth;
+            glow.classList.add('tv-glow-boost');
+        }
+
+        function finishSimOrder(orderNum) {
+            clearInterval(simKdsTimerInterval);
+            const productionTime = kdsElapsedSeconds;
+            document.getElementById('sim-kds-container').innerHTML = `
+                <div class="text-brand text-xs font-semibold sim-step-enter">Pedido #${orderNum} concluído em ${formatMMSS(productionTime)} e enviado para a TV!</div>
+            `;
+            // KDS -> TV: senha chamada automaticamente, com entrada suave, flash e glow
+            pulseConnector(2);
+            pulseDeviceFrame('sim-panel-tv');
+            const tvNumberEl = document.getElementById('sim-tv-number');
+            tvNumberEl.innerHTML = `# ${orderNum}`;
+            tvNumberEl.className = "text-6xl font-black text-brand tv-number-in";
+            setTimeout(() => {
+                if (tvNumberEl.innerHTML === `# ${orderNum}`) {
+                    tvNumberEl.className = "text-6xl font-black text-brand animate-pulse";
+                }
+            }, 650);
+            document.getElementById('sim-tv-status').innerHTML = "PRONTO PARA RETIRADA NO BALCÃO!";
+            document.getElementById('sim-tv-status').className = "text-xs text-brand font-bold uppercase tracking-wider";
+            flashTvScreen();
+            boostTvGlow();
+            simMaxUnlockedStep = 4;
+            simMobileStep = 4;
+            updateSimMobileView();
+
+            // KDS -> Dashboard: a venda é registrada automaticamente, em tempo real
+            pulseConnector(3);
+            if (lastCompletedOrder && lastCompletedOrder.orderNum === orderNum) {
+                sendOrderToDashboard(lastCompletedOrder.items, orderNum, lastCompletedOrder.total, productionTime);
+            }
+
+            // Dashboard -> Cliente: aviso automático no celular, sem precisar olhar pra TV
+            clearTimeout(simNotifyTimer);
+            simNotifyTimer = setTimeout(() => {
+                pulseDeviceFrame('sim-panel-totem');
+                document.getElementById('sim-totem-notified-ordernum').textContent = `Pedido #${orderNum}`;
+                simMaxUnlockedStep = 5;
+                simMobileStep = 5;
+                updateSimMobileView();
+                // Revela o dashboard já atualizado, fechando o ciclo
+                clearTimeout(simDashTimer);
+                simDashTimer = setTimeout(() => {
+                    simMaxUnlockedStep = 6;
+                    simMobileStep = 6;
+                    updateSimMobileView();
+                    // Sistema reinicia sozinho, pronto para o próximo visitante simular
+                    clearTimeout(simAutoResetTimer);
+                    simAutoResetTimer = setTimeout(() => {
+                        resetSimFlow();
+                    }, SIM_AUTO_RESET_DELAY);
+                }, SIM_DASHBOARD_REVEAL_DELAY);
+            }, SIM_NOTIFY_DELAY);
+        }
+
+        // --- Dashboard do dono: feed de transações vivo, como um software de gestão real ---
+        function sendOrderToDashboard(items, orderNum, total, productionTime) {
+            pulseDeviceFrame('sim-panel-dashboard');
+            simDashOrdersCount++;
+            simDashRevenue += total;
+            document.getElementById('sim-dash-orders-count').textContent = simDashOrdersCount;
+            document.getElementById('sim-dash-revenue').textContent = `R$ ${simDashRevenue.toFixed(2).replace('.', ',')}`;
+            const timeStr = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            simDashTransactions.unshift({ time: timeStr, orderNum, items, total, productionTime });
+            simDashTransactions = simDashTransactions.slice(0, 4); // mantém só as transações mais recentes
+            renderDashboardTransactions();
+        }
+
+        function renderDashboardTransactions() {
+            const container = document.getElementById('sim-dash-order-card');
+            if (simDashTransactions.length === 0) {
+                container.innerHTML = '<div class="text-[10px] text-zinc-600 text-center py-4">Nenhum pedido concluído ainda.</div>';
+                return;
+            }
+            container.innerHTML = simDashTransactions.map((t, idx) => `
+                <div class="py-2 ${idx > 0 ? 'border-t border-zinc-800/60' : ''} ${idx === 0 ? 'sim-step-enter' : ''}">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-bold text-white">Pedido #${t.orderNum}</span>
+                        <span class="text-[10px] font-bold text-brand">R$ ${t.total.toFixed(2).replace('.', ',')}</span>
+                    </div>
+                    <div class="flex items-center justify-between mt-1">
+                        <span class="text-[8px] text-zinc-500 font-mono">${t.time} · Pix</span>
+                        <span class="text-[8px] font-bold text-brand flex items-center gap-1">
+                            <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                            Concluído · ${formatMMSS(t.productionTime)}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function resetSimFlow() {
+            clearTimeout(simPixTimer);
+            clearTimeout(simNotifyTimer);
+            clearTimeout(simDashTimer);
+            clearTimeout(simAutoResetTimer);
+            clearTimeout(simKdsStageTimer1);
+            clearTimeout(simKdsStageTimer2);
+            clearTimeout(simKdsStageTimer3);
+            clearInterval(simKdsTimerInterval);
+            kdsElapsedSeconds = 0;
+            cartItems = [];
+            pendingOrderItems = [];
+            lastCompletedOrder = null;
+            simMobileStep = 1;
+            simMaxUnlockedStep = 1;
+            simLastRenderedStep = null;
+            simDashOrdersCount = 0;
+            simDashRevenue = 0;
+            simDashTransactions = [];
+            document.getElementById('sim-dash-orders-count').textContent = '0';
+            document.getElementById('sim-dash-revenue').textContent = 'R$ 0,00';
+            document.getElementById('sim-dash-order-card').innerHTML = '<div class="text-[10px] text-zinc-600 text-center py-4">Nenhum pedido concluído ainda.</div>';
+            const kdsContainer = document.getElementById('sim-kds-container');
+            kdsContainer.innerHTML = 'Aguardando envio do pedido pelo Totem...';
+            kdsContainer.className = "space-y-3 min-h-[300px] lg:min-h-[360px] flex flex-col justify-center items-center text-center p-6 border border-dashed border-zinc-800 rounded-xl text-zinc-600 text-xs";
+            document.getElementById('sim-tv-number').innerHTML = '# ---';
+            document.getElementById('sim-tv-number').className = "text-5xl font-black text-zinc-700";
+            document.getElementById('sim-tv-status').innerHTML = 'Nenhum pedido pronto no momento';
+            document.getElementById('sim-tv-status').className = "text-xs text-zinc-500 font-semibold";
+            closeSimPixOverlay();
+            renderCart();
+            updateSimMobileView();
+        }
+
+        // Re-avalia o layout mobile/desktop ao redimensionar ou girar o dispositivo
+        window.addEventListener('resize', () => {
+            if (!document.getElementById('view-demo').classList.contains('hidden')) {
+                updateSimMobileView();
+            }
+        });
+        // 4. Pitch Deck Navigation
+        const totalPitchSlides = 5;
+        let currentPitchSlide = 0;
+        const pitchWrapper = document.getElementById('pitch-wrapper');
+        const pitchBarsContainer = document.getElementById('pitch-progress-bars');
+        // Build bars
+        for (let i = 0; i < totalPitchSlides; i++) {
+            const bar = document.createElement('div');
+            bar.className = `h-1 flex-1 rounded-full bg-zinc-800 transition-all ${i === 0 ? 'bg-brand' : ''}`;
+            pitchBarsContainer.appendChild(bar);
+        }
+        function updatePitchSlider() {
+            pitchWrapper.style.transform = `translateX(-${currentPitchSlide * 100}vw)`;
+            document.getElementById('pitch-slide-counter').textContent = `0${currentPitchSlide + 1} / 0${totalPitchSlides}`;
+            document.getElementById('pitch-prev-btn').disabled = currentPitchSlide === 0;
+            document.getElementById('pitch-next-btn').disabled = currentPitchSlide === totalPitchSlides - 1;
+            const bars = pitchBarsContainer.children;
+            for (let i = 0; i < totalPitchSlides; i++) {
+                bars[i].className = `h-1 flex-1 rounded-full transition-all ${i <= currentPitchSlide ? 'bg-brand' : 'bg-zinc-800'}`;
+            }
+        }
+        function nextPitchSlide() {
+            if (currentPitchSlide < totalPitchSlides - 1) {
+                currentPitchSlide++;
+                updatePitchSlider();
+            }
+        }
+        function prevPitchSlide() {
+            if (currentPitchSlide > 0) {
+                currentPitchSlide--;
+                updatePitchSlider();
+            }
+        }
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const pitchView = document.getElementById('view-pitch');
+            if (!pitchView.classList.contains('hidden')) {
+                if (e.key === 'ArrowRight' || e.key === ' ') nextPitchSlide();
+                if (e.key === 'ArrowLeft') prevPitchSlide();
+            }
+        });
+        // 5. Lead Modal Handlers
+        function openLeadModal(source) {
+            document.getElementById('lead-modal').classList.remove('hidden');
+        }
+        function closeLeadModal() {
+            document.getElementById('lead-modal').classList.add('hidden');
+        }
+        function submitLeadForm(e) {
+            e.preventDefault();
+            const name = document.getElementById('lead-name').value;
+            const company = document.getElementById('lead-company').value;
+            const phone = document.getElementById('lead-phone').value;
+            const msg = `Olá! Meu nome é ${name}, do estabelecimento ${company}. Quero começar o teste grátis de 15 dias do 808Pay. (Telefone: ${phone})`;
+            const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent(msg)}`;
+            closeLeadModal();
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // ===== Microinterações premium (camada aditiva — só lê o DOM/estado existente, nunca chama ou reescreve as funções do simulador/ROI acima) =====
+        (function () {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            function parseNumber(str) {
+                const cleaned = str.replace(/\./g, '').replace(',', '.');
+                const match = cleaned.match(/-?\d+(\.\d+)?/);
+                return match ? parseFloat(match[0]) : 0;
+            }
+
+            function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+            function tweenText(el, from, to, duration, format) {
+                if (prefersReducedMotion || from === to) { el.textContent = format(to); return; }
+                const start = performance.now();
+                (function frame(now) {
+                    const progress = Math.min((now - start) / duration, 1);
+                    el.textContent = format(from + (to - from) * easeOutCubic(progress));
+                    if (progress < 1) requestAnimationFrame(frame);
+                })(start);
+            }
+
+            const sections = document.querySelectorAll('#view-landing > section');
+            const hero = sections[0];
+
+            // ---- 1. Scroll Reveal: títulos, cards e seções (Intersection Observer) ----
+            if (!prefersReducedMotion) {
+                const revealObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            revealObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+
+                function reveal(el, delayMs) {
+                    if (!el) return;
+                    el.classList.add('reveal-init');
+                    el.style.transitionDelay = `${delayMs}ms`;
+                    revealObserver.observe(el);
+                }
+
+                if (hero) {
+                    const badge = hero.querySelector('.inline-flex');
+                    const line1 = hero.querySelector('.hero-line-1');
+                    const line2 = hero.querySelector('.hero-line-2');
+                    const subtitle = hero.querySelector('p.font-light');
+                    const ctaRow = hero.querySelector('.flex.flex-col.sm\\:flex-row');
+                    const metricsGrid = hero.querySelector('.grid.grid-cols-2');
+                    reveal(badge, 0);
+                    reveal(line1, 60);
+                    reveal(line2, 220);
+                    reveal(subtitle, 380);
+                    reveal(ctaRow, 480);
+                    if (metricsGrid) {
+                        Array.from(metricsGrid.children).forEach((tile, i) => reveal(tile, 560 + i * 90));
+                    }
+                    const glow = hero.querySelector('div[class*="blur-[120px]"]');
+                    if (glow) glow.classList.add('hero-glow');
+                }
+
+                if (sections[1]) {
+                    reveal(sections[1].children[0], 0);
+                    const grid = sections[1].children[1];
+                    if (grid) Array.from(grid.children).forEach((card, i) => reveal(card, 120 + i * 100));
+                }
+
+                if (sections[2]) {
+                    const box = sections[2].children[0];
+                    reveal(box, 0);
+                    const grid = box && box.querySelector(':scope > .grid');
+                    if (grid) Array.from(grid.children).forEach((col, i) => reveal(col, 100 + i * 100));
+                }
+
+                if (sections[3]) {
+                    reveal(sections[3].children[0], 0);
+                    const grid = sections[3].children[1];
+                    if (grid) Array.from(grid.children).forEach((card, i) => reveal(card, 120 + i * 90));
+                }
+            }
+
+            // ---- 4. Hover Premium: marca os cards elegíveis para o realce definido em CSS (.premium-card) ----
+            const premiumCards = [];
+            if (hero) {
+                const metricsGrid = hero.querySelector('.grid.grid-cols-2');
+                if (metricsGrid) premiumCards.push(...metricsGrid.children);
+            }
+            if (sections[1] && sections[1].children[1]) premiumCards.push(...sections[1].children[1].children);
+            if (sections[2] && sections[2].children[0]) premiumCards.push(sections[2].children[0]);
+            if (sections[3] && sections[3].children[1]) premiumCards.push(...sections[3].children[1].children);
+            premiumCards.forEach((el) => el && el.classList.add('premium-card'));
+
+            // ---- 2. Count Up: métricas do Hero (primeira vez que entram na tela) ----
+            if (hero && !prefersReducedMotion) {
+                const metricsGrid = hero.querySelector('.grid.grid-cols-2');
+                if (metricsGrid) {
+                    const metricObserver = new IntersectionObserver((entries) => {
+                        entries.forEach((entry) => {
+                            if (!entry.isIntersecting) return;
+                            const valueEl = entry.target.querySelector('div.font-extrabold');
+                            if (valueEl) {
+                                const original = valueEl.textContent.trim();
+                                const target = parseNumber(original);
+                                const prefix = original.match(/^[+-]?/)[0];
+                                const suffix = original.replace(/^[+-]?\d+/, '');
+                                tweenText(valueEl, 0, target, 900, (v) => `${prefix}${Math.round(Math.abs(v))}${suffix}`);
+                            }
+                            metricObserver.unobserve(entry.target);
+                        });
+                    }, { threshold: 0.4 });
+                    Array.from(metricsGrid.children).forEach((tile) => metricObserver.observe(tile));
+                }
+            }
+
+            // ---- 2. Count Up: Simulador Financeiro / ROI (primeira vez que entram na tela) ----
+            const roiMonthly = document.getElementById('roi-monthly-gain');
+            const roiSpeed = document.getElementById('roi-speed-gain');
+            const roiBox = roiMonthly && roiMonthly.closest('.grid.lg\\:grid-cols-12');
+            if (roiBox && !prefersReducedMotion) {
+                const roiObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (!entry.isIntersecting) return;
+                        [roiMonthly, roiSpeed].forEach((el) => {
+                            if (!el) return;
+                            const original = el.textContent.trim();
+                            const target = parseNumber(original);
+                            const prefix = original.match(/^[^\d]*/)[0];
+                            const suffix = original.replace(/^[^\d]*[\d.,]+/, '');
+                            const isMoney = prefix.includes('R$');
+                            tweenText(el, 0, target, 1000, (v) => {
+                                const num = isMoney
+                                    ? v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                                    : Math.round(v).toString();
+                                return `${prefix}${num}${suffix}`;
+                            });
+                        });
+                        roiObserver.unobserve(entry.target);
+                    });
+                }, { threshold: 0.3 });
+                roiObserver.observe(roiBox);
+            }
+
+            // ---- 2. Count Up: Dashboard do dono (apenas a primeira mudança de valor; atualizações seguintes continuam 100% como já eram, sem qualquer alteração na lógica do simulador) ----
+            ['sim-dash-orders-count', 'sim-dash-revenue'].forEach((id) => {
+                const el = document.getElementById(id);
+                if (!el || prefersReducedMotion) return;
+                let lastValue = parseNumber(el.textContent);
+                const dashObserver = new MutationObserver(() => {
+                    const isMoney = el.textContent.includes('R$');
+                    const target = parseNumber(el.textContent);
+                    if (target === lastValue) return;
+                    dashObserver.disconnect();
+                    tweenText(el, lastValue, target, 700, (v) => isMoney
+                        ? `R$ ${v.toFixed(2).replace('.', ',')}`
+                        : `${Math.round(v)}`);
+                    lastValue = target;
+                });
+                dashObserver.observe(el, { characterData: true, childList: true, subtree: true });
+            });
+        })();
+    </script>
+</body>
+</html>
