@@ -64,7 +64,7 @@
             background: #22c55e;
         }
         /* Simulador mobile */
-        .sim-mobile-cart-visible #view-demo {
+        .sim-mobile-cart-visible #section-simulador {
             padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
         }
         @keyframes pix-pulse {
@@ -1117,6 +1117,7 @@
         let simKdsStageTimer2 = null;
         let simKdsStageTimer3 = null;
         let simAutoResetTimer = null;
+        let simPixConfirmed = false;
         const KDS_STAGE_DELAY_1 = 1200;  // Recebido -> Em preparo
         const KDS_STAGE_DELAY_2 = 1700;  // Em preparo -> Finalizando
         const KDS_STAGE_DELAY_3 = 1700;  // Finalizando -> Pronto
@@ -1302,6 +1303,8 @@
         }
 
         function openSimPixOverlay(total) {
+            simPixConfirmed = false;
+            document.body.style.overflow = 'hidden';
             simMobileStep = 2;
             updateSimMobileNavButtons();
             document.getElementById('sim-pix-amount').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
@@ -1321,6 +1324,7 @@
         }
 
         function closeSimPixOverlay() {
+            document.body.style.overflow = '';
             const overlay = document.getElementById('sim-pix-overlay');
             overlay.classList.add('hidden');
             overlay.classList.remove('flex');
@@ -1338,6 +1342,8 @@
         }
 
         function confirmSimPix() {
+            if (simPixConfirmed) return;
+            simPixConfirmed = true;
             clearTimeout(simPixTimer);
             const statusEl = document.getElementById('sim-pix-status');
             const confirmBtn = document.getElementById('sim-pix-confirm-btn');
@@ -1483,11 +1489,7 @@
                     simMaxUnlockedStep = 6;
                     simMobileStep = 6;
                     updateSimMobileView();
-                    // Sistema reinicia sozinho, pronto para o próximo visitante simular
-                    clearTimeout(simAutoResetTimer);
-                    simAutoResetTimer = setTimeout(() => {
-                        resetSimFlow();
-                    }, SIM_AUTO_RESET_DELAY);
+                    // Fluxo termina aqui. O visitante clica em "Fazer Novo Pedido" para reiniciar.
                 }, SIM_DASHBOARD_REVEAL_DELAY);
             }, SIM_NOTIFY_DELAY);
         }
@@ -1529,6 +1531,7 @@
         }
 
         function resetSimFlow() {
+            simPixConfirmed = false;
             clearTimeout(simPixTimer);
             clearTimeout(simNotifyTimer);
             clearTimeout(simDashTimer);
