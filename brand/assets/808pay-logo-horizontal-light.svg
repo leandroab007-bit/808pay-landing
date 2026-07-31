@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 64" role="img" aria-labelledby="title">
+  <title id="title">808Pay</title>
+  <g transform="translate(0 0)">
+    <g fill="#09090B">
+      <path d="M29 6h-9C11.716 6 5 12.716 5 21s6.716 15 15 15h9v-8h-9a7 7 0 1 1 0-14h9V6Z"/>
+      <path d="M35 6h9c8.284 0 15 6.716 15 15s-6.716 15-15 15h-9v-8h9a7 7 0 1 0 0-14h-9V6Z"/>
+      <path d="M29 28h-9C11.716 28 5 34.716 5 43s6.716 15 15 15h9v-8h-9a7 7 0 1 1 0-14h9v-8Z"/>
+      <path d="M35 28h9c8.284 0 15 6.716 15 15s-6.716 15-15 15h-9v-8h9a7 7 0 1 0 0-14h-9v-8Z"/>
+    </g>
+    <rect width="6" height="6" x="29" y="29" fill="#22C55E" rx="1.5"/>
+  </g>
+  <text x="80" y="43" fill="#09090B" font-family="Inter, Arial, sans-serif" font-size="35" font-weight="780" letter-spacing="-1.8">808<tspan fill="#52525B" font-weight="560">Pay</tspan></text>
+</svg>

@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>808 — Brand System</title>
+  <link rel="stylesheet" href="./tokens.css">
+  <style>
+    * { box-sizing: border-box; }
+    html { background: var(--808-carbon); color: var(--808-mineral); font-family: var(--808-font-ui); scroll-behavior: smooth; }
+    body { margin: 0; background: var(--808-carbon); }
+    img { display: block; max-width: 100%; }
+    .board { overflow: hidden; }
+    .section { position: relative; padding: clamp(72px, 10vw, 150px) clamp(24px, 7vw, 108px); }
+    .section + .section { border-top: 1px solid rgba(255,255,255,.07); }
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+    }
+    .eyebrow { color: var(--808-pulse); font-size: 11px; font-weight: 750; letter-spacing: .18em; text-transform: uppercase; }
+    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3 { font-family: var(--808-font-display); letter-spacing: var(--808-tracking-heading); }
+    h1 { max-width: 980px; margin-top: 22px; font-size: clamp(62px, 9vw, 142px); line-height: .88; letter-spacing: var(--808-tracking-display); }
+    h2 { max-width: 760px; margin-top: 18px; font-size: clamp(40px, 6vw, 82px); line-height: .98; }
+    h3 { font-size: 22px; }
+    .lead { max-width: 690px; margin-top: 28px; color: var(--808-muted); font-size: clamp(17px, 1.6vw, 22px); line-height: 1.55; }
+    .hero { min-height: 100svh; display: grid; align-content: center; isolation: isolate; }
+    .hero::before {
+      content: ""; position: absolute; width: 640px; height: 640px; right: -160px; top: 2%;
+      background: radial-gradient(circle, rgba(34,197,94,.11), transparent 68%); filter: blur(30px); z-index: -1;
+    }
+    .hero-mark { position: absolute; right: 7vw; bottom: 7vw; width: clamp(120px, 18vw, 270px); opacity: .95; }
+    .hero-tag { display: flex; flex-wrap: wrap; gap: 12px 22px; margin-top: 42px; color: #71717a; font-size: 12px; font-weight: 650; }
+    .hero-tag span::before { content: ""; display: inline-block; width: 4px; height: 4px; margin: 0 8px 2px 0; border-radius: 50%; background: var(--808-pulse); }
+    .symbol-stage { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(36px, 7vw, 110px); align-items: center; margin-top: 80px; }
+    .mark-panel {
+      display: grid; min-height: 560px; place-items: center; border: 1px solid rgba(255,255,255,.08);
+      border-radius: 32px; background: linear-gradient(145deg, #18181b, #0d0d0f); box-shadow: 0 50px 120px -70px #000;
+    }
+    .mark-panel img { width: min(48%, 280px); }
+    .symbol-notes { display: grid; gap: 28px; }
+    .note { display: grid; grid-template-columns: 34px 1fr; gap: 16px; }
+    .note-index { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid rgba(255,255,255,.1); border-radius: 10px; color: var(--808-pulse); font-size: 12px; font-weight: 800; }
+    .note p { margin-top: 7px; color: var(--808-muted); font-size: 14px; line-height: 1.55; }
+    .logo-pair { display: grid; grid-template-columns: 1fr 1fr; margin-top: 64px; border: 1px solid rgba(255,255,255,.08); border-radius: 28px; overflow: hidden; }
+    .logo-cell { min-height: 320px; display: grid; place-items: center; padding: 60px; }
+    .logo-cell img { width: min(100%, 420px); }
+    .logo-cell.light { background: #f4f4f5; }
+    .logo-cell.dark { background: #111113; border-right: 1px solid rgba(255,255,255,.08); }
+    .palette { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr .6fr; gap: 1px; margin-top: 64px; overflow: hidden; border-radius: 28px; background: rgba(255,255,255,.08); }
+    .swatch { min-height: 330px; display: flex; flex-direction: column; justify-content: end; padding: 26px; }
+    .swatch strong { font-size: 14px; }
+    .swatch span { margin-top: 5px; font-family: ui-monospace, monospace; font-size: 11px; opacity: .62; }
+    .carbon { background: #09090b; }
+    .graphite { background: #18181b; }
+    .surface { background: #202024; }
+    .mineral { background: #f4f4f5; color: #09090b; }
+    .pulse { background: #22c55e; color: #052e16; }
+    .type-stage { display: grid; grid-template-columns: 1.3fr .7fr; gap: 80px; margin-top: 70px; align-items: end; }
+    .type-display { font-family: var(--808-font-display); font-size: clamp(72px, 12vw, 180px); font-weight: 760; letter-spacing: -.07em; line-height: .74; }
+    .type-display span { color: var(--808-pulse); }
+    .type-spec { padding-bottom: 8px; color: var(--808-muted); font-size: 14px; line-height: 1.8; }
+    .type-spec strong { color: var(--808-mineral); }
+    .family { display: grid; gap: 1px; margin-top: 62px; border: 1px solid rgba(255,255,255,.07); border-radius: 28px; overflow: hidden; background: rgba(255,255,255,.07); }
+    .family-row { display: grid; grid-template-columns: 72px 1fr auto; align-items: center; gap: 24px; min-height: 120px; padding: 20px 28px; background: #111113; }
+    .family-row img { width: 48px; }
+    .family-name { font-size: clamp(28px, 4vw, 52px); font-weight: 760; letter-spacing: -.045em; }
+    .family-name span { color: var(--808-muted); font-weight: 520; }
+    .family-role { color: #71717a; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .applications { display: grid; grid-template-columns: 1.1fr .9fr; gap: 22px; margin-top: 64px; }
+    .app-card { position: relative; min-height: 440px; overflow: hidden; border: 1px solid rgba(255,255,255,.08); border-radius: 28px; background: #111113; }
+    .app-icon-stage { display: grid; place-items: center; background: radial-gradient(circle at 50% 35%, rgba(34,197,94,.09), transparent 38%), #0e0e10; }
+    .app-icon-stage img { width: 180px; filter: drop-shadow(0 28px 46px rgba(0,0,0,.6)); }
+    .card-stage { display: grid; place-items: center; background: #e4e4e7; }
+    .business-card {
+      width: min(78%, 440px); aspect-ratio: 1.6; padding: 30px; border-radius: 18px;
+      background: linear-gradient(145deg, #202024, #09090b); box-shadow: 0 38px 60px -28px rgba(0,0,0,.62);
+      transform: rotate(-6deg); border: 1px solid rgba(255,255,255,.12);
+    }
+    .business-card img { width: 130px; }
+    .business-card p { margin-top: 80px; color: #71717a; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+    .dashboard-stage { grid-column: 1 / -1; min-height: 580px; padding: 70px; background: radial-gradient(circle at 78% 32%, rgba(34,197,94,.09), transparent 32%), #0d0d0f; }
+    .dash {
+      width: 100%; min-height: 440px; padding: 24px; border: 1px solid rgba(255,255,255,.08); border-radius: 24px;
+      background: #141416; box-shadow: 0 40px 90px -48px #000;
+    }
+    .dash-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 22px; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .dash-header img { width: 170px; }
+    .live { color: var(--808-pulse); font-size: 10px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+    .dash-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 22px; }
+    .dash-metric { min-height: 150px; padding: 22px; border: 1px solid rgba(255,255,255,.06); border-radius: 16px; background: rgba(255,255,255,.018); }
+    .dash-metric span { color: #71717a; font-size: 11px; }
+    .dash-metric strong { display: block; margin-top: 26px; font-size: 36px; letter-spacing: -.05em; }
+    .dash-flow { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; min-height: 110px; padding: 22px; border: 1px solid rgba(255,255,255,.06); border-radius: 16px; }
+    .flow-node { width: 10px; height: 10px; border-radius: 50%; background: #3f3f46; }
+    .flow-node.active { background: var(--808-pulse); box-shadow: 0 0 18px rgba(34,197,94,.7); }
+    .flow-line { flex: 1; height: 1px; margin: 0 14px; background: linear-gradient(90deg, var(--808-pulse), #3f3f46); }
+    .motion-stage { display: grid; grid-template-columns: .9fr 1.1fr; gap: 80px; align-items: center; margin-top: 60px; }
+    .motion-icon { display: grid; min-height: 430px; place-items: center; border: 1px solid rgba(255,255,255,.08); border-radius: 28px; background: #111113; }
+    .motion-icon img { width: 180px; animation: breathe 4.8s var(--808-ease-flow) infinite; }
+    .motion-copy { display: grid; gap: 26px; }
+    .motion-rule { padding-bottom: 26px; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .motion-rule strong { font-size: 18px; }
+    .motion-rule p { margin-top: 8px; color: var(--808-muted); font-size: 14px; line-height: 1.55; }
+    .footer { min-height: 70vh; display: grid; align-content: center; justify-items: start; }
+    .footer-logo { width: min(520px, 76vw); }
+    .footer p { margin-top: 30px; color: var(--808-muted); font-size: 18px; }
+    @keyframes breathe { 50% { transform: translateY(-8px); filter: drop-shadow(0 18px 26px rgba(34,197,94,.16)); } }
+    @media (max-width: 800px) {
+      .hero-mark { position: static; width: 130px; margin-top: 60px; }
+      .symbol-stage, .type-stage, .applications, .motion-stage { grid-template-columns: 1fr; }
+      .logo-pair { grid-template-columns: 1fr; }
+      .logo-cell.dark { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+      .palette { grid-template-columns: 1fr 1fr; }
+      .swatch { min-height: 180px; }
+      .family-row { grid-template-columns: 52px 1fr; }
+      .family-role { grid-column: 2; }
+      .dashboard-stage { grid-column: auto; padding: 24px; }
+      .dash-grid { grid-template-columns: 1fr; }
+      .dash-flow { grid-column: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="board">
+    <section class="section hero grid-bg">
+      <div class="eyebrow">808 Brand System · 2026</div>
+      <h1>Inteligência operacional <span style="color:var(--808-pulse)">em movimento.</span></h1>
+      <p class="lead">Uma identidade para um ecossistema que organiza a operação sem aparecer mais do que precisa.</p>
+      <div class="hero-tag"><span>Precisão</span><span>Continuidade</span><span>Simplicidade</span><span>Confiança</span></div>
+      <img class="hero-mark" src="./assets/808-flow-mark.svg" alt="Símbolo 808 Flow">
+    </section>
+
+    <section class="section">
+      <div class="eyebrow">01 · Símbolo</div>
+      <h2>Um sistema inteiro em um único gesto.</h2>
+      <div class="symbol-stage">
+        <div class="mark-panel"><img src="./assets/808-flow-mark.svg" alt="808 Flow Mark"></div>
+        <div class="symbol-notes">
+          <div class="note"><div class="note-index">01</div><div><h3>Duas câmaras</h3><p>Ambientes diferentes compartilham a mesma infraestrutura operacional.</p></div></div>
+          <div class="note"><div class="note-index">02</div><div><h3>Quatro segmentos</h3><p>Pedido, pagamento, produção e gestão permanecem visualmente conectados.</p></div></div>
+          <div class="note"><div class="note-index">03</div><div><h3>Núcleo ativo</h3><p>O verde aparece somente no evento em movimento, nunca como massa decorativa.</p></div></div>
+          <div class="note"><div class="note-index">04</div><div><h3>Infraestrutura invisível</h3><p>Os vazios fazem parte do símbolo e representam tecnologia que não cria atrito.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="eyebrow">02 · Assinaturas</div>
+      <h2>Presença consistente em qualquer ambiente.</h2>
+      <div class="logo-pair">
+        <div class="logo-cell dark"><img src="./assets/808pay-logo-horizontal-dark.svg" alt="808Pay em fundo escuro"></div>
+        <div class="logo-cell light"><img src="./assets/808pay-logo-horizontal-light.svg" alt="808Pay em fundo claro"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="eyebrow">03 · Cor</div>
+      <h2>O verde é energia. O carvão é a marca.</h2>
+      <p class="lead">A presença da 808 é construída por contraste, silêncio e materiais escuros. O verde sinaliza apenas aquilo que está vivo.</p>
+      <div class="palette">
+        <div class="swatch carbon"><strong>Carbon</strong><span>#09090B</span></div>
+        <div class="swatch graphite"><strong>Graphite</strong><span>#18181B</span></div>
+        <div class="swatch surface"><strong>Surface</strong><span>#202024</span></div>
+        <div class="swatch mineral"><strong>Mineral</strong><span>#F4F4F5</span></div>
+        <div class="swatch pulse"><strong>Pulse</strong><span>#22C55E</span></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="eyebrow">04 · Tipografia</div>
+      <h2>Clareza editorial. Precisão operacional.</h2>
+      <div class="type-stage">
+        <div class="type-display">80<span>8</span></div>
+        <div class="type-spec"><strong>Inter Tight</strong><br>Display · 650–780<br>Tracking negativo<br><br><strong>Inter</strong><br>Produto · 400–700<br>Algarismos tabulares</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="eyebrow">05 · Arquitetura</div>
+      <h2>Uma marca. Uma família de produtos.</h2>
+      <div class="family">
+        <div class="family-row"><img src="./assets/808-flow-mark.svg" alt=""><div class="family-name">808<span>Pay</span></div><div class="family-role">Operação e pagamento</div></div>
+        <div class="family-row"><img src="./assets/808-flow-mark.svg" alt=""><div class="family-name">808<span>Live</span></div><div class="family-role">Operação em tempo real</div></div>
+        <div class="family-row"><img src="./assets/808-flow-mark.svg" alt=""><div class="family-name">808<span>Voxx</span></div><div class="family-role">Voz e comunicação</div></div>
+        <div class="family-row"><img src="./assets/808-flow-mark.svg" alt=""><div class="family-name">808<span>KDS</span></div><div class="family-role">Produção e cozinha</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="eyebrow">06 · Aplicações</div>
+      <h2>Digital primeiro. Físico sem perder força.</h2>
+      <div class="applications">
+        <div class="app-card app-icon-stage"><img src="./assets/808-flow-app-icon.svg" alt="Ícone de aplicativo 808"></div>
+        <div class="app-card card-stage"><div class="business-card"><img src="./assets/808pay-logo-horizontal-dark.svg" alt=""><p>Inteligência operacional em movimento.</p></div></div>
+        <div class="app-card dashboard-stage">
+          <div class="dash">
+            <div class="dash-header"><img src="./assets/808pay-logo-horizontal-dark.svg" alt="808Pay"><span class="live">Operação ao vivo</span></div>
+            <div class="dash-grid">
+              <div class="dash-metric"><span>Pedidos hoje</span><strong>1.248</strong></div>
+              <div class="dash-metric"><span>Em produção</span><strong>32</strong></div>
+              <div class="dash-metric"><span>Tempo médio</span><strong style="color:var(--808-pulse)">08:08</strong></div>
+              <div class="dash-flow"><i class="flow-node active"></i><i class="flow-line"></i><i class="flow-node active"></i><i class="flow-line"></i><i class="flow-node"></i><i class="flow-line"></i><i class="flow-node"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="eyebrow">07 · Motion</div>
+      <h2>O movimento mostra o sistema pensando.</h2>
+      <div class="motion-stage">
+        <div class="motion-icon"><img src="./assets/808-flow-mark.svg" alt="Símbolo 808 Flow"></div>
+        <div class="motion-copy">
+          <div class="motion-rule"><strong>Entrada</strong><p>Segmentos revelados em sequência e núcleo ativado por último.</p></div>
+          <div class="motion-rule"><strong>Sincronização</strong><p>O núcleo percorre as câmaras e retorna ao centro em um ciclo único.</p></div>
+          <div class="motion-rule"><strong>Repouso</strong><p>A marca permanece estática após comunicar o evento. Movimento nunca vira ruído.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="section footer grid-bg">
+      <img class="footer-logo" src="./assets/808pay-logo-horizontal-dark.svg" alt="808Pay">
+      <p>Não vendemos tecnologia. Vendemos evolução operacional.</p>
+    </footer>
+  </main>
+</body>
+</html>

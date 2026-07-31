@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">Ícone de aplicativo 808</title>
+  <defs>
+    <linearGradient id="surface" x1="18" x2="110" y1="12" y2="118" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#202024"/>
+      <stop offset="1" stop-color="#09090B"/>
+    </linearGradient>
+  </defs>
+  <rect width="116" height="116" x="6" y="6" fill="url(#surface)" rx="30"/>
+  <rect width="115" height="115" x="6.5" y="6.5" fill="none" stroke="#3F3F46" rx="29.5"/>
+  <g transform="translate(32 32) scale(1)">
+    <g fill="#F4F4F5">
+      <path d="M29 6h-9C11.716 6 5 12.716 5 21s6.716 15 15 15h9v-8h-9a7 7 0 1 1 0-14h9V6Z"/>
+      <path d="M35 6h9c8.284 0 15 6.716 15 15s-6.716 15-15 15h-9v-8h9a7 7 0 1 0 0-14h-9V6Z"/>
+      <path d="M29 28h-9C11.716 28 5 34.716 5 43s6.716 15 15 15h9v-8h-9a7 7 0 1 1 0-14h9v-8Z"/>
+      <path d="M35 28h9c8.284 0 15 6.716 15 15s-6.716 15-15 15h-9v-8h9a7 7 0 1 0 0-14h-9v-8Z"/>
+    </g>
+    <rect width="6" height="6" x="29" y="29" fill="#22C55E" rx="1.5"/>
+  </g>
+</svg>
