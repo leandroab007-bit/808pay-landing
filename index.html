@@ -451,6 +451,137 @@
             line-height: 1.65;
             text-wrap: pretty;
         }
+        .sim-live-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            max-width: 50rem;
+            margin: 0 auto;
+            padding: 0.9rem 1rem;
+            border: 1px solid rgba(74,222,128,0.22);
+            border-radius: 1rem;
+            background: linear-gradient(100deg, rgba(34,197,94,0.11), rgba(255,255,255,0.025));
+            box-shadow: 0 18px 52px -38px rgba(34,197,94,0.75);
+            text-align: left;
+        }
+        .sim-live-signal {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-width: 0;
+        }
+        .sim-live-dot {
+            position: relative;
+            width: 0.7rem;
+            height: 0.7rem;
+            flex: 0 0 auto;
+            border-radius: 999px;
+            background: #4ade80;
+            box-shadow: 0 0 18px rgba(74,222,128,0.8);
+        }
+        .sim-live-dot::after {
+            content: '';
+            position: absolute;
+            inset: -0.35rem;
+            border: 1px solid rgba(74,222,128,0.45);
+            border-radius: inherit;
+            animation: sim-live-ring 1.9s ease-out infinite;
+        }
+        .sim-live-signal strong {
+            display: block;
+            color: #f4f4f5;
+            font-size: 0.78rem;
+        }
+        .sim-live-signal span {
+            display: block;
+            margin-top: 0.15rem;
+            color: #a1a1aa;
+            font-size: 0.64rem;
+            line-height: 1.45;
+        }
+        .sim-live-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            flex: 0 0 auto;
+            color: #86efac;
+            font-size: 0.65rem;
+            font-weight: 850;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .sim-live-action svg {
+            width: 1rem;
+            height: 1rem;
+            animation: sim-guide-down 1.4s ease-in-out infinite;
+        }
+        .sim-start-callout {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            margin: 0.1rem 0.2rem 0.25rem;
+            padding: 0.72rem 0.8rem;
+            border: 1px solid rgba(74,222,128,0.24);
+            border-radius: 0.9rem;
+            background: rgba(34,197,94,0.075);
+            transition: opacity 250ms ease, transform 250ms ease, max-height 250ms ease, margin 250ms ease, padding 250ms ease;
+        }
+        .sim-start-number {
+            display: grid;
+            place-items: center;
+            width: 1.8rem;
+            height: 1.8rem;
+            flex: 0 0 auto;
+            border-radius: 0.6rem;
+            color: #07110a;
+            background: #4ade80;
+            font-size: 0.7rem;
+            font-weight: 900;
+            box-shadow: 0 0 18px rgba(74,222,128,0.35);
+        }
+        .sim-start-callout strong {
+            display: block;
+            color: #f4f4f5;
+            font-size: 0.72rem;
+        }
+        .sim-start-callout small {
+            display: block;
+            margin-top: 0.12rem;
+            color: #a1a1aa;
+            font-size: 0.58rem;
+            line-height: 1.4;
+        }
+        #section-simulador.sim-started .sim-start-callout {
+            max-height: 0;
+            margin-block: 0;
+            padding-block: 0;
+            border-color: transparent;
+            opacity: 0;
+            overflow: hidden;
+            transform: translateY(-0.35rem);
+        }
+        #section-simulador.sim-awaiting-start #sim-first-add {
+            position: relative;
+            isolation: isolate;
+            animation: sim-primary-trigger 1.7s ease-in-out infinite;
+        }
+        #section-simulador.sim-awaiting-start #sim-panel-totem {
+            border-color: rgba(74,222,128,0.22);
+            box-shadow: 0 0 0 1px rgba(74,222,128,0.055) inset, 0 28px 70px -42px rgba(34,197,94,0.48);
+        }
+        @keyframes sim-live-ring {
+            from { opacity: 0.8; transform: scale(0.62); }
+            to { opacity: 0; transform: scale(1.55); }
+        }
+        @keyframes sim-guide-down {
+            0%, 100% { transform: translateY(-2px); opacity: 0.65; }
+            50% { transform: translateY(3px); opacity: 1; }
+        }
+        @keyframes sim-primary-trigger {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.18), 0 0 0 rgba(74,222,128,0); transform: translateY(0); }
+            50% { box-shadow: 0 0 0 6px rgba(74,222,128,0.1), 0 0 24px rgba(74,222,128,0.38); transform: translateY(-1px); }
+        }
         #sim-mobile-nav {
             padding: 0.4rem;
             border: 1px solid rgba(255,255,255,0.07);
@@ -1045,6 +1176,13 @@
             #sim-panels-grid { padding-inline: 0; }
             .sim-panel { border-radius: 1.15rem; }
             .sim-stage-header #sim-intro-text { line-height: 1.58; }
+            .sim-live-banner {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 0.65rem;
+                padding: 0.85rem;
+            }
+            .sim-live-action { padding-left: 1.45rem; }
         }
         @media (prefers-reduced-motion: reduce) {
             .sim-panel,
@@ -1055,6 +1193,9 @@
                 filter: none;
             }
             .sim-connector.sim-connector-active .sim-connector-dot,
+            .sim-live-dot::after,
+            .sim-live-action svg,
+            #section-simulador.sim-awaiting-start #sim-first-add,
             .device-frame.device-pulse::before,
             .tv-number-in,
             .tv-flash-overlay.tv-flash-play,
@@ -2030,6 +2171,830 @@
             .hero-station-pickup { right: 3%; }
             .hero-station-management { left: 12%; }
         }
+
+        /* Conversão: compromisso de parceria e comparação de ecossistema */
+        .partnership-strip {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            margin-top: clamp(2.5rem, 5vw, 4.5rem);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 1.35rem;
+            background: linear-gradient(115deg, rgba(34,197,94,0.055), rgba(255,255,255,0.018) 42%, rgba(255,255,255,0.01));
+            box-shadow: 0 30px 80px -55px rgba(34,197,94,0.55);
+        }
+        .partnership-item {
+            position: relative;
+            min-height: 8.8rem;
+            padding: 1.35rem 1.25rem;
+        }
+        .partnership-item + .partnership-item::before {
+            content: '';
+            position: absolute;
+            inset-block: 1.35rem;
+            left: 0;
+            width: 1px;
+            background: rgba(255,255,255,0.075);
+        }
+        .partnership-index {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            color: #4ade80;
+            font-size: 0.61rem;
+            font-weight: 800;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+        .partnership-index::before {
+            content: '';
+            width: 0.42rem;
+            height: 0.42rem;
+            border-radius: 999px;
+            background: #4ade80;
+            box-shadow: 0 0 14px rgba(74,222,128,0.7);
+        }
+        .partnership-item strong {
+            display: block;
+            margin-top: 0.75rem;
+            color: #f4f4f5;
+            font-size: 0.92rem;
+            letter-spacing: -0.02em;
+        }
+        .partnership-item p {
+            margin-top: 0.42rem;
+            color: #8f8f99;
+            font-size: 0.69rem;
+            line-height: 1.55;
+        }
+        .flow-compare-section {
+            position: relative;
+            isolation: isolate;
+        }
+        .flow-compare-section::before {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            top: 10%;
+            left: 50%;
+            width: min(64rem, 92vw);
+            height: 32rem;
+            transform: translateX(-50%);
+            background: radial-gradient(circle, rgba(34,197,94,0.07), transparent 68%);
+            pointer-events: none;
+        }
+        .flow-compare-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+        }
+        .flow-compare-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 31rem;
+            padding: clamp(1.35rem, 3vw, 2.25rem);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 1.75rem;
+            background: rgba(14,14,17,0.78);
+            box-shadow: 0 34px 90px -65px rgba(0,0,0,0.95);
+        }
+        .flow-compare-card-fragmented {
+            background: linear-gradient(145deg, rgba(39,39,42,0.72), rgba(9,9,11,0.96));
+        }
+        .flow-compare-card-connected {
+            border-color: rgba(74,222,128,0.24);
+            background: linear-gradient(145deg, rgba(20,35,26,0.78), rgba(9,9,11,0.96) 64%);
+            box-shadow: 0 34px 100px -60px rgba(34,197,94,0.4);
+        }
+        .flow-card-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 0.7rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 999px;
+            color: #a1a1aa;
+            background: rgba(9,9,11,0.56);
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .flow-card-status::before {
+            content: '';
+            width: 0.42rem;
+            height: 0.42rem;
+            border-radius: 999px;
+            background: #71717a;
+        }
+        .flow-compare-card-connected .flow-card-status {
+            border-color: rgba(74,222,128,0.2);
+            color: #86efac;
+        }
+        .flow-compare-card-connected .flow-card-status::before {
+            background: #4ade80;
+            box-shadow: 0 0 12px rgba(74,222,128,0.75);
+        }
+        .flow-compare-card h3 {
+            margin-top: 1.2rem;
+            color: #fafafa;
+            font-size: clamp(1.45rem, 3vw, 2rem);
+            font-weight: 780;
+            letter-spacing: -0.045em;
+            line-height: 1.08;
+        }
+        .flow-compare-card > p {
+            max-width: 29rem;
+            margin-top: 0.72rem;
+            color: #8f8f99;
+            font-size: 0.82rem;
+            line-height: 1.65;
+        }
+        .flow-map {
+            position: relative;
+            height: 13.5rem;
+            margin-top: 1.7rem;
+            border: 1px solid rgba(255,255,255,0.055);
+            border-radius: 1.2rem;
+            background: rgba(0,0,0,0.2);
+        }
+        .flow-map svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .fragment-line {
+            fill: none;
+            stroke: rgba(161,161,170,0.35);
+            stroke-width: 2;
+            stroke-dasharray: 8 10;
+        }
+        .connected-line-base {
+            fill: none;
+            stroke: rgba(74,222,128,0.14);
+            stroke-width: 7;
+        }
+        .connected-line {
+            fill: none;
+            stroke: url(#flowConnectedGradient);
+            stroke-width: 2.4;
+            filter: drop-shadow(0 0 7px rgba(74,222,128,0.6));
+        }
+        .connected-pulse {
+            fill: #dcfce7;
+            filter: drop-shadow(0 0 8px #4ade80);
+        }
+        .flow-map-node {
+            position: absolute;
+            display: grid;
+            place-items: center;
+            width: 4.15rem;
+            min-height: 3rem;
+            padding: 0.45rem;
+            border: 1px solid rgba(255,255,255,0.085);
+            border-radius: 0.8rem;
+            color: #a1a1aa;
+            background: rgba(20,20,23,0.94);
+            box-shadow: 0 12px 25px -18px rgba(0,0,0,0.9);
+            font-size: 0.58rem;
+            font-weight: 750;
+            text-align: center;
+        }
+        .flow-compare-card-connected .flow-map-node {
+            color: #f4f4f5;
+            border-color: rgba(74,222,128,0.2);
+            background: rgba(15,24,19,0.96);
+        }
+        .flow-node-one { top: 1rem; left: 1rem; }
+        .flow-node-two { top: 1rem; right: 1rem; }
+        .flow-node-three { top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .flow-node-four { bottom: 1rem; left: 1rem; }
+        .flow-node-five { right: 1rem; bottom: 1rem; }
+        .flow-friction {
+            position: absolute;
+            padding: 0.32rem 0.48rem;
+            border: 1px solid rgba(244,63,94,0.16);
+            border-radius: 0.5rem;
+            color: #fb7185;
+            background: rgba(76,5,25,0.24);
+            font-size: 0.51rem;
+            font-weight: 750;
+        }
+        .flow-friction-one { top: 1.6rem; left: 45%; }
+        .flow-friction-two { top: 56%; right: 3.2rem; }
+        .flow-friction-three { bottom: 1.5rem; left: 27%; }
+        .flow-outcomes {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.55rem;
+            margin-top: 1rem;
+        }
+        .flow-outcome {
+            padding: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 0.8rem;
+            color: #a1a1aa;
+            background: rgba(255,255,255,0.018);
+            font-size: 0.6rem;
+            line-height: 1.45;
+        }
+        .flow-outcome strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: #e4e4e7;
+            font-size: 0.67rem;
+        }
+        .flow-compare-card-connected .flow-outcome strong { color: #86efac; }
+        .partnership-journey {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.25rem;
+            padding: 1.2rem;
+            border: 1px solid rgba(255,255,255,0.075);
+            border-radius: 1.2rem;
+            background: rgba(255,255,255,0.018);
+        }
+        .partnership-journey-step span {
+            color: #4ade80;
+            font-size: 0.6rem;
+            font-weight: 850;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+        }
+        .partnership-journey-step strong {
+            display: block;
+            margin-top: 0.3rem;
+            color: #f4f4f5;
+            font-size: 0.78rem;
+        }
+        .partnership-journey-arrow { color: #3f3f46; }
+        .conversion-cta-panel {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            margin-top: 1.25rem;
+            padding: 1.35rem 1.45rem;
+            border: 1px solid rgba(74,222,128,0.2);
+            border-radius: 1.2rem;
+            background: linear-gradient(100deg, rgba(34,197,94,0.09), rgba(255,255,255,0.015));
+        }
+        .conversion-cta-panel strong {
+            display: block;
+            color: #f4f4f5;
+            font-size: 1rem;
+        }
+        .conversion-cta-panel p {
+            margin-top: 0.25rem;
+            color: #8f8f99;
+            font-size: 0.7rem;
+        }
+        @media (max-width: 767px) {
+            .partnership-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .partnership-item { min-height: 8rem; padding: 1rem; }
+            .partnership-item:nth-child(3)::before { display: none; }
+            .partnership-item:nth-child(n+3)::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0.75rem;
+                left: 0.75rem;
+                height: 1px;
+                background: rgba(255,255,255,0.065);
+            }
+            .flow-compare-grid { grid-template-columns: 1fr; }
+            .flow-compare-card { min-height: auto; }
+            .flow-map { height: 12.5rem; }
+            .flow-outcomes { grid-template-columns: 1fr; }
+            .partnership-journey {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            .partnership-journey-arrow { transform: rotate(90deg); }
+            .conversion-cta-panel { align-items: stretch; flex-direction: column; }
+            .conversion-cta-panel button { width: 100%; justify-content: center; }
+        }
+
+        /* Pitch Deck comercial — narrativa, produto e conversão */
+        #view-pitch {
+            --pitch-green: #4ade80;
+            --pitch-green-deep: #22c55e;
+            --pitch-ink: #070809;
+            background: var(--pitch-ink);
+        }
+        body.pitch-mode > header { display: none; }
+        body.pitch-mode #view-pitch { height: 100vh; }
+        .pitch-topbar,
+        .pitch-footer {
+            position: relative;
+            z-index: 40;
+            border-color: rgba(255,255,255,0.07);
+            background: rgba(7,8,9,0.84);
+            backdrop-filter: blur(22px);
+        }
+        .pitch-progress-segment {
+            position: relative;
+            height: 0.22rem;
+            flex: 1;
+            overflow: hidden;
+            border: 0;
+            border-radius: 999px;
+            background: #27272a;
+            cursor: pointer;
+        }
+        .pitch-progress-segment::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #22c55e, #86efac);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 500ms cubic-bezier(0.16,1,0.3,1);
+        }
+        .pitch-progress-segment.is-complete::after,
+        .pitch-progress-segment.is-active::after { transform: scaleX(1); }
+        .pitch-progress-segment.is-active { box-shadow: 0 0 14px rgba(74,222,128,0.36); }
+        .pitch-slide {
+            position: relative;
+            flex: 0 0 100vw;
+            width: 100vw;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            background:
+                radial-gradient(circle at 78% 38%, rgba(34,197,94,0.1), transparent 32%),
+                linear-gradient(145deg, #08090a, #0b0c0e 55%, #080909);
+        }
+        .pitch-slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: radial-gradient(circle at 65% 44%, #000, transparent 78%);
+            pointer-events: none;
+        }
+        .pitch-slide::after {
+            content: '';
+            position: absolute;
+            top: 8%;
+            right: -9rem;
+            width: 34rem;
+            height: 34rem;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(74,222,128,0.08), transparent 66%);
+            filter: blur(22px);
+            pointer-events: none;
+        }
+        .pitch-slide-inner {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: min(100%, 86rem);
+            min-height: 100%;
+            margin-inline: auto;
+            padding: clamp(2.2rem, 5vw, 5rem) clamp(1.4rem, 6vw, 6rem);
+        }
+        .pitch-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(22rem, 0.95fr);
+            align-items: center;
+            gap: clamp(2rem, 5vw, 5rem);
+        }
+        .pitch-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            width: fit-content;
+            color: #86efac;
+            font-size: 0.64rem;
+            font-weight: 850;
+            letter-spacing: 0.17em;
+            text-transform: uppercase;
+        }
+        .pitch-eyebrow::before {
+            content: '';
+            width: 1.35rem;
+            height: 1px;
+            background: linear-gradient(90deg, #22c55e, #86efac);
+            box-shadow: 0 0 9px rgba(74,222,128,0.45);
+        }
+        .pitch-title {
+            max-width: 56rem;
+            margin-top: 1.35rem;
+            color: #fafafa;
+            font-size: clamp(2.75rem, 6vw, 6.5rem);
+            font-weight: 820;
+            letter-spacing: -0.065em;
+            line-height: 0.94;
+            text-wrap: balance;
+        }
+        .pitch-title-medium { font-size: clamp(2.45rem, 4.7vw, 5rem); }
+        .pitch-title .pitch-accent {
+            color: transparent;
+            background: linear-gradient(100deg, #22c55e, #86efac 56%, #dcfce7);
+            background-clip: text;
+            -webkit-background-clip: text;
+        }
+        .pitch-lead {
+            max-width: 45rem;
+            margin-top: 1.35rem;
+            color: #a1a1aa;
+            font-size: clamp(0.96rem, 1.55vw, 1.25rem);
+            line-height: 1.65;
+            text-wrap: pretty;
+        }
+        .pitch-chip-row { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1.6rem; }
+        .pitch-chip {
+            padding: 0.48rem 0.72rem;
+            border: 1px solid rgba(255,255,255,0.075);
+            border-radius: 999px;
+            color: #a1a1aa;
+            background: rgba(255,255,255,0.022);
+            font-size: 0.62rem;
+            font-weight: 700;
+        }
+        .pitch-reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            filter: blur(5px);
+        }
+        .pitch-slide.is-active .pitch-reveal {
+            animation: pitch-reveal 720ms cubic-bezier(0.16,1,0.3,1) var(--pitch-delay, 0ms) both;
+        }
+        .pitch-visual-reveal { opacity: 0; transform: translateY(18px) scale(0.96); }
+        .pitch-slide.is-active .pitch-visual-reveal {
+            animation: pitch-visual 900ms cubic-bezier(0.16,1,0.3,1) var(--pitch-delay, 180ms) both;
+        }
+        @keyframes pitch-reveal {
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+        @keyframes pitch-visual {
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .pitch-orbit {
+            position: relative;
+            width: min(100%, 31rem);
+            aspect-ratio: 1;
+            margin-inline: auto;
+        }
+        .pitch-orbit-ring {
+            position: absolute;
+            inset: 10%;
+            border: 1px solid rgba(74,222,128,0.2);
+            border-radius: 50%;
+            box-shadow: 0 0 60px -28px rgba(74,222,128,0.55);
+        }
+        .pitch-orbit-ring::before,
+        .pitch-orbit-ring::after {
+            content: '';
+            position: absolute;
+            border: 1px solid rgba(255,255,255,0.055);
+            border-radius: inherit;
+        }
+        .pitch-orbit-ring::before { inset: 12%; }
+        .pitch-orbit-ring::after { inset: 27%; border-style: dashed; }
+        .pitch-orbit-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: grid;
+            place-items: center;
+            width: 7.6rem;
+            height: 7.6rem;
+            border: 1px solid rgba(74,222,128,0.28);
+            border-radius: 2rem;
+            background: linear-gradient(145deg, #17191b, #08090a);
+            box-shadow: 0 0 55px -20px rgba(74,222,128,0.72), 0 26px 48px -30px #000;
+            transform: translate(-50%, -50%);
+        }
+        .pitch-orbit-core img { width: 3.2rem; }
+        .pitch-orbit-node {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.62rem 0.72rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 0.8rem;
+            color: #d4d4d8;
+            background: rgba(14,15,17,0.92);
+            box-shadow: 0 18px 34px -24px #000;
+            font-size: 0.62rem;
+            font-weight: 750;
+        }
+        .pitch-orbit-node::before {
+            content: '';
+            width: 0.38rem;
+            height: 0.38rem;
+            border-radius: 50%;
+            background: #4ade80;
+            box-shadow: 0 0 9px rgba(74,222,128,0.8);
+        }
+        .pitch-orbit-node:nth-of-type(1) { top: 5%; left: 37%; }
+        .pitch-orbit-node:nth-of-type(2) { top: 30%; right: 0; }
+        .pitch-orbit-node:nth-of-type(3) { right: 9%; bottom: 14%; }
+        .pitch-orbit-node:nth-of-type(4) { bottom: 6%; left: 21%; }
+        .pitch-orbit-node:nth-of-type(5) { top: 31%; left: -2%; }
+        .pitch-orbit-signal {
+            position: absolute;
+            top: 8.5%;
+            left: 48%;
+            width: 0.58rem;
+            height: 0.58rem;
+            border-radius: 50%;
+            background: #dcfce7;
+            box-shadow: 0 0 16px #4ade80;
+            transform-origin: 0 13rem;
+        }
+        .pitch-slide.is-active .pitch-orbit-signal { animation: pitch-orbit 7s linear infinite; }
+        @keyframes pitch-orbit { to { transform: rotate(360deg); } }
+        .pitch-audience-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.7rem;
+            margin-top: 1.8rem;
+        }
+        .pitch-audience-card,
+        .pitch-risk-card,
+        .pitch-method-card {
+            position: relative;
+            overflow: hidden;
+            padding: 1rem;
+            border: 1px solid rgba(255,255,255,0.075);
+            border-radius: 1rem;
+            background: rgba(255,255,255,0.025);
+        }
+        .pitch-audience-card strong,
+        .pitch-risk-card strong,
+        .pitch-method-card strong { display: block; color: #f4f4f5; font-size: 0.78rem; }
+        .pitch-audience-card span,
+        .pitch-risk-card span,
+        .pitch-method-card p { display: block; margin-top: 0.32rem; color: #8f8f99; font-size: 0.63rem; line-height: 1.5; }
+        .pitch-live-scene {
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 1.5rem;
+            background: linear-gradient(145deg, rgba(24,24,27,0.78), rgba(7,8,9,0.9));
+            box-shadow: 0 35px 80px -55px #000;
+        }
+        .pitch-live-scene-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            color: #71717a;
+            font-size: 0.58rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        .pitch-live-scene-head span:first-child { color: #86efac; }
+        .pitch-live-events { padding: 0.85rem; }
+        .pitch-event {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem;
+            border: 1px solid transparent;
+            border-radius: 0.9rem;
+            color: #a1a1aa;
+            background: rgba(255,255,255,0.018);
+            font-size: 0.66rem;
+        }
+        .pitch-event + .pitch-event { margin-top: 0.5rem; }
+        .pitch-event-time { color: #52525b; font-family: monospace; }
+        .pitch-event strong { display: block; color: #e4e4e7; font-size: 0.7rem; }
+        .pitch-event em { margin-left: auto; color: #fb7185; font-size: 0.57rem; font-style: normal; font-weight: 800; }
+        .pitch-slide.is-active .pitch-event { animation: pitch-event-in 520ms ease var(--event-delay, 0ms) both; }
+        @keyframes pitch-event-in { from { opacity: 0; transform: translateX(18px); } }
+        .pitch-broken-flow,
+        .pitch-connected-flow {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.7rem;
+            margin-top: 2.2rem;
+        }
+        .pitch-flow-stage {
+            position: relative;
+            z-index: 2;
+            min-height: 7.5rem;
+            padding: 1rem;
+            border: 1px solid rgba(255,255,255,0.075);
+            border-radius: 1rem;
+            background: rgba(16,17,19,0.95);
+        }
+        .pitch-flow-stage b { color: #52525b; font-size: 0.56rem; letter-spacing: 0.12em; }
+        .pitch-flow-stage strong { display: block; margin-top: 0.65rem; color: #f4f4f5; font-size: 0.75rem; }
+        .pitch-flow-stage span { display: block; margin-top: 0.35rem; color: #71717a; font-size: 0.58rem; line-height: 1.45; }
+        .pitch-broken-flow .pitch-flow-stage::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -0.72rem;
+            width: 0.72rem;
+            border-top: 1px dashed rgba(244,63,94,0.35);
+        }
+        .pitch-broken-flow .pitch-flow-stage:last-child::after { display: none; }
+        .pitch-friction-row { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 1rem; }
+        .pitch-friction-tag {
+            padding: 0.42rem 0.65rem;
+            border: 1px solid rgba(244,63,94,0.17);
+            border-radius: 999px;
+            color: #fb7185;
+            background: rgba(76,5,25,0.2);
+            font-size: 0.58rem;
+            font-weight: 750;
+        }
+        .pitch-method-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+        .pitch-method-card { min-height: 11.5rem; padding: 1.2rem; }
+        .pitch-method-card b {
+            display: inline-grid;
+            place-items: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.65rem;
+            color: #07110a;
+            background: #4ade80;
+            font-size: 0.65rem;
+        }
+        .pitch-method-card strong { margin-top: 1rem; font-size: 0.9rem; }
+        .pitch-method-card::after {
+            content: '';
+            position: absolute;
+            inset: auto -20% -60% 30%;
+            height: 8rem;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(34,197,94,0.12), transparent 68%);
+        }
+        .pitch-manifesto {
+            display: grid;
+            place-items: center;
+            min-height: 13rem;
+            padding: 2rem;
+            border: 1px solid rgba(74,222,128,0.18);
+            border-radius: 1.5rem;
+            background: radial-gradient(circle at 50% 30%, rgba(34,197,94,0.1), transparent 65%), rgba(255,255,255,0.018);
+            color: #e4e4e7;
+            font-size: clamp(1.25rem, 2.5vw, 2rem);
+            font-weight: 740;
+            line-height: 1.25;
+            text-align: center;
+        }
+        .pitch-ecosystem-map {
+            position: relative;
+            min-height: 26rem;
+            border: 1px solid rgba(74,222,128,0.16);
+            border-radius: 1.6rem;
+            background: radial-gradient(circle at center, rgba(34,197,94,0.11), transparent 58%), rgba(255,255,255,0.018);
+        }
+        .pitch-ecosystem-map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+        .pitch-ecosystem-path { fill: none; stroke: rgba(74,222,128,0.72); stroke-width: 2.2; stroke-dasharray: 12 10; filter: drop-shadow(0 0 7px rgba(74,222,128,0.55)); }
+        .pitch-slide.is-active .pitch-ecosystem-path { animation: pitch-flow-dash 9s linear infinite; }
+        @keyframes pitch-flow-dash { to { stroke-dashoffset: -180; } }
+        .pitch-ecosystem-core {
+            position: absolute;
+            top: 50%; left: 50%;
+            display: grid; place-items: center;
+            width: 7rem; height: 7rem;
+            border: 1px solid rgba(74,222,128,0.28);
+            border-radius: 1.8rem;
+            background: #0d0f10;
+            box-shadow: 0 0 60px -20px rgba(74,222,128,0.72);
+            transform: translate(-50%,-50%);
+        }
+        .pitch-ecosystem-core img { width: 3rem; }
+        .pitch-map-label { position: absolute; color: #e4e4e7; font-size: 0.65rem; font-weight: 760; }
+        .pitch-map-label:nth-of-type(1) { top: 11%; left: 9%; }
+        .pitch-map-label:nth-of-type(2) { top: 11%; right: 9%; }
+        .pitch-map-label:nth-of-type(3) { top: 48%; right: 4%; }
+        .pitch-map-label:nth-of-type(4) { bottom: 10%; right: 12%; }
+        .pitch-map-label:nth-of-type(5) { bottom: 10%; left: 12%; }
+        .pitch-value-list { display: grid; gap: 0.65rem; margin-top: 1.6rem; }
+        .pitch-value-item { display: flex; align-items: flex-start; gap: 0.7rem; color: #a1a1aa; font-size: 0.72rem; line-height: 1.5; }
+        .pitch-value-item::before { content: '✓'; color: #4ade80; font-weight: 900; }
+        .pitch-risk-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0.7rem; margin-top: 1.8rem; }
+        .pitch-risk-card { min-height: 7rem; }
+        .pitch-risk-card b { display: block; color: #4ade80; font-size: 1.15rem; }
+        .pitch-price-line {
+            display: flex;
+            align-items: end;
+            gap: 0.65rem;
+            margin-top: 1.4rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(255,255,255,0.07);
+        }
+        .pitch-price-line strong { color: #f4f4f5; font-size: 1.6rem; letter-spacing: -0.04em; }
+        .pitch-price-line span { color: #71717a; font-size: 0.64rem; }
+        .pitch-final-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding: 1.35rem;
+            border: 1px solid rgba(74,222,128,0.19);
+            border-radius: 1.25rem;
+            background: linear-gradient(100deg, rgba(34,197,94,0.1), rgba(255,255,255,0.018));
+        }
+        .pitch-final-panel strong { display: block; color: #f4f4f5; font-size: 0.95rem; }
+        .pitch-final-panel span { display: block; margin-top: 0.25rem; color: #8f8f99; font-size: 0.67rem; }
+        .pitch-primary-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            min-height: 3.4rem;
+            padding: 0.9rem 1.25rem;
+            border-radius: 0.9rem;
+            color: #07110a;
+            background: linear-gradient(100deg, #4ade80, #22c55e);
+            box-shadow: 0 16px 34px -20px rgba(34,197,94,0.75);
+            font-size: 0.72rem;
+            font-weight: 900;
+        }
+        .pitch-primary-cta span {
+            margin: 0;
+            color: #07110a;
+            font-size: inherit;
+        }
+        .pitch-nav-button {
+            display: grid;
+            place-items: center;
+            width: 2.75rem;
+            height: 2.75rem;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 0.85rem;
+            background: rgba(255,255,255,0.025);
+        }
+        .pitch-nav-button:not(:disabled):hover { border-color: rgba(74,222,128,0.25); color: #86efac; background: rgba(34,197,94,0.07); }
+        @media (max-width: 900px) {
+            .pitch-layout { grid-template-columns: 1fr; gap: 2rem; }
+            .pitch-slide-inner { justify-content: flex-start; padding-top: 2.4rem; padding-bottom: 2.4rem; }
+            .pitch-title { font-size: clamp(2.45rem, 10vw, 4.4rem); }
+            .pitch-orbit { width: min(100%, 24rem); }
+            .pitch-broken-flow, .pitch-connected-flow { grid-template-columns: 1fr; }
+            .pitch-broken-flow .pitch-flow-stage::after { display: none; }
+            .pitch-method-grid { grid-template-columns: 1fr; }
+            .pitch-method-card { min-height: auto; }
+            .pitch-ecosystem-map { min-height: 22rem; }
+        }
+        @media (max-height: 800px) and (min-width: 901px) {
+            .pitch-slide-inner { padding: 1.5rem 3.75rem; }
+            .pitch-layout { gap: 2.25rem; }
+            .pitch-title { margin-top: 0.85rem; font-size: clamp(2.8rem, 5vw, 4.7rem); }
+            .pitch-title-medium { font-size: clamp(2.55rem, 4.2vw, 3.75rem); }
+            .pitch-lead { margin-top: 0.8rem; font-size: 0.9rem; line-height: 1.52; }
+            .pitch-chip-row { margin-top: 1rem; }
+            .pitch-orbit { width: min(100%, 25rem); }
+            .pitch-audience-grid { gap: 0.5rem; margin-top: 1rem; }
+            .pitch-audience-card { padding: 0.7rem; }
+            .pitch-live-events { padding: 0.65rem; }
+            .pitch-event { padding: 0.62rem 0.7rem; }
+            .pitch-broken-flow, .pitch-connected-flow { margin-top: 1.25rem; }
+            .pitch-flow-stage { min-height: 6.4rem; padding: 0.8rem; }
+            .pitch-friction-row { margin-top: 0.7rem; }
+            .pitch-method-grid { gap: 0.6rem; margin-top: 1rem; }
+            .pitch-method-card { min-height: 9.2rem; padding: 0.9rem; }
+            .pitch-method-card strong { margin-top: 0.65rem; }
+            .pitch-manifesto { min-height: 11rem; padding: 1.4rem; }
+            .pitch-ecosystem-map { min-height: 21rem; }
+            .pitch-value-list { gap: 0.45rem; margin-top: 1rem; }
+            .pitch-risk-grid { margin-top: 0.9rem; }
+            .pitch-risk-card { min-height: 6.2rem; padding: 0.8rem; }
+            .pitch-price-line { margin-top: 0.9rem; padding-top: 0.8rem; }
+            .pitch-final-panel { margin-top: 1rem; padding: 1rem; }
+            .partnership-journey { margin-top: 0.9rem; padding: 0.9rem; }
+        }
+        @media (max-width: 639px) {
+            .pitch-topbar { padding-inline: 0.85rem; }
+            .pitch-topbar-label { display: none; }
+            .pitch-progress-wrap { margin-inline: 0.75rem; }
+            .pitch-slide-inner { padding-inline: 1.2rem; }
+            .pitch-audience-grid, .pitch-risk-grid { grid-template-columns: 1fr; }
+            .pitch-live-scene { min-height: 20rem; }
+            .pitch-flow-stage { min-height: auto; }
+            .pitch-final-panel { grid-template-columns: 1fr; }
+            .pitch-primary-cta { width: 100%; }
+            .pitch-footer { padding-inline: 0.9rem; }
+        }
         @media (prefers-reduced-motion: reduce) {
             .hero-enter,
             .hero-product-enter,
@@ -2052,6 +3017,17 @@
                 filter: none;
             }
             .hero-route-pulse { display: none; }
+            .connected-pulse { display: none; }
+            .pitch-reveal,
+            .pitch-visual-reveal,
+            .pitch-slide.is-active .pitch-event {
+                opacity: 1;
+                transform: none;
+                filter: none;
+                animation: none;
+            }
+            .pitch-orbit-signal { display: none; }
+            .pitch-slide.is-active .pitch-ecosystem-path { animation: none; }
         }
     </style>
 </head>
@@ -2100,7 +3076,7 @@
                         </p>
                         <p class="hero-story-resolution hero-enter" style="--hero-delay: 2000ms">É exatamente isso que a 808Pay faz.</p>
                         <p class="hero-support hero-enter" style="--hero-delay: 2350ms">
-                            Crescemos ao seu lado, adaptando cada solução ao fluxo real da sua operação.
+                            Não vendemos apenas software. Construímos uma parceria transparente e adaptamos o ecossistema 808Pay à realidade de cada operação — para crescer com mais controle e menos risco.
                         </p>
                         <div class="hero-actions hero-enter" style="--hero-delay: 2850ms">
                             <button onclick="openLeadModal('Hero CTA')" class="hero-primary-cta group">
@@ -2114,7 +3090,7 @@
                         </div>
                         <div class="hero-trust-line hero-enter" style="--hero-delay: 3150ms">
                             <span>15 dias sem custo</span>
-                            <span>Sem contrato</span>
+                            <span>Implantação acompanhada</span>
                             <span>Sem equipamento novo</span>
                         </div>
                     </div>
@@ -2190,31 +3166,48 @@
                     </div>
                 </div>
 
-                <div class="hero-metrics hero-enter" style="--hero-delay: 3350ms">
-                    <div class="hero-metric">
-                        <div class="hero-metric-value">até +18%</div>
-                        <div class="hero-metric-label">no ticket médio, em média</div>
+                <div class="partnership-strip hero-enter" style="--hero-delay: 3350ms" aria-label="Como a parceria 808Pay funciona">
+                    <div class="partnership-item">
+                        <span class="partnership-index">01 · Entender</span>
+                        <strong>Antes de implantar, escutamos.</strong>
+                        <p>Mapeamos o fluxo, os gargalos e o momento real do estabelecimento.</p>
                     </div>
-                    <div class="hero-metric">
-                        <div class="hero-metric-value">até -50%</div>
-                        <div class="hero-metric-label">no tempo de espera em pico</div>
+                    <div class="partnership-item">
+                        <span class="partnership-index">02 · Adaptar</span>
+                        <strong>A operação não precisa recomeçar.</strong>
+                        <p>O ecossistema entra no ritmo existente, sem impor uma estrutura genérica.</p>
                     </div>
-                    <div class="hero-metric">
-                        <div class="hero-metric-value">≈ zero</div>
-                        <div class="hero-metric-label">erros de anotação na cozinha</div>
+                    <div class="partnership-item">
+                        <span class="partnership-index">03 · Acompanhar</span>
+                        <strong>Decisões claras, lado a lado.</strong>
+                        <p>Configuração, evolução e próximos passos com acompanhamento transparente.</p>
                     </div>
-                    <div class="hero-metric">
-                        <div class="hero-metric-value">Automático</div>
-                        <div class="hero-metric-label">confirmação do Pix, sem conferência manual</div>
+                    <div class="partnership-item">
+                        <span class="partnership-index">04 · Crescer</span>
+                        <strong>Evoluir com mais segurança.</strong>
+                        <p>Melhorias graduais reduzem rupturas e criam uma operação mais sólida.</p>
                     </div>
                 </div>
             </section>
             <!-- SIMULADOR VIVO — prova ao vivo integrada na página principal -->
-            <section id="section-simulador" class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8">
+            <section id="section-simulador" class="sim-awaiting-start w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8">
             <div class="sim-stage-header text-center space-y-2">
-                <span class="text-xs font-bold text-brand uppercase tracking-widest">Veja Funcionando</span>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Acompanhe um pedido do início ao fim, em tempo real</h2>
-                <p id="sim-intro-text" class="text-zinc-400 text-xs sm:text-sm">Monte um pedido, pague e veja a operação se organizar sozinha: a cozinha recebe, a senha é chamada, o cliente é avisado automaticamente e o dono vê tudo fechado no painel de gestão.</p>
+                <span class="text-xs font-bold text-brand uppercase tracking-widest">Simulação ao vivo e interativa</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">A tecnologia entra no seu fluxo — não o contrário.</h2>
+                <p id="sim-intro-text" class="text-zinc-400 text-xs sm:text-sm max-w-3xl mx-auto">Você inicia e acompanha tudo. Adicione um item no celular, conclua o pagamento e veja o pedido avançar pela cozinha, retirada e gestão em tempo real.</p>
+            </div>
+            <div class="sim-live-banner" aria-live="polite">
+                <div class="sim-live-signal">
+                    <span class="sim-live-dot" aria-hidden="true"></span>
+                    <div>
+                        <strong id="sim-live-state">A simulação está pronta para você</strong>
+                        <span id="sim-live-copy">Não é um vídeo: clique em “+ Adicionar” para colocar a operação em movimento.</span>
+                    </div>
+                </div>
+                <span class="sim-live-action">
+                    Comece no passo 1
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="m7 10 5 5 5-5"/></svg>
+                </span>
             </div>
             <!-- Mobile step progress (lg:hidden) -->
             <div id="sim-mobile-nav" class="lg:hidden flex items-center gap-1.5 px-1 overflow-x-auto">
@@ -2241,6 +3234,13 @@
                         </div>
                         <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded font-mono">Cliente</span>
                     </div>
+                    <div class="sim-start-callout">
+                        <span class="sim-start-number">1</span>
+                        <div>
+                            <strong>Comece aqui</strong>
+                            <small>Escolha um item e toque em “+ Adicionar”. Você controla a simulação.</small>
+                        </div>
+                    </div>
                     <div class="device-frame device-frame-phone mx-auto">
                         <span class="device-btn device-btn-power"></span>
                         <span class="device-btn device-btn-vol-up"></span>
@@ -2257,7 +3257,7 @@
                                             <p class="text-[10px] text-zinc-500">Pão brioche, 2x smash 90g, queijo cheddar</p>
                                             <span class="text-xs font-bold text-brand mt-1 block">R$ 32,90</span>
                                         </div>
-                                        <button onclick="addSimItem('808 Burger Duplo', 32.90)" class="px-4 py-2.5 sm:px-3 sm:py-1.5 bg-brand text-zinc-950 text-xs font-black rounded-lg hover:bg-brand-light transition-all min-h-[44px] sm:min-h-0">+ Add</button>
+                                        <button id="sim-first-add" onclick="addSimItem('808 Burger Duplo', 32.90)" class="px-4 py-2.5 sm:px-3 sm:py-1.5 bg-brand text-zinc-950 text-xs font-black rounded-lg hover:bg-brand-light transition-all min-h-[44px] sm:min-h-0">+ Adicionar</button>
                                     </div>
                                     <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/80 flex items-center justify-between">
                                         <div>
@@ -2265,7 +3265,7 @@
                                             <p class="text-[10px] text-zinc-500">Com molho especial e bacon crocante</p>
                                             <span class="text-xs font-bold text-brand mt-1 block">R$ 16,00</span>
                                         </div>
-                                        <button onclick="addSimItem('Batata Suprema', 16.00)" class="px-4 py-2.5 sm:px-3 sm:py-1.5 bg-brand text-zinc-950 text-xs font-black rounded-lg hover:bg-brand-light transition-all min-h-[44px] sm:min-h-0">+ Add</button>
+                                        <button onclick="addSimItem('Batata Suprema', 16.00)" class="px-4 py-2.5 sm:px-3 sm:py-1.5 bg-brand text-zinc-950 text-xs font-black rounded-lg hover:bg-brand-light transition-all min-h-[44px] sm:min-h-0">+ Adicionar</button>
                                     </div>
                                     <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/80 flex items-center justify-between">
                                         <div>
@@ -2273,7 +3273,7 @@
                                             <p class="text-[10px] text-zinc-500">Lata gelada</p>
                                             <span class="text-xs font-bold text-brand mt-1 block">R$ 7,50</span>
                                         </div>
-                                        <button onclick="addSimItem('Refrigerante 350ml', 7.50)" class="px-4 py-2.5 sm:px-3 sm:py-1.5 bg-brand text-zinc-950 text-xs font-black rounded-lg hover:bg-brand-light transition-all min-h-[44px] sm:min-h-0">+ Add</button>
+                                        <button onclick="addSimItem('Refrigerante 350ml', 7.50)" class="px-4 py-2.5 sm:px-3 sm:py-1.5 bg-brand text-zinc-950 text-xs font-black rounded-lg hover:bg-brand-light transition-all min-h-[44px] sm:min-h-0">+ Adicionar</button>
                                     </div>
                                 </div>
                                 <!-- Cart Summary -->
@@ -2421,72 +3421,98 @@
                 </div>
             </div>
         </section>
-        <!-- Antes/Depois — reforço após o Simulador -->
-        <section class="px-6 max-w-7xl mx-auto">
-            <div class="text-center space-y-3 mb-12">
-                <span class="text-xs font-bold text-brand tracking-widest uppercase">Raio-X da Operação</span>
-                <h2 class="text-3xl sm:text-5xl font-black text-white">O problema não é vender. É crescer sem perder o controle.</h2>
-                <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto">Compare a operação antes e depois de ter o fluxo organizado.</p>
+        <!-- Comparativo de fluxo — argumento central de conversão -->
+        <section class="flow-compare-section px-6 max-w-7xl mx-auto">
+            <div class="text-center space-y-3 mb-10 sm:mb-12">
+                <span class="text-xs font-bold text-brand tracking-widest uppercase">Do improviso ao ecossistema</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white max-w-5xl mx-auto">Software isolado resolve uma tela.<br class="hidden sm:block"> Parceria conecta a operação.</h2>
+                <p class="text-zinc-400 text-sm sm:text-base max-w-3xl mx-auto">A 808Pay não chega com uma fórmula pronta. Entendemos como seu estabelecimento funciona, conectamos os pontos certos e evoluímos o fluxo junto com você.</p>
             </div>
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Lado A: Sem 808Pay -->
-                <div class="bg-gradient-to-b from-red-950/20 to-zinc-950 p-6 sm:p-8 rounded-2xl border border-red-900/30 relative">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="w-3 h-3 rounded-full bg-red-500 animate-pulse"></span>
-                        <h3 class="text-lg font-bold text-red-200 uppercase tracking-wider">Antes: Operação no Limite</h3>
+
+            <div class="flow-compare-grid">
+                <article class="flow-compare-card flow-compare-card-fragmented">
+                    <span class="flow-card-status">Operação fragmentada</span>
+                    <h3>Cada etapa funciona.<br>Mas nenhuma conversa.</h3>
+                    <p>Ferramentas isoladas criam conferências manuais, perda de contexto e decisões tardias. O risco cresce junto com o movimento.</p>
+                    <div class="flow-map" aria-label="Fluxo fragmentado entre pedido, pagamento, produção, retirada e gestão">
+                        <svg viewBox="0 0 520 230" preserveAspectRatio="none" aria-hidden="true">
+                            <path class="fragment-line" d="M62 42 L220 112 L455 44 M220 112 L65 192 M220 112 L455 190"/>
+                            <path class="fragment-line" d="M125 18 L180 72 M356 78 L420 130 M150 173 L222 215"/>
+                        </svg>
+                        <span class="flow-map-node flow-node-one">Pedido</span>
+                        <span class="flow-map-node flow-node-two">Pagamento</span>
+                        <span class="flow-map-node flow-node-three">Produção</span>
+                        <span class="flow-map-node flow-node-four">Retirada</span>
+                        <span class="flow-map-node flow-node-five">Gestão</span>
+                        <span class="flow-friction flow-friction-one">conferência</span>
+                        <span class="flow-friction flow-friction-two">espera</span>
+                        <span class="flow-friction flow-friction-three">retrabalho</span>
                     </div>
-                    <ul class="space-y-4 text-sm text-zinc-400">
-                        <li class="flex items-start gap-3">
-                            <svg class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                            <span>Filas no balcão nos horários de pico, com clientes impacientes e equipe sob pressão.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <svg class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                            <span>Vendas de adicionais perdidas porque o atendente não tem tempo de oferecer.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <svg class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                            <span>Pedidos anotados à mão viram erro de preparo, desperdício e retrabalho na cozinha.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <svg class="w-5 h-5 text-red-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                            <span>Conferência manual de pagamento trava o caixa e atrasa toda a fila.</span>
-                        </li>
-                    </ul>
-                </div>
-                <!-- Lado B: Com 808Pay -->
-                <div class="bg-gradient-to-b from-zinc-900 via-zinc-900/90 to-brand-card p-6 sm:p-8 rounded-2xl border border-brand/30 neon-glow relative">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="w-3 h-3 rounded-full bg-brand"></span>
-                        <h3 class="text-lg font-bold text-brand uppercase tracking-wider">Depois: Crescimento sob Controle</h3>
+                    <div class="flow-outcomes">
+                        <div class="flow-outcome"><strong>Visão parcial</strong>Informações espalhadas entre pessoas e telas.</div>
+                        <div class="flow-outcome"><strong>Mais dependência</strong>A operação para quando alguém não confere.</div>
+                        <div class="flow-outcome"><strong>Risco invisível</strong>Problemas aparecem somente quando viram urgência.</div>
                     </div>
-                    <ul class="space-y-4 text-sm text-zinc-200">
-                        <li class="flex items-start gap-3">
-                            <svg class="w-5 h-5 text-brand shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                            <span>Cliente faz o próprio pedido, no seu tempo, sem fila e sem pressão.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <svg class="w-5 h-5 text-brand shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                            <span>Sugestões automáticas de adicionais aumentam o ticket médio em até 18%.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <svg class="w-5 h-5 text-brand shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                            <span>Pedido chega direto na cozinha, com observações exatas e zero erro de anotação.</span>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <svg class="w-5 h-5 text-brand shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                            <span>Pagamento confirmado e conferido automaticamente, sem depender de ninguém no caixa.</span>
-                        </li>
-                    </ul>
+                </article>
+
+                <article class="flow-compare-card flow-compare-card-connected">
+                    <span class="flow-card-status">Ecossistema 808Pay</span>
+                    <h3>Um fluxo contínuo.<br>Cada decisão visível.</h3>
+                    <p>Pedido, pagamento, produção, retirada e gestão compartilham o mesmo contexto. A tecnologia sustenta a evolução sem apagar a identidade da operação.</p>
+                    <div class="flow-map" aria-label="Fluxo conectado do ecossistema 808Pay">
+                        <svg viewBox="0 0 520 230" preserveAspectRatio="none" aria-hidden="true">
+                            <defs>
+                                <linearGradient id="flowConnectedGradient" x1="0" y1="0" x2="1" y2="1">
+                                    <stop offset="0%" stop-color="#22c55e" stop-opacity="0.35"/>
+                                    <stop offset="50%" stop-color="#bbf7d0" stop-opacity="0.95"/>
+                                    <stop offset="100%" stop-color="#22c55e" stop-opacity="0.45"/>
+                                </linearGradient>
+                            </defs>
+                            <path class="connected-line-base" d="M62 42 C160 16 370 16 455 44 C512 78 470 126 455 190 C358 220 160 220 65 192 C12 150 28 78 62 42"/>
+                            <path class="connected-line" d="M62 42 C160 16 370 16 455 44 C512 78 470 126 455 190 C358 220 160 220 65 192 C12 150 28 78 62 42"/>
+                            <circle class="connected-pulse" r="5">
+                                <animateMotion dur="6.5s" repeatCount="indefinite" path="M62 42 C160 16 370 16 455 44 C512 78 470 126 455 190 C358 220 160 220 65 192 C12 150 28 78 62 42"/>
+                            </circle>
+                        </svg>
+                        <span class="flow-map-node flow-node-one">Pedido</span>
+                        <span class="flow-map-node flow-node-two">Pagamento</span>
+                        <span class="flow-map-node flow-node-three">Produção</span>
+                        <span class="flow-map-node flow-node-four">Retirada</span>
+                        <span class="flow-map-node flow-node-five">Gestão</span>
+                    </div>
+                    <div class="flow-outcomes">
+                        <div class="flow-outcome"><strong>Clareza operacional</strong>O que acontece agora fica visível para decidir melhor.</div>
+                        <div class="flow-outcome"><strong>Adaptação real</strong>A solução respeita o ritmo e a maturidade do negócio.</div>
+                        <div class="flow-outcome"><strong>Evolução segura</strong>Cada melhoria reduz atrito sem criar uma nova ruptura.</div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="partnership-journey" aria-label="Etapas da parceria 808Pay">
+                <div class="partnership-journey-step"><span>Primeiro</span><strong>Entendemos sua operação</strong></div>
+                <svg class="partnership-journey-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-4-4 4 4-4 4"/></svg>
+                <div class="partnership-journey-step"><span>Depois</span><strong>Adaptamos o ecossistema</strong></div>
+                <svg class="partnership-journey-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-4-4 4 4-4 4"/></svg>
+                <div class="partnership-journey-step"><span>Sempre</span><strong>Evoluímos lado a lado</strong></div>
+            </div>
+
+            <div class="conversion-cta-panel">
+                <div>
+                    <strong>Antes de oferecer um plano, queremos entender o seu fluxo.</strong>
+                    <p>Uma conversa objetiva, sem compromisso e sem empurrar uma solução pronta.</p>
                 </div>
+                <button onclick="openLeadModal('Comparativo de Fluxo')" class="inline-flex shrink-0 items-center gap-2 px-6 py-3.5 bg-brand hover:bg-brand-light text-zinc-950 font-black rounded-xl text-sm transition-all shadow-lg shadow-brand/20 group">
+                    <span>Conversar sobre minha operação</span>
+                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0-7 7m7-7H3"/></svg>
+                </button>
             </div>
         </section>
             <!-- Planos & Preços -->
             <section class="px-6 max-w-7xl mx-auto space-y-12">
                 <div class="text-center space-y-3">
                     <span class="text-xs font-bold text-brand tracking-widest uppercase">Investimento Transparente</span>
-                    <h2 class="text-3xl sm:text-5xl font-black text-white">Escolha o plano certo para o momento do seu negócio</h2>
-                    <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto">Sem fidelidade forçada. Cancele quando quiser.</p>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white">Uma parceria que respeita o momento do seu negócio</h2>
+                    <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto">Investimento claro, implantação acompanhada e liberdade para evoluir sem fidelidade forçada.</p>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8">
                     <!-- Starter -->
@@ -2495,7 +3521,10 @@
                             <span class="text-xs font-bold text-zinc-500 uppercase tracking-widest">Iniciante</span>
                             <h3 class="text-2xl font-bold text-white">Starter</h3>
                             <p class="text-xs text-zinc-400">Ideal para cafeterias, docerias e pequenos balcões.</p>
-                            <div class="text-3xl font-black text-white">R$ 199 <span class="text-xs font-normal text-zinc-500">/mês</span></div>
+                            <div>
+                                <span class="block text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-1">A partir de</span>
+                                <div class="text-3xl font-black text-white">R$ 129 <span class="text-xs font-normal text-zinc-500">/mês</span></div>
+                            </div>
                             <ul class="space-y-2.5 text-xs text-zinc-300 pt-4 border-t border-zinc-800">
                                 <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Pedido no balcão sem fila (QR Code)</li>
                                 <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cardápio interativo com sugestões automáticas</li>
@@ -2511,7 +3540,7 @@
                             <span class="text-xs font-bold text-brand uppercase tracking-widest">Recomendado</span>
                             <h3 class="text-2xl font-bold text-white">Pro Kiosk</h3>
                             <p class="text-xs text-zinc-400">Para hamburguerias, restaurantes e operações de ritmo alto.</p>
-                            <div class="text-3xl font-black text-brand">R$ 399 <span class="text-xs font-normal text-zinc-400">/mês</span></div>
+                            <div class="text-3xl font-black text-brand">R$ 329 <span class="text-xs font-normal text-zinc-400">/mês</span></div>
                             <ul class="space-y-2.5 text-xs text-zinc-200 pt-4 border-t border-zinc-800">
                                 <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Tudo do Starter +</li>
                                 <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Autoatendimento completo por totem</li>
@@ -2541,10 +3570,11 @@
             <!-- Final CTA -->
             <section class="px-6 max-w-3xl mx-auto text-center pb-8">
                 <div class="bg-gradient-to-b from-zinc-900 to-zinc-950 border border-zinc-800 rounded-3xl p-8 sm:p-12 space-y-6">
-                    <h2 class="text-2xl sm:text-4xl font-black text-white leading-tight">Pronto para adaptar o 808Pay<br class="hidden sm:block"> ao seu fluxo?</h2>
-                    <p class="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto">15 dias sem custo, sem contrato, sem precisar comprar nenhum equipamento novo.</p>
+                    <span class="text-xs font-bold text-brand tracking-widest uppercase">O próximo passo é uma conversa</span>
+                    <h2 class="text-2xl sm:text-4xl font-black text-white leading-tight">Vamos construir um fluxo que<br class="hidden sm:block"> cresça junto com seu negócio?</h2>
+                    <p class="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto">Conhecemos sua operação, adaptamos o ecossistema e acompanhamos a implantação. Você testa por 15 dias, sem contrato e sem precisar comprar equipamento novo.</p>
                     <button onclick="openLeadModal('Final CTA')" class="inline-flex items-center gap-2 px-8 py-4 bg-brand hover:bg-brand-light text-zinc-950 font-black rounded-xl text-base transition-all shadow-xl shadow-brand/20 group">
-                        <span>Começar Agora — É Gratuito</span>
+                        <span>Quero conversar sobre minha operação</span>
                         <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </button>
                 </div>
@@ -2585,135 +3615,186 @@
                 </button>
             </div>
         </div>
-        <!-- VIEW 3: PITCH DECK SLIDE PRESENTATION MODE -->
-        <div id="view-pitch" class="hidden w-full h-[calc(100vh-65px)] flex flex-col justify-between relative bg-black overflow-hidden">
-            
-            <!-- Slide Progress Header -->
-            <div class="w-full px-6 py-3 flex items-center justify-between z-30 bg-zinc-950/80 border-b border-zinc-900">
-                <div class="flex items-center gap-2">
-                    <img src="/brand/808-flow-mark.svg" alt="" class="w-4 h-4">
-                    <span class="text-xs font-bold text-zinc-300 uppercase tracking-widest">808Pay · Pitch Deck</span>
+        <!-- VIEW 3: PITCH DECK COMERCIAL -->
+        <div id="view-pitch" class="hidden w-full h-[calc(100vh-65px)] flex flex-col justify-between relative overflow-hidden">
+            <div class="pitch-topbar w-full px-5 sm:px-6 py-3 flex items-center justify-between border-b">
+                <div class="flex items-center gap-2 shrink-0">
+                    <img src="/brand/808-flow-mark.svg" alt="" class="w-5 h-5">
+                    <span class="pitch-topbar-label text-[10px] font-bold text-zinc-300 uppercase tracking-[0.18em]">808Pay · Apresentação Comercial</span>
                 </div>
-                <div class="flex gap-1.5 flex-1 max-w-md mx-6" id="pitch-progress-bars">
-                    <!-- Progress bars generated via JS -->
-                </div>
-                <div class="text-xs font-mono text-zinc-500" id="pitch-slide-counter">
-                    01 / 05
+                <div class="pitch-progress-wrap flex gap-1.5 flex-1 max-w-md mx-6" id="pitch-progress-bars" aria-label="Navegação entre slides"></div>
+                <div class="flex items-center gap-3 shrink-0">
+                    <span class="text-[10px] font-mono text-zinc-500" id="pitch-slide-counter">01 / 07</span>
+                    <button type="button" onclick="switchView('landing')" class="text-[10px] font-bold text-zinc-500 hover:text-white transition-colors" aria-label="Voltar para a landing">Fechar</button>
                 </div>
             </div>
-            <!-- Slide Content Wrapper -->
+
             <div class="relative flex-1 w-full overflow-hidden">
-                <div class="absolute inset-0 flex slide-transition" id="pitch-wrapper" style="width: 500vw;">
-                    
-                    <!-- SLIDE 1 -->
-                    <section class="w-screen h-full flex flex-col justify-center px-6 md:px-24 relative bg-gradient-to-r from-black via-zinc-950 to-zinc-900">
-                        <div class="max-w-4xl space-y-6">
-                            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-zinc-900 border border-zinc-800 text-brand tracking-wider uppercase">
-                                Slide 01 — Diagnóstico Inicial
-                            </span>
-                            <h1 class="text-4xl md:text-7xl font-extrabold text-white tracking-tight leading-none">
-                                Seu negócio está <br><span class="text-brand">crescendo.</span>
-                            </h1>
-                            <p class="text-lg md:text-2xl font-light text-zinc-400 max-w-2xl">
-                                A pergunta é: sua operação está crescendo junto, ou só está aguentando o tranco?
-                            </p>
-                        </div>
-                    </section>
-                    <!-- SLIDE 2 -->
-                    <section class="w-screen h-full flex flex-col justify-center px-6 md:px-24 bg-zinc-950">
-                        <div class="max-w-5xl space-y-8">
-                            <span class="text-xs font-bold text-brand tracking-widest uppercase">Slide 02 — O Problema</span>
-                            <h2 class="text-3xl md:text-5xl font-extrabold text-white">
-                                O gargalo invisível do faturamento.
-                            </h2>
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div class="bg-zinc-900/40 border border-zinc-800 rounded-2xl p-6">
-                                    <h3 class="text-base font-bold text-red-400 mb-2">Fila do Caixa</h3>
-                                    <p class="text-xs text-zinc-400 leading-relaxed">Clientes desistem ao ver filas grandes nos horários de pico. Perda direta de vendas espontâneas.</p>
+                <div class="absolute inset-0 flex slide-transition" id="pitch-wrapper" style="width: 700vw;">
+                    <!-- 01 · Visão -->
+                    <section class="pitch-slide" data-pitch-label="Visão">
+                        <div class="pitch-slide-inner">
+                            <div class="pitch-layout">
+                                <div>
+                                    <span class="pitch-eyebrow pitch-reveal" style="--pitch-delay:80ms">808Pay · Inteligência operacional em movimento</span>
+                                    <h1 class="pitch-title pitch-reveal" style="--pitch-delay:170ms">Seu restaurante não precisa de <span class="pitch-accent">mais um sistema.</span></h1>
+                                    <p class="pitch-lead pitch-reveal" style="--pitch-delay:280ms">Precisa de um ecossistema que entenda seu jeito de funcionar, reduza riscos no presente e evolua junto com o negócio.</p>
+                                    <div class="pitch-chip-row pitch-reveal" style="--pitch-delay:390ms">
+                                        <span class="pitch-chip">Feito para o ritmo real</span>
+                                        <span class="pitch-chip">Adaptável por operação</span>
+                                        <span class="pitch-chip">Parceria de longo prazo</span>
+                                    </div>
                                 </div>
-                                <div class="bg-zinc-900/40 border border-zinc-800 rounded-2xl p-6">
-                                    <h3 class="text-base font-bold text-red-400 mb-2">Refugo de Cozinha</h3>
-                                    <p class="text-xs text-zinc-400 leading-relaxed">Anotações verbais ou manuais geram erros de preparo e custos extras invisíveis.</p>
+                                <div class="pitch-orbit pitch-visual-reveal" style="--pitch-delay:250ms" aria-hidden="true">
+                                    <div class="pitch-orbit-ring"></div>
+                                    <div class="pitch-orbit-core"><img src="/brand/808-flow-mark.svg" alt=""></div>
+                                    <span class="pitch-orbit-node">Pedido</span>
+                                    <span class="pitch-orbit-node">Pagamento</span>
+                                    <span class="pitch-orbit-node">Produção</span>
+                                    <span class="pitch-orbit-node">Retirada</span>
+                                    <span class="pitch-orbit-node">Gestão</span>
+                                    <span class="pitch-orbit-signal"></span>
                                 </div>
                             </div>
                         </div>
                     </section>
-                    <!-- SLIDE 3 -->
-                    <section class="w-screen h-full flex flex-col justify-center px-6 md:px-24 bg-zinc-950">
-                        <div class="max-w-5xl space-y-8">
-                            <span class="text-xs font-bold text-brand tracking-widest uppercase">Slide 03 — A Solução</span>
-                            <h2 class="text-3xl md:text-5xl font-extrabold text-white">
-                                Automação Fluida de Balcão.
-                            </h2>
-                            <div class="grid md:grid-cols-3 gap-6">
-                                <div class="bg-zinc-900/60 border border-brand/20 p-6 rounded-2xl">
-                                    <div class="text-brand font-black text-xl mb-2">01. Pedido sem Fila</div>
-                                    <p class="text-xs text-zinc-300">Cliente escolhe no próprio ritmo, com sugestão automática de adicionais (totem e QR Code).</p>
+
+                    <!-- 02 · Público -->
+                    <section class="pitch-slide" data-pitch-label="Seu negócio">
+                        <div class="pitch-slide-inner">
+                            <div class="pitch-layout">
+                                <div>
+                                    <span class="pitch-eyebrow pitch-reveal" style="--pitch-delay:70ms">Para quem vive o pico de verdade</span>
+                                    <h2 class="pitch-title pitch-title-medium pitch-reveal" style="--pitch-delay:160ms">Quando o movimento aumenta, <span class="pitch-accent">a operação não pode quebrar.</span></h2>
+                                    <p class="pitch-lead pitch-reveal" style="--pitch-delay:270ms">A 808Pay conversa diretamente com negócios de alimentação que precisam ganhar velocidade sem perder identidade, margem ou controle.</p>
+                                    <div class="pitch-audience-grid pitch-reveal" style="--pitch-delay:360ms">
+                                        <div class="pitch-audience-card"><strong>Hamburguerias e fast-casual</strong><span>Picos intensos, adicionais e produção em sequência.</span></div>
+                                        <div class="pitch-audience-card"><strong>Cafeterias e balcões</strong><span>Agilidade, recorrência e pouco espaço para fila.</span></div>
+                                        <div class="pitch-audience-card"><strong>Praças e food halls</strong><span>Retirada clara e múltiplos fluxos simultâneos.</span></div>
+                                        <div class="pitch-audience-card"><strong>Redes em crescimento</strong><span>Visibilidade e consistência sem engessar unidades.</span></div>
+                                    </div>
                                 </div>
-                                <div class="bg-zinc-900/60 border border-brand/20 p-6 rounded-2xl">
-                                    <div class="text-brand font-black text-xl mb-2">02. Cozinha Organizada</div>
-                                    <p class="text-xs text-zinc-300">Pedidos chegam por ordem cronológica, com observações exatas, direto no painel de produção (KDS).</p>
-                                </div>
-                                <div class="bg-zinc-900/60 border border-brand/20 p-6 rounded-2xl">
-                                    <div class="text-brand font-black text-xl mb-2">03. Retirada Automática</div>
-                                    <p class="text-xs text-zinc-300">Chamada de senha automatizada reduz o barulho e o tempo de balcão.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- SLIDE 4 -->
-                    <section class="w-screen h-full flex flex-col justify-center px-6 md:px-24 bg-zinc-950">
-                        <div class="max-w-5xl space-y-8">
-                            <span class="text-xs font-bold text-brand tracking-widest uppercase">Slide 04 — Impacto Financeiro</span>
-                            <h2 class="text-3xl md:text-5xl font-extrabold text-white">Resultados Medidos em 30 Dias.</h2>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                <div class="bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800">
-                                    <span class="text-3xl font-extrabold text-brand block">+18%</span>
-                                    <span class="text-xs text-zinc-400">Ticket Médio</span>
-                                </div>
-                                <div class="bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800">
-                                    <span class="text-3xl font-extrabold text-white block">-60%</span>
-                                    <span class="text-xs text-zinc-400">Tempo de Espera</span>
-                                </div>
-                                <div class="bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800">
-                                    <span class="text-3xl font-extrabold text-brand block">100%</span>
-                                    <span class="text-xs text-zinc-400">Pix Confirmado</span>
-                                </div>
-                                <div class="bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800">
-                                    <span class="text-3xl font-extrabold text-white block">0</span>
-                                    <span class="text-xs text-zinc-400">Filas Travadas</span>
+                                <div class="pitch-live-scene pitch-visual-reveal" style="--pitch-delay:220ms">
+                                    <div class="pitch-live-scene-head"><span>Operação · 18:42</span><span>Horário de pico</span></div>
+                                    <div class="pitch-live-events">
+                                        <div class="pitch-event" style="--event-delay:160ms"><span class="pitch-event-time">18:42:08</span><div><strong>Fila crescendo no caixa</strong>Equipe dividida entre atender e conferir.</div><em>atenção</em></div>
+                                        <div class="pitch-event" style="--event-delay:270ms"><span class="pitch-event-time">18:42:19</span><div><strong>Pix aguardando conferência</strong>O pedido ainda não chegou à produção.</div><em>espera</em></div>
+                                        <div class="pitch-event" style="--event-delay:380ms"><span class="pitch-event-time">18:42:41</span><div><strong>Cozinha pede confirmação</strong>Uma observação se perdeu no caminho.</div><em>retrabalho</em></div>
+                                        <div class="pitch-event" style="--event-delay:490ms"><span class="pitch-event-time">18:43:02</span><div><strong>Gestão sem visão do agora</strong>Os números só aparecem quando o pico termina.</div><em>risco</em></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </section>
-                    <!-- SLIDE 5 -->
-                    <section class="w-screen h-full flex flex-col justify-center px-6 md:px-24 bg-zinc-950">
-                        <div class="max-w-4xl space-y-8">
-                            <span class="text-xs font-bold text-brand tracking-widest uppercase">Slide 05 — Próximo Passo</span>
-                            <h2 class="text-4xl md:text-6xl font-black text-white uppercase">
-                                Menos caos.<br><span class="text-brand">Mais crescimento.</span>
-                            </h2>
-                            <p class="text-sm md:text-base text-zinc-400 max-w-xl">
-                                Experimente a plataforma 808Pay por 15 dias sem compromisso e veja a transformação na sua operação.
-                            </p>
-                            <button onclick="openLeadModal('Pitch Deck Slide 5')" class="px-8 py-4 bg-brand text-zinc-950 font-black rounded-xl text-sm transition-all hover:bg-brand-light shadow-xl shadow-brand/20">
-                                Começar Teste Grátis de 15 Dias
-                            </button>
+
+                    <!-- 03 · Fragmentação -->
+                    <section class="pitch-slide" data-pitch-label="Fragmentação">
+                        <div class="pitch-slide-inner">
+                            <span class="pitch-eyebrow pitch-reveal" style="--pitch-delay:70ms">O custo não está em uma tela</span>
+                            <h2 class="pitch-title pitch-title-medium pitch-reveal" style="--pitch-delay:160ms">Cinco etapas. <span class="pitch-accent">Cinco pontos de risco.</span></h2>
+                            <p class="pitch-lead pitch-reveal" style="--pitch-delay:260ms">Quando cada solução trabalha sozinha, pessoas viram integrações manuais. O crescimento adiciona volume — e também mais lugares para a operação falhar.</p>
+                            <div class="pitch-broken-flow pitch-visual-reveal" style="--pitch-delay:320ms">
+                                <div class="pitch-flow-stage"><b>01</b><strong>Pedido</strong><span>Informação nasce em um canal.</span></div>
+                                <div class="pitch-flow-stage"><b>02</b><strong>Pagamento</strong><span>Alguém precisa conferir.</span></div>
+                                <div class="pitch-flow-stage"><b>03</b><strong>Produção</strong><span>A cozinha recebe outro contexto.</span></div>
+                                <div class="pitch-flow-stage"><b>04</b><strong>Retirada</strong><span>Equipe e cliente procuram respostas.</span></div>
+                                <div class="pitch-flow-stage"><b>05</b><strong>Gestão</strong><span>O dado chega tarde para decidir.</span></div>
+                            </div>
+                            <div class="pitch-friction-row pitch-reveal" style="--pitch-delay:480ms">
+                                <span class="pitch-friction-tag">Conferência manual</span><span class="pitch-friction-tag">Retrabalho</span><span class="pitch-friction-tag">Dados dispersos</span><span class="pitch-friction-tag">Dependência de pessoas-chave</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 04 · Método -->
+                    <section class="pitch-slide" data-pitch-label="Parceria">
+                        <div class="pitch-slide-inner">
+                            <div class="pitch-layout">
+                                <div>
+                                    <span class="pitch-eyebrow pitch-reveal" style="--pitch-delay:70ms">O jeito 808Pay</span>
+                                    <h2 class="pitch-title pitch-title-medium pitch-reveal" style="--pitch-delay:150ms">Primeiro entendemos. <span class="pitch-accent">Depois conectamos.</span></h2>
+                                    <p class="pitch-lead pitch-reveal" style="--pitch-delay:250ms">Não impomos uma transformação brusca. Construímos uma evolução operacional com o empreendedor, respeitando o que já funciona e atacando o que limita o próximo passo.</p>
+                                    <div class="pitch-method-grid pitch-reveal" style="--pitch-delay:340ms">
+                                        <div class="pitch-method-card"><b>01</b><strong>Diagnóstico conjunto</strong><p>Mapeamos fluxo, gargalos, equipamentos e prioridades reais.</p></div>
+                                        <div class="pitch-method-card"><b>02</b><strong>Adaptação responsável</strong><p>Configuramos o ecossistema no ritmo e na maturidade da operação.</p></div>
+                                        <div class="pitch-method-card"><b>03</b><strong>Evolução acompanhada</strong><p>Apoiamos a equipe, observamos o uso e avançamos com transparência.</p></div>
+                                    </div>
+                                </div>
+                                <div class="pitch-manifesto pitch-visual-reveal" style="--pitch-delay:220ms">“A tecnologia é a consequência.<br><span class="text-brand">O crescimento saudável é o objetivo.</span>”</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 05 · Ecossistema -->
+                    <section class="pitch-slide" data-pitch-label="Ecossistema">
+                        <div class="pitch-slide-inner">
+                            <div class="pitch-layout">
+                                <div>
+                                    <span class="pitch-eyebrow pitch-reveal" style="--pitch-delay:70ms">Um único contexto operacional</span>
+                                    <h2 class="pitch-title pitch-title-medium pitch-reveal" style="--pitch-delay:155ms">Do pedido à gestão, <span class="pitch-accent">o fluxo continua.</span></h2>
+                                    <p class="pitch-lead pitch-reveal" style="--pitch-delay:255ms">Cada etapa recebe a informação de que precisa, no momento certo. O empreendedor deixa de apagar incêndios e passa a enxergar a operação enquanto ela acontece.</p>
+                                    <div class="pitch-value-list pitch-reveal" style="--pitch-delay:350ms">
+                                        <div class="pitch-value-item">O cliente inicia o pedido no próprio ritmo.</div>
+                                        <div class="pitch-value-item">O pagamento confirmado libera o próximo passo.</div>
+                                        <div class="pitch-value-item">A cozinha trabalha com prioridade e contexto.</div>
+                                        <div class="pitch-value-item">Retirada e gestão recebem o mesmo estado do pedido.</div>
+                                    </div>
+                                </div>
+                                <div class="pitch-ecosystem-map pitch-visual-reveal" style="--pitch-delay:220ms" aria-hidden="true">
+                                    <svg viewBox="0 0 560 430" preserveAspectRatio="none"><path class="pitch-ecosystem-path" d="M70 70 C200 12 405 20 490 75 C550 130 526 300 470 360 C335 420 160 410 72 350 C20 282 22 142 70 70"/></svg>
+                                    <div class="pitch-ecosystem-core"><img src="/brand/808-flow-mark.svg" alt=""></div>
+                                    <span class="pitch-map-label">01 · Pedido</span><span class="pitch-map-label">02 · Pagamento</span><span class="pitch-map-label">03 · Produção</span><span class="pitch-map-label">04 · Retirada</span><span class="pitch-map-label">05 · Gestão</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 06 · Risco e investimento -->
+                    <section class="pitch-slide" data-pitch-label="Segurança">
+                        <div class="pitch-slide-inner">
+                            <div class="pitch-layout">
+                                <div>
+                                    <span class="pitch-eyebrow pitch-reveal" style="--pitch-delay:70ms">Crescimento com menos risco</span>
+                                    <h2 class="pitch-title pitch-title-medium pitch-reveal" style="--pitch-delay:155ms">Comece pequeno. <span class="pitch-accent">Comprove. Evolua.</span></h2>
+                                    <p class="pitch-lead pitch-reveal" style="--pitch-delay:255ms">A parceria começa com clareza. Você conhece o fluxo, testa na realidade do estabelecimento e decide o próximo passo com informação — não com promessa.</p>
+                                    <div class="pitch-price-line pitch-reveal" style="--pitch-delay:360ms"><strong>Starter a partir de R$ 129</strong><span>Pro Kiosk · R$ 329/mês</span></div>
+                                </div>
+                                <div class="pitch-risk-grid pitch-visual-reveal" style="--pitch-delay:220ms">
+                                    <div class="pitch-risk-card"><b>15 dias</b><strong>Teste sem custo</strong><span>Veja o fluxo na prática antes de decidir.</span></div>
+                                    <div class="pitch-risk-card"><b>Seu ritmo</b><strong>Implantação acompanhada</strong><span>A equipe não fica sozinha na mudança.</span></div>
+                                    <div class="pitch-risk-card"><b>Sem ruptura</b><strong>Equipamentos atuais</strong><span>Aproveitamos a estrutura que já faz sentido.</span></div>
+                                    <div class="pitch-risk-card"><b>Transparência</b><strong>Sem fidelidade forçada</strong><span>Investimento e próximos passos sempre claros.</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 07 · Conversão -->
+                    <section class="pitch-slide" data-pitch-label="Próximo passo">
+                        <div class="pitch-slide-inner">
+                            <span class="pitch-eyebrow pitch-reveal" style="--pitch-delay:70ms">O começo de uma parceria</span>
+                            <h2 class="pitch-title pitch-reveal" style="--pitch-delay:155ms">A primeira decisão não é comprar. <span class="pitch-accent">É conversar.</span></h2>
+                            <p class="pitch-lead pitch-reveal" style="--pitch-delay:255ms">Conte como seu estabelecimento funciona. Nós mostramos onde o ecossistema pode reduzir atritos, proteger a operação e sustentar o próximo estágio de crescimento.</p>
+                            <div class="partnership-journey pitch-reveal" style="--pitch-delay:340ms">
+                                <div class="partnership-journey-step"><span>01 · Escuta</span><strong>Entendemos o cenário</strong></div>
+                                <svg class="partnership-journey-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-4-4 4 4-4 4"/></svg>
+                                <div class="partnership-journey-step"><span>02 · Proposta</span><strong>Desenhamos o fluxo</strong></div>
+                                <svg class="partnership-journey-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-4-4 4 4-4 4"/></svg>
+                                <div class="partnership-journey-step"><span>03 · Teste</span><strong>Validamos juntos</strong></div>
+                            </div>
+                            <div class="pitch-final-panel pitch-reveal" style="--pitch-delay:430ms">
+                                <div><strong>Vamos entender o seu fluxo?</strong><span>WhatsApp: (31) 9 9300-5806 · conversa objetiva e sem compromisso.</span></div>
+                                <button onclick="openLeadModal('Pitch Deck · Próximo Passo')" class="pitch-primary-cta group"><span>Conversar com a 808Pay</span><svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0-7 7m7-7H3"/></svg></button>
+                            </div>
                         </div>
                     </section>
                 </div>
             </div>
-            <!-- Slide Navigation Buttons Footer -->
-            <div class="w-full px-6 py-4 flex justify-between items-center bg-zinc-950 border-t border-zinc-900 z-30">
-                <button id="pitch-prev-btn" onclick="prevPitchSlide()" class="p-3 text-zinc-500 hover:text-white transition-all rounded-lg disabled:opacity-20" disabled>
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
-                </button>
-                <span class="text-[10px] uppercase tracking-widest text-zinc-600 font-bold hidden sm:block">
-                    Use as setas do teclado ou deslize para navegar
-                </span>
-                <button id="pitch-next-btn" onclick="nextPitchSlide()" class="p-3 text-zinc-300 hover:text-white transition-all rounded-lg">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                </button>
+
+            <div class="pitch-footer w-full px-5 sm:px-6 py-3 flex justify-between items-center border-t">
+                <button id="pitch-prev-btn" onclick="prevPitchSlide()" class="pitch-nav-button text-zinc-500 transition-all disabled:opacity-20" disabled aria-label="Slide anterior"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg></button>
+                <div class="text-center"><span id="pitch-current-label" class="block text-[10px] font-bold text-zinc-300 uppercase tracking-[0.15em]">Visão</span><span class="hidden sm:block mt-1 text-[9px] text-zinc-600">Setas, clique na barra ou deslize para navegar</span></div>
+                <button id="pitch-next-btn" onclick="nextPitchSlide()" class="pitch-nav-button text-zinc-300 transition-all" aria-label="Próximo slide"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg></button>
             </div>
         </div>
     </main>
@@ -2723,9 +3804,9 @@
             <button onclick="closeLeadModal()" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl font-bold">&times;</button>
             
             <div class="space-y-2">
-                <span class="text-xs font-bold text-brand uppercase tracking-widest">Atendimento Comercial</span>
-                <h3 class="text-xl font-extrabold text-white">Comece seu Teste Grátis de 15 Dias</h3>
-                <p class="text-xs text-zinc-400">Preencha seus dados e nossa equipe entra em contato para ativar o 808Pay no seu estabelecimento.</p>
+                <span class="text-xs font-bold text-brand uppercase tracking-widest">Primeiro, vamos ouvir</span>
+                <h3 class="text-xl font-extrabold text-white">Conte rapidamente sobre sua operação</h3>
+                <p class="text-xs text-zinc-400">Leva menos de 1 minuto. Um especialista entra em contato para entender seu fluxo antes de recomendar qualquer solução.</p>
             </div>
             <form onsubmit="submitLeadForm(event)" class="space-y-4 text-xs">
                 <div>
@@ -2738,11 +3819,14 @@
                 </div>
                 <div>
                     <label class="block text-zinc-300 font-semibold mb-1">WhatsApp de Contato:</label>
-                    <input type="tel" required id="lead-phone" placeholder="(11) 99999-9999" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-brand">
+                    <input type="tel" required id="lead-phone" placeholder="(31) 99999-9999" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-brand">
                 </div>
                 <button type="submit" class="w-full py-3.5 bg-brand hover:bg-brand-light text-zinc-950 font-black rounded-xl transition-all text-sm mt-2">
-                    Iniciar Contato no WhatsApp
+                    Conversar com um especialista no WhatsApp
                 </button>
+                <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] text-zinc-500">
+                    <span>Sem compromisso</span><span>•</span><span>Sem contrato</span><span>•</span><span>Seus dados não serão compartilhados</span>
+                </div>
             </form>
         </div>
     </div>
@@ -2754,12 +3838,16 @@
             const pitchView = document.getElementById('view-pitch');
             const btnPitch = document.getElementById('btn-tab-pitch');
             if (viewName === 'pitch') {
+                document.body.classList.add('pitch-mode');
                 landingView.classList.add('hidden');
                 pitchView.classList.remove('hidden');
                 if (btnPitch) btnPitch.className = "hidden sm:flex items-center gap-1.5 text-xs text-zinc-200 bg-zinc-800 transition-all font-medium px-3 py-1.5 rounded-lg";
-                updatePitchSlider();
                 currentPitchSlide = 0;
+                pitchSlides.forEach((slide) => slide.classList.remove('is-active'));
+                void pitchWrapper.offsetWidth;
+                updatePitchSlider();
             } else {
+                document.body.classList.remove('pitch-mode');
                 pitchView.classList.add('hidden');
                 landingView.classList.remove('hidden');
                 if (btnPitch) btnPitch.className = "hidden sm:flex items-center gap-1.5 text-xs text-zinc-500 hover:text-zinc-200 transition-all font-medium px-3 py-1.5 rounded-lg hover:bg-zinc-800/60";
@@ -2856,6 +3944,13 @@
         }
 
         function addSimItem(name, price) {
+            const simulatorSection = document.getElementById('section-simulador');
+            simulatorSection?.classList.remove('sim-awaiting-start');
+            simulatorSection?.classList.add('sim-started');
+            const liveState = document.getElementById('sim-live-state');
+            const liveCopy = document.getElementById('sim-live-copy');
+            if (liveState) liveState.textContent = 'Simulação iniciada por você';
+            if (liveCopy) liveCopy.textContent = 'Item adicionado. Agora conclua o Pix para acompanhar o fluxo até a gestão.';
             cartItems.push({ name, price });
             renderCart();
         }
@@ -3258,6 +4353,13 @@
         }
 
         function resetSimFlow() {
+            const simulatorSection = document.getElementById('section-simulador');
+            simulatorSection?.classList.remove('sim-started');
+            simulatorSection?.classList.add('sim-awaiting-start');
+            const liveState = document.getElementById('sim-live-state');
+            const liveCopy = document.getElementById('sim-live-copy');
+            if (liveState) liveState.textContent = 'A simulação está pronta para você';
+            if (liveCopy) liveCopy.textContent = 'Não é um vídeo: clique em “+ Adicionar” para colocar a operação em movimento.';
             simPixConfirmed = false;
             clearTimeout(simPixTimer);
             clearTimeout(simNotifyTimer);
@@ -3311,14 +4413,19 @@
         setSimPanelState('sim-panel-totem', 'processing');
 
         // 4. Pitch Deck Navigation
-        const totalPitchSlides = 5;
+        const totalPitchSlides = 7;
         let currentPitchSlide = 0;
         const pitchWrapper = document.getElementById('pitch-wrapper');
         const pitchBarsContainer = document.getElementById('pitch-progress-bars');
-        // Build bars
+        const pitchSlides = Array.from(document.querySelectorAll('.pitch-slide'));
+        let pitchTouchStartX = 0;
+        // Barras também funcionam como navegação direta.
         for (let i = 0; i < totalPitchSlides; i++) {
-            const bar = document.createElement('div');
-            bar.className = `h-1 flex-1 rounded-full bg-zinc-800 transition-all ${i === 0 ? 'bg-brand' : ''}`;
+            const bar = document.createElement('button');
+            bar.type = 'button';
+            bar.className = `pitch-progress-segment ${i === 0 ? 'is-active' : ''}`;
+            bar.setAttribute('aria-label', `Ir para o slide ${i + 1}: ${pitchSlides[i]?.dataset.pitchLabel || ''}`);
+            bar.addEventListener('click', () => goToPitchSlide(i));
             pitchBarsContainer.appendChild(bar);
         }
         function updatePitchSlider() {
@@ -3326,34 +4433,57 @@
             document.getElementById('pitch-slide-counter').textContent = `0${currentPitchSlide + 1} / 0${totalPitchSlides}`;
             document.getElementById('pitch-prev-btn').disabled = currentPitchSlide === 0;
             document.getElementById('pitch-next-btn').disabled = currentPitchSlide === totalPitchSlides - 1;
+            document.getElementById('pitch-current-label').textContent = pitchSlides[currentPitchSlide]?.dataset.pitchLabel || '';
             const bars = pitchBarsContainer.children;
             for (let i = 0; i < totalPitchSlides; i++) {
-                bars[i].className = `h-1 flex-1 rounded-full transition-all ${i <= currentPitchSlide ? 'bg-brand' : 'bg-zinc-800'}`;
+                bars[i].className = `pitch-progress-segment ${i < currentPitchSlide ? 'is-complete' : ''} ${i === currentPitchSlide ? 'is-active' : ''}`;
+                bars[i].setAttribute('aria-current', i === currentPitchSlide ? 'step' : 'false');
+                pitchSlides[i]?.classList.toggle('is-active', i === currentPitchSlide);
+                pitchSlides[i]?.setAttribute('aria-hidden', i === currentPitchSlide ? 'false' : 'true');
             }
+        }
+        function goToPitchSlide(index) {
+            if (index < 0 || index >= totalPitchSlides || index === currentPitchSlide) return;
+            currentPitchSlide = index;
+            updatePitchSlider();
         }
         function nextPitchSlide() {
-            if (currentPitchSlide < totalPitchSlides - 1) {
-                currentPitchSlide++;
-                updatePitchSlider();
-            }
+            goToPitchSlide(currentPitchSlide + 1);
         }
         function prevPitchSlide() {
-            if (currentPitchSlide > 0) {
-                currentPitchSlide--;
-                updatePitchSlider();
-            }
+            goToPitchSlide(currentPitchSlide - 1);
         }
+        pitchWrapper.addEventListener('touchstart', (event) => {
+            pitchTouchStartX = event.changedTouches[0]?.clientX || 0;
+        }, { passive: true });
+        pitchWrapper.addEventListener('touchend', (event) => {
+            const touchEndX = event.changedTouches[0]?.clientX || 0;
+            const delta = touchEndX - pitchTouchStartX;
+            if (Math.abs(delta) < 50) return;
+            if (delta < 0) nextPitchSlide();
+            else prevPitchSlide();
+        }, { passive: true });
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             const pitchView = document.getElementById('view-pitch');
             if (!pitchView.classList.contains('hidden')) {
-                if (e.key === 'ArrowRight' || e.key === ' ') nextPitchSlide();
-                if (e.key === 'ArrowLeft') prevPitchSlide();
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    nextPitchSlide();
+                }
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    prevPitchSlide();
+                }
+                if (e.key === 'Escape') switchView('landing');
             }
         });
         // 5. Lead Modal Handlers
+        let currentLeadSource = 'Landing Page';
         function openLeadModal(source) {
+            currentLeadSource = source || 'Landing Page';
             document.getElementById('lead-modal').classList.remove('hidden');
+            setTimeout(() => document.getElementById('lead-name')?.focus(), 120);
         }
         function closeLeadModal() {
             document.getElementById('lead-modal').classList.add('hidden');
@@ -3363,8 +4493,8 @@
             const name = document.getElementById('lead-name').value;
             const company = document.getElementById('lead-company').value;
             const phone = document.getElementById('lead-phone').value;
-            const msg = `Olá! Meu nome é ${name}, do estabelecimento ${company}. Quero começar o teste grátis de 15 dias do 808Pay. (Telefone: ${phone})`;
-            const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent(msg)}`;
+            const msg = `Olá! Meu nome é ${name}, do estabelecimento ${company}. Quero conversar sobre como o ecossistema 808Pay pode se adaptar à nossa operação e conhecer o teste de 15 dias. Meu telefone é ${phone}. Origem: ${currentLeadSource}.`;
+            const whatsappUrl = `https://wa.me/5531993005806?text=${encodeURIComponent(msg)}`;
             closeLeadModal();
             window.open(whatsappUrl, '_blank');
         }
