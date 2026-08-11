@@ -1460,6 +1460,14 @@
             background: #22c55e;
             box-shadow: 0 0 8px rgba(34,197,94,0.4);
         }
+        .hero-offer-copy {
+            max-width: 32rem;
+            margin-top: 0.7rem;
+            color: #a1a1aa;
+            font-size: 0.72rem;
+            font-weight: 650;
+            line-height: 1.5;
+        }
         .hero-product {
             position: relative;
             width: min(100%, 34rem);
@@ -2454,6 +2462,178 @@
             color: #8f8f99;
             font-size: 0.7rem;
         }
+
+        /* CRO: transparência, validação do teste e objeções */
+        .trust-bridge-card {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(20rem, 0.85fr);
+            gap: clamp(1.5rem, 4vw, 4rem);
+            overflow: hidden;
+            padding: clamp(1.5rem, 4vw, 3.25rem);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            border-radius: 2rem;
+            background:
+                radial-gradient(circle at 12% 10%, rgba(74,222,128,0.14), transparent 34%),
+                linear-gradient(135deg, rgba(20,32,24,0.92), rgba(9,9,11,0.96) 62%);
+            box-shadow: 0 40px 110px -78px rgba(34,197,94,0.75);
+        }
+        .trust-bridge-card::after {
+            content: '';
+            position: absolute;
+            right: -8rem;
+            bottom: -9rem;
+            width: 25rem;
+            height: 25rem;
+            border: 1px solid rgba(74,222,128,0.1);
+            border-radius: 50%;
+            box-shadow: 0 0 0 3rem rgba(74,222,128,0.025), 0 0 0 7rem rgba(74,222,128,0.015);
+            pointer-events: none;
+        }
+        .trust-bridge-copy,
+        .trust-bridge-facts { position: relative; z-index: 2; }
+        .trust-bridge-eyebrow,
+        .validation-eyebrow,
+        .faq-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            color: #4ade80;
+            font-size: 0.66rem;
+            font-weight: 850;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+        .trust-bridge-eyebrow::before,
+        .validation-eyebrow::before,
+        .faq-eyebrow::before {
+            content: '';
+            width: 1.25rem;
+            height: 1px;
+            background: currentColor;
+        }
+        .trust-bridge-copy h2 {
+            max-width: 42rem;
+            margin-top: 1rem;
+            color: #fafafa;
+            font-size: clamp(2rem, 4.2vw, 3.75rem);
+            font-weight: 900;
+            letter-spacing: -0.055em;
+            line-height: 0.98;
+            text-wrap: balance;
+        }
+        .trust-bridge-copy > p {
+            max-width: 40rem;
+            margin-top: 1.15rem;
+            color: #b4b4bc;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        .trust-bridge-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.55rem;
+            margin-top: 1.2rem;
+            color: #71717a;
+            font-size: 0.68rem;
+            line-height: 1.5;
+        }
+        .trust-bridge-note svg { flex: 0 0 auto; width: 0.9rem; margin-top: 0.1rem; color: #4ade80; }
+        .trust-bridge-facts {
+            display: grid;
+            align-content: center;
+            gap: 0.75rem;
+        }
+        .trust-fact {
+            padding: 1.15rem;
+            border: 1px solid rgba(255,255,255,0.075);
+            border-radius: 1.15rem;
+            background: rgba(9,9,11,0.58);
+            backdrop-filter: blur(14px);
+        }
+        .trust-fact span { color: #71717a; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
+        .trust-fact strong { display: block; margin-top: 0.48rem; color: #f4f4f5; font-size: 0.88rem; line-height: 1.45; }
+        .trust-fact-evolves { border-color: rgba(74,222,128,0.2); background: rgba(34,197,94,0.07); }
+        .trust-fact-evolves strong { color: #bbf7d0; }
+
+        .validation-section { position: relative; }
+        .validation-header { max-width: 48rem; margin: 0 auto; text-align: center; }
+        .validation-header h2,
+        .faq-header h2 {
+            margin-top: 0.9rem;
+            color: #fafafa;
+            font-size: clamp(2rem, 4vw, 3.35rem);
+            font-weight: 900;
+            letter-spacing: -0.05em;
+            line-height: 1.02;
+            text-wrap: balance;
+        }
+        .validation-header p,
+        .faq-header p { margin-top: 0.9rem; color: #8f8f99; font-size: 0.9rem; line-height: 1.65; }
+        .validation-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 0.85rem; margin-top: 2rem; }
+        .validation-card {
+            position: relative;
+            min-height: 12.5rem;
+            padding: 1.4rem;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.075);
+            border-radius: 1.4rem;
+            background: linear-gradient(150deg, rgba(24,24,27,0.82), rgba(9,9,11,0.92));
+        }
+        .validation-number { color: #4ade80; font-size: 0.64rem; font-weight: 900; letter-spacing: 0.14em; }
+        .validation-card strong { display: block; max-width: 18rem; margin-top: 2.6rem; color: #f4f4f5; font-size: 1rem; line-height: 1.45; }
+        .validation-card::after {
+            content: '';
+            position: absolute;
+            right: -2rem;
+            bottom: -3rem;
+            width: 8rem;
+            height: 8rem;
+            border: 1px solid rgba(74,222,128,0.12);
+            border-radius: 50%;
+        }
+        .validation-cta { display: flex; justify-content: center; margin-top: 1.2rem; }
+
+        .faq-layout { display: grid; grid-template-columns: minmax(16rem, 0.72fr) minmax(0, 1.28fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+        .faq-header { position: sticky; top: 6rem; }
+        .faq-list { display: grid; gap: 0.7rem; }
+        .faq-item {
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 1.1rem;
+            background: rgba(24,24,27,0.5);
+            transition: border-color 220ms ease, background-color 220ms ease;
+        }
+        .faq-item[open] { border-color: rgba(74,222,128,0.22); background: rgba(34,197,94,0.045); }
+        .faq-item summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            min-height: 4.5rem;
+            padding: 1rem 1.15rem;
+            color: #f4f4f5;
+            font-size: 0.9rem;
+            font-weight: 750;
+            cursor: pointer;
+            list-style: none;
+        }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-toggle {
+            position: relative;
+            flex: 0 0 auto;
+            width: 1.8rem;
+            height: 1.8rem;
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 50%;
+        }
+        .faq-toggle::before,
+        .faq-toggle::after { content: ''; position: absolute; top: 50%; left: 50%; width: 0.65rem; height: 1px; background: #4ade80; transform: translate(-50%,-50%); transition: transform 220ms ease; }
+        .faq-toggle::after { transform: translate(-50%,-50%) rotate(90deg); }
+        .faq-item[open] .faq-toggle::after { transform: translate(-50%,-50%) rotate(0deg); }
+        .faq-answer { padding: 0 1.15rem 1.2rem; color: #a1a1aa; font-size: 0.8rem; line-height: 1.7; }
+
+        .mobile-conversion-bar { display: none; }
+        body.pitch-mode .mobile-conversion-bar { display: none !important; }
         @media (max-width: 767px) {
             .partnership-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .partnership-item { min-height: 8rem; padding: 1rem; }
@@ -2478,6 +2658,58 @@
             .partnership-journey-arrow { transform: rotate(90deg); }
             .conversion-cta-panel { align-items: stretch; flex-direction: column; }
             .conversion-cta-panel button { width: 100%; justify-content: center; }
+            .trust-bridge-card { grid-template-columns: 1fr; border-radius: 1.5rem; }
+            .trust-bridge-copy h2 { font-size: 2.25rem; }
+            .validation-grid { grid-template-columns: 1fr; }
+            .validation-card { min-height: 10rem; }
+            .validation-card strong { margin-top: 1.9rem; }
+            .faq-layout { grid-template-columns: 1fr; }
+            .faq-header { position: static; text-align: center; }
+            .mobile-conversion-bar {
+                position: fixed;
+                z-index: 48;
+                right: 0.75rem;
+                bottom: max(0.75rem, env(safe-area-inset-bottom));
+                left: 0.75rem;
+                display: flex;
+                align-items: center;
+                gap: 0.7rem;
+                padding: 0.65rem;
+                border: 1px solid rgba(74,222,128,0.25);
+                border-radius: 1.05rem;
+                background: rgba(12,17,14,0.94);
+                box-shadow: 0 22px 60px -24px rgba(0,0,0,0.95), 0 0 32px -20px rgba(34,197,94,0.8);
+                backdrop-filter: blur(18px);
+                transform: translateY(calc(100% + 2rem));
+                opacity: 0;
+                pointer-events: none;
+                transition: transform 320ms cubic-bezier(0.16,1,0.3,1), opacity 220ms ease;
+            }
+            .mobile-conversion-bar.is-visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
+            .mobile-conversion-main {
+                display: flex;
+                flex: 1;
+                align-items: center;
+                justify-content: center;
+                min-height: 3.2rem;
+                padding: 0.75rem 1rem;
+                border-radius: 0.78rem;
+                color: #052e16;
+                background: linear-gradient(135deg, #4ade80, #22c55e);
+                font-size: 0.78rem;
+                font-weight: 900;
+                box-shadow: 0 14px 34px -20px rgba(34,197,94,0.8);
+            }
+            .mobile-conversion-close {
+                display: grid;
+                place-items: center;
+                flex: 0 0 auto;
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 0.75rem;
+                color: #71717a;
+                font-size: 1.15rem;
+            }
         }
 
         /* Pitch Deck comercial — narrativa, produto e conversão */
@@ -3028,6 +3260,9 @@
             }
             .pitch-orbit-signal { display: none; }
             .pitch-slide.is-active .pitch-ecosystem-path { animation: none; }
+            .mobile-conversion-bar,
+            .faq-item,
+            .faq-toggle::after { transition: none; }
         }
     </style>
 </head>
@@ -3079,8 +3314,8 @@
                             Não vendemos apenas software. Construímos uma parceria transparente e adaptamos o ecossistema 808Pay à realidade de cada operação — para crescer com mais controle e menos risco.
                         </p>
                         <div class="hero-actions hero-enter" style="--hero-delay: 2850ms">
-                            <button onclick="openLeadModal('Hero CTA')" class="hero-primary-cta group">
-                                <span class="relative z-10">Começar Teste Grátis de 15 Dias</span>
+                            <button id="hero-primary-cta" onclick="openLeadModal('Hero — Teste de 15 dias')" class="hero-primary-cta group">
+                                <span class="relative z-10">Quero testar a 808Pay por 15 dias</span>
                                 <svg class="relative z-10 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                             </button>
                             <button onclick="document.getElementById('section-simulador').scrollIntoView({behavior:'smooth'})" class="hero-secondary-cta group">
@@ -3088,6 +3323,7 @@
                                 <span>Ver a Operação Funcionando</span>
                             </button>
                         </div>
+                        <p class="hero-offer-copy hero-enter" style="--hero-delay: 3020ms">Planos a partir de R$ 129/mês · Sem fidelidade · Sem comissão adicionada pela 808Pay.</p>
                         <div class="hero-trust-line hero-enter" style="--hero-delay: 3150ms">
                             <span>15 dias sem custo</span>
                             <span>Implantação acompanhada</span>
@@ -3421,6 +3657,61 @@
                 </div>
             </div>
         </section>
+
+        <!-- Transparência comercial — quebra a objeção de troca e taxas -->
+        <section id="section-transparencia" class="trust-bridge-section px-4 sm:px-6 max-w-7xl mx-auto">
+            <article class="trust-bridge-card">
+                <div class="trust-bridge-copy">
+                    <span class="trust-bridge-eyebrow">Liberdade para continuar</span>
+                    <h2>Continue com a sua maquininha e as suas taxas.</h2>
+                    <p>A 808Pay organiza o fluxo sem obrigar você a trocar a forma como recebe. Continue usando a maquininha e as condições que já negociou. A 808Pay não adiciona comissão sobre as suas vendas.</p>
+                    <div class="trust-bridge-note">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 4.5h.008v.008H12v-.008z"/></svg>
+                        <span>As taxas da sua adquirente continuam seguindo o contrato que você já possui.</span>
+                    </div>
+                </div>
+                <div class="trust-bridge-facts" aria-label="O que permanece e o que evolui com a 808Pay">
+                    <div class="trust-fact">
+                        <span>O que permanece</span>
+                        <strong>Sua maquininha, sua adquirente e as condições que você já negociou.</strong>
+                    </div>
+                    <div class="trust-fact trust-fact-evolves">
+                        <span>O que evolui</span>
+                        <strong>Pedidos, produção, retirada e gestão passam a compartilhar o mesmo fluxo.</strong>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Validação honesta — substitui prova social fictícia -->
+        <section id="section-validacao" class="validation-section px-4 sm:px-6 max-w-7xl mx-auto">
+            <div class="validation-header">
+                <span class="validation-eyebrow">Teste antes de decidir</span>
+                <h2>O que você poderá validar nos primeiros 15 dias</h2>
+                <p>Você testa no ritmo real do estabelecimento, com acompanhamento da 808Pay, antes de decidir continuar.</p>
+            </div>
+            <div class="validation-grid">
+                <article class="validation-card">
+                    <span class="validation-number">01 · PEDIDO</span>
+                    <strong>Se o pedido chega à produção com menos etapas manuais.</strong>
+                </article>
+                <article class="validation-card">
+                    <span class="validation-number">02 · EQUIPE</span>
+                    <strong>Se cada pessoa identifica o status do pedido com mais clareza.</strong>
+                </article>
+                <article class="validation-card">
+                    <span class="validation-number">03 · GESTÃO</span>
+                    <strong>Se o gestor acompanha a operação em um único fluxo.</strong>
+                </article>
+            </div>
+            <div class="validation-cta">
+                <button onclick="openLeadModal('Validação — 15 dias')" class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-brand hover:bg-brand-light text-zinc-950 font-black rounded-xl text-sm transition-all shadow-xl shadow-brand/20 group">
+                    <span>Quero validar na minha operação</span>
+                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0-7 7m7-7H3"/></svg>
+                </button>
+            </div>
+        </section>
+
         <!-- Comparativo de fluxo — argumento central de conversão -->
         <section class="flow-compare-section px-6 max-w-7xl mx-auto">
             <div class="text-center space-y-3 mb-10 sm:mb-12">
@@ -3508,7 +3799,7 @@
             </div>
         </section>
             <!-- Planos & Preços -->
-            <section class="px-6 max-w-7xl mx-auto space-y-12">
+            <section id="section-planos" class="px-6 max-w-7xl mx-auto space-y-12">
                 <div class="text-center space-y-3">
                     <span class="text-xs font-bold text-brand tracking-widest uppercase">Investimento Transparente</span>
                     <h2 class="text-3xl sm:text-5xl font-black text-white">Uma parceria que respeita o momento do seu negócio</h2>
@@ -3567,8 +3858,37 @@
                     </div>
                 </div>
             </section>
+            <!-- FAQ — respostas para as objeções finais -->
+            <section id="section-faq" class="faq-section px-4 sm:px-6 max-w-6xl mx-auto">
+                <div class="faq-layout">
+                    <div class="faq-header">
+                        <span class="faq-eyebrow">Decida com clareza</span>
+                        <h2>Antes de começar, tire suas dúvidas</h2>
+                        <p>Respostas diretas sobre equipamentos, investimento e o início da parceria.</p>
+                    </div>
+                    <div class="faq-list">
+                        <details class="faq-item">
+                            <summary><span>Vou precisar trocar minha maquininha?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+                            <div class="faq-answer">Não. Você continua utilizando a maquininha e as condições que já negociou. A 808Pay organiza o fluxo do pedido e não obriga você a mudar a forma como recebe.</div>
+                        </details>
+                        <details class="faq-item">
+                            <summary><span>Quanto custa depois dos 15 dias?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+                            <div class="faq-answer">Os planos começam em R$ 129 por mês. Antes do teste, mostramos com clareza qual configuração atende sua operação e quanto ela custará, sem fidelidade ou cobranças escondidas.</div>
+                        </details>
+                        <details class="faq-item">
+                            <summary><span>Preciso comprar computadores ou telas novas?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+                            <div class="faq-answer">Na maioria das operações, não. A 808Pay foi desenvolvida para aproveitar celulares, tablets, computadores e TVs compatíveis que o estabelecimento já possui. Durante o entendimento inicial, avaliamos a estrutura disponível e indicamos somente o que for realmente necessário.</div>
+                        </details>
+                        <details class="faq-item">
+                            <summary><span>E se acontecer um problema durante o horário de pico?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+                            <div class="faq-answer">Durante a implantação, apresentamos os canais de atendimento, horários de suporte e procedimentos de contingência disponíveis para sua operação. Assim, sua equipe sabe exatamente como agir caso ocorra algum incidente.</div>
+                        </details>
+                    </div>
+                </div>
+            </section>
+
             <!-- Final CTA -->
-            <section class="px-6 max-w-3xl mx-auto text-center pb-8">
+            <section id="section-final-cta" class="px-6 max-w-3xl mx-auto text-center pb-8">
                 <div class="bg-gradient-to-b from-zinc-900 to-zinc-950 border border-zinc-800 rounded-3xl p-8 sm:p-12 space-y-6">
                     <span class="text-xs font-bold text-brand tracking-widest uppercase">O próximo passo é uma conversa</span>
                     <h2 class="text-2xl sm:text-4xl font-black text-white leading-tight">Vamos construir um fluxo que<br class="hidden sm:block"> cresça junto com seu negócio?</h2>
@@ -3580,6 +3900,11 @@
                 </div>
             </section>
         </div>
+        <!-- CTA de conversão contextual — exibido somente no mobile fora do Hero e do simulador -->
+        <aside id="mobile-conversion-bar" class="mobile-conversion-bar" aria-label="Começar teste da 808Pay">
+            <button type="button" class="mobile-conversion-main" onclick="openLeadModal('CTA Mobile — Teste de 15 dias')">Testar por 15 dias</button>
+            <button type="button" class="mobile-conversion-close" onclick="dismissMobileConversionBar()" aria-label="Fechar chamada para teste">&times;</button>
+        </aside>
         <!-- Mobile sticky cart bar (Simulador) -->
         <div id="sim-mobile-cart-bar" class="lg:hidden fixed bottom-0 left-0 right-0 z-40 translate-y-full transition-transform duration-300 bg-zinc-900/95 backdrop-blur-md border-t border-zinc-800 px-4 py-3 flex items-center gap-3" style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom));">
             <div class="flex-1 min-w-0">
@@ -3854,6 +4179,7 @@
                 resetSimFlow();
                 updateSimMobileView();
             }
+            requestAnimationFrame(() => window.updateMobileConversionBar?.());
         }
         // 3. Live Simulator Logic
         // Fluxo: 1 Menu (celular) -> 2 Pix (overlay) -> 3 Cozinha (KDS, estágios automáticos) -> 4 Senha (TV) -> 5 Pronto (celular) -> 6 Dashboard (notebook, fecha o fluxo) -> reinício automático
@@ -4482,12 +4808,50 @@
         let currentLeadSource = 'Landing Page';
         function openLeadModal(source) {
             currentLeadSource = source || 'Landing Page';
+            document.getElementById('mobile-conversion-bar')?.classList.remove('is-visible');
             document.getElementById('lead-modal').classList.remove('hidden');
             setTimeout(() => document.getElementById('lead-name')?.focus(), 120);
         }
         function closeLeadModal() {
             document.getElementById('lead-modal').classList.add('hidden');
+            window.updateMobileConversionBar?.();
         }
+
+        // CTA mobile contextual: aparece após a experiência do simulador e sai antes dos planos.
+        let mobileConversionDismissed = false;
+        let mobileConversionFrame = null;
+        function dismissMobileConversionBar() {
+            mobileConversionDismissed = true;
+            document.getElementById('mobile-conversion-bar')?.classList.remove('is-visible');
+        }
+        function updateMobileConversionBar() {
+            const bar = document.getElementById('mobile-conversion-bar');
+            const landing = document.getElementById('view-landing');
+            const simulator = document.getElementById('section-simulador');
+            const plans = document.getElementById('section-planos');
+            const modal = document.getElementById('lead-modal');
+            if (!bar || !landing || !simulator || !plans || !modal) return;
+
+            const isMobile = window.matchMedia('(max-width: 767px)').matches;
+            const simulatorFinished = simulator.getBoundingClientRect().bottom <= 0;
+            const plansApproaching = plans.getBoundingClientRect().top <= window.innerHeight * 0.82;
+            const landingActive = !landing.classList.contains('hidden') && !document.body.classList.contains('pitch-mode');
+            const modalClosed = modal.classList.contains('hidden');
+            const shouldShow = isMobile && simulatorFinished && !plansApproaching && landingActive && modalClosed && !mobileConversionDismissed;
+            bar.classList.toggle('is-visible', shouldShow);
+        }
+        window.updateMobileConversionBar = updateMobileConversionBar;
+        function queueMobileConversionUpdate() {
+            if (mobileConversionFrame) return;
+            mobileConversionFrame = requestAnimationFrame(() => {
+                mobileConversionFrame = null;
+                updateMobileConversionBar();
+            });
+        }
+        window.addEventListener('scroll', queueMobileConversionUpdate, { passive: true });
+        window.addEventListener('resize', queueMobileConversionUpdate, { passive: true });
+        updateMobileConversionBar();
+
         function submitLeadForm(e) {
             e.preventDefault();
             const name = document.getElementById('lead-name').value;
@@ -4577,22 +4941,29 @@
                     if (glow) glow.classList.add('hero-glow');
                 }
 
-                // sections[1] = Simulador Vivo (sem reveal automático — o simulador tem sua própria interação)
-                if (sections[2]) {
-                    reveal(sections[2].children[0], 0);
-                    const grid = sections[2].children[1];
-                    if (grid) Array.from(grid.children).forEach((card, i) => reveal(card, 120 + i * 100));
+                // O simulador possui interação própria; os blocos seguintes entram por evidência e objeção.
+                reveal(document.querySelector('.trust-bridge-card'), 0);
+                reveal(document.querySelector('.validation-header'), 0);
+                document.querySelectorAll('.validation-card').forEach((card, i) => reveal(card, 100 + i * 90));
+                reveal(document.querySelector('.validation-cta'), 340);
+
+                const flowSection = document.querySelector('.flow-compare-section');
+                if (flowSection) {
+                    reveal(flowSection.children[0], 0);
+                    flowSection.querySelectorAll('.flow-compare-card').forEach((card, i) => reveal(card, 100 + i * 100));
+                    reveal(flowSection.querySelector('.partnership-journey'), 260);
+                    reveal(flowSection.querySelector('.conversion-cta-panel'), 320);
                 }
 
-                if (sections[3]) {
-                    reveal(sections[3].children[0], 0);
-                    const grid = sections[3].children[1];
-                    if (grid) Array.from(grid.children).forEach((card, i) => reveal(card, 120 + i * 90));
+                const plansSection = document.getElementById('section-planos');
+                if (plansSection) {
+                    reveal(plansSection.children[0], 0);
+                    plansSection.querySelectorAll('.grid > div').forEach((card, i) => reveal(card, 100 + i * 90));
                 }
 
-                if (sections[4]) {
-                    reveal(sections[4].children[0], 0);
-                }
+                reveal(document.querySelector('.faq-header'), 0);
+                document.querySelectorAll('.faq-item').forEach((item, i) => reveal(item, 80 + i * 70));
+                reveal(document.querySelector('#section-final-cta > div'), 0);
             }
 
             // ---- 4. Hover Premium: marca os cards elegíveis para o realce definido em CSS (.premium-card) ----
@@ -4601,8 +4972,7 @@
                 const metricsGrid = hero.querySelector('.grid.grid-cols-2');
                 if (metricsGrid) premiumCards.push(...metricsGrid.children);
             }
-            if (sections[2] && sections[2].children[1]) premiumCards.push(...sections[2].children[1].children);
-            if (sections[3] && sections[3].children[1]) premiumCards.push(...sections[3].children[1].children);
+            premiumCards.push(...document.querySelectorAll('.validation-card, .flow-compare-card, #section-planos .grid > div'));
             premiumCards.forEach((el) => el && el.classList.add('premium-card'));
 
             // Métricas do Hero exibem valores textuais (ex: "≈ zero", "Automático") — sem count-up
