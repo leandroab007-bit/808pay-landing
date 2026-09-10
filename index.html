@@ -510,7 +510,13 @@
             font-weight: 850;
             letter-spacing: 0.08em;
             text-transform: uppercase;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
         }
+        .sim-live-action:hover { color: #bbf7d0; }
+        .sim-live-action:focus-visible { outline: 2px solid rgba(74,222,128,0.72); outline-offset: 0.35rem; border-radius: 0.3rem; }
         .sim-live-action svg {
             width: 1rem;
             height: 1rem;
@@ -1750,10 +1756,10 @@
             line-height: 1.4;
         }
         .hero-enter {
-            animation: heroEnter 800ms cubic-bezier(0.16,1,0.3,1) var(--hero-delay, 0ms) both;
+            animation: heroEnter 560ms cubic-bezier(0.16,1,0.3,1) var(--hero-delay, 0ms) both;
         }
         .hero-product-enter {
-            animation: heroProductIn 1100ms cubic-bezier(0.16,1,0.3,1) 320ms both;
+            animation: heroProductIn 760ms cubic-bezier(0.16,1,0.3,1) 140ms both;
         }
         @keyframes heroEnter {
             from { opacity: 0; transform: translateY(18px); filter: blur(5px); }
@@ -1932,7 +1938,8 @@
             overflow: visible;
         }
         .hero-route-base,
-        .hero-route-active {
+        .hero-route-active,
+        .hero-route-signal {
             fill: none;
             stroke-linecap: round;
             stroke-linejoin: round;
@@ -1949,9 +1956,20 @@
             filter: url(#heroRouteGlow);
             animation: heroRouteDraw 4.2s cubic-bezier(0.16,1,0.3,1) 500ms both;
         }
+        .hero-route-signal {
+            stroke: #d1fae5;
+            stroke-width: 3.2;
+            stroke-dasharray: 74 1076;
+            stroke-dashoffset: 1150;
+            opacity: 0;
+            filter: url(#heroRouteGlow);
+            animation: heroRouteSignal 12s cubic-bezier(0.45,0,0.55,1) 4.8s infinite;
+        }
         .hero-route-pulse {
             fill: #d1fae5;
+            opacity: 0;
             filter: drop-shadow(0 0 7px rgba(74,222,128,0.95));
+            animation: heroRoutePulseVisibility 12s ease 4.8s infinite;
         }
         .hero-flow-core {
             position: absolute;
@@ -2000,6 +2018,7 @@
                 0 18px 42px -24px rgba(0,0,0,0.95),
                 0 0 36px rgba(34,197,94,0.13);
             backdrop-filter: blur(16px);
+            animation: heroCoreFlowAck 12s cubic-bezier(0.16,1,0.3,1) 13.4s infinite;
         }
         .hero-core-mark::after {
             content: '';
@@ -2036,6 +2055,7 @@
             gap: 0.7rem;
             opacity: 0;
             animation: heroStationIn 850ms cubic-bezier(0.16,1,0.3,1) var(--station-delay) both;
+            --flow-delay: 4.8s;
         }
         .hero-station-index {
             position: absolute;
@@ -2063,6 +2083,7 @@
                 0 15px 34px -22px rgba(0,0,0,0.95),
                 0 0 0 4px rgba(34,197,94,0.025);
             backdrop-filter: blur(14px);
+            animation: heroStationLive 12s cubic-bezier(0.16,1,0.3,1) var(--flow-delay) infinite;
         }
         .hero-station-icon::before {
             content: '';
@@ -2075,7 +2096,7 @@
             background: #4ade80;
             box-shadow: 0 0 11px rgba(74,222,128,0.82);
             transform: translate(-50%, -50%) scale(0);
-            animation: heroStationPulse 700ms cubic-bezier(0.16,1,0.3,1) calc(var(--station-delay) + 260ms) both;
+            animation: heroStationSignal 12s cubic-bezier(0.16,1,0.3,1) var(--flow-delay) infinite;
         }
         .hero-station-icon svg {
             position: relative;
@@ -2099,6 +2120,7 @@
             font-size: 0.7rem;
             font-weight: 720;
             letter-spacing: -0.025em;
+            animation: heroStationCopyLive 12s ease var(--flow-delay) infinite;
         }
         .hero-station-copy small {
             margin-top: 0.16rem;
@@ -2121,6 +2143,17 @@
             18% { opacity: 1; }
             to { stroke-dashoffset: 0; opacity: 0.9; }
         }
+        @keyframes heroRouteSignal {
+            0% { stroke-dashoffset: 1150; opacity: 0; }
+            4% { opacity: 1; }
+            88% { opacity: 1; }
+            96%, 100% { stroke-dashoffset: 0; opacity: 0; }
+        }
+        @keyframes heroRoutePulseVisibility {
+            0%, 2% { opacity: 0; }
+            5%, 88% { opacity: 1; }
+            96%, 100% { opacity: 0; }
+        }
         @keyframes heroCoreOrbitIn {
             from { opacity: 0; transform: scale(0.72) rotate(-18deg); }
             to { opacity: 1; transform: scale(1) rotate(0); }
@@ -2129,10 +2162,22 @@
             from { opacity: 0; transform: translateY(12px) scale(0.92); filter: blur(5px); }
             to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
         }
-        @keyframes heroStationPulse {
-            0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
-            45% { opacity: 1; transform: translate(-50%, -50%) scale(4.2); }
-            100% { opacity: 0; transform: translate(-50%, -50%) scale(6); }
+        @keyframes heroStationSignal {
+            0%, 15%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+            4% { opacity: 1; transform: translate(-50%, -50%) scale(3.3); }
+            9% { opacity: 0; transform: translate(-50%, -50%) scale(6); }
+        }
+        @keyframes heroStationLive {
+            0%, 15%, 100% { border-color: rgba(255,255,255,0.1); box-shadow: 0 1px 0 rgba(255,255,255,0.075) inset, 0 15px 34px -22px rgba(0,0,0,0.95), 0 0 0 4px rgba(34,197,94,0.025); transform: translateY(0) scale(1); }
+            4%, 8% { border-color: rgba(134,239,172,0.46); box-shadow: 0 1px 0 rgba(255,255,255,0.12) inset, 0 18px 38px -20px rgba(0,0,0,0.95), 0 0 28px rgba(34,197,94,0.22); transform: translateY(-2px) scale(1.035); }
+        }
+        @keyframes heroStationCopyLive {
+            0%, 15%, 100% { color: #f4f4f5; text-shadow: none; }
+            4%, 8% { color: #bbf7d0; text-shadow: 0 0 18px rgba(74,222,128,0.34); }
+        }
+        @keyframes heroCoreFlowAck {
+            0%, 15%, 100% { transform: scale(1); box-shadow: 0 1px 0 rgba(255,255,255,0.1) inset, 0 18px 42px -24px rgba(0,0,0,0.95), 0 0 36px rgba(34,197,94,0.13); }
+            4%, 8% { transform: scale(1.045); box-shadow: 0 1px 0 rgba(255,255,255,0.14) inset, 0 20px 48px -22px rgba(0,0,0,0.95), 0 0 46px rgba(34,197,94,0.28); }
         }
         @media (max-width: 1023px) {
             .hero-product { width: min(100%, 31rem); }
@@ -3240,8 +3285,12 @@
                 filter: none;
             }
             .hero-route-active,
+            .hero-route-signal,
             .hero-core-orbit,
+            .hero-core-mark,
             .hero-station,
+            .hero-station-icon,
+            .hero-station-copy strong,
             .hero-station-icon::before {
                 animation: none;
                 opacity: 1;
@@ -3264,12 +3313,226 @@
             .faq-item,
             .faq-toggle::after { transition: none; }
         }
+
+        /* ===== Revisão de clareza e conversão — camada incremental ===== */
+        html { scroll-behavior: smooth; }
+        #section-simulador,
+        #section-validacao,
+        #section-planos,
+        #section-faq { scroll-margin-top: 6.5rem; }
+        :where(a, button, input, summary):focus-visible {
+            outline: 3px solid rgba(74, 222, 128, 0.72);
+            outline-offset: 3px;
+        }
+        .site-nav-link {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            color: #a1a1aa;
+            font-size: 0.76rem;
+            font-weight: 700;
+            transition: color 180ms ease;
+        }
+        .site-nav-link:hover { color: #f4f4f5; }
+        .hero-offer-line {
+            margin-top: 1rem;
+            max-width: 36rem;
+            padding: 0.8rem 0.95rem;
+            border-left: 2px solid #4ade80;
+            border-radius: 0 0.75rem 0.75rem 0;
+            color: #d4d4d8;
+            background: rgba(24,24,27,0.46);
+            font-size: 0.78rem;
+            font-weight: 620;
+            line-height: 1.55;
+        }
+        .hero-offer-line strong { color: #f4f4f5; font-weight: 850; }
+        .hero-product-preview {
+            position: absolute;
+            inset: 8% 1% 7% 2%;
+            display: grid;
+            grid-template-columns: minmax(10.5rem, 0.9fr) minmax(13rem, 1.1fr);
+            align-items: center;
+            gap: clamp(0.75rem, 2vw, 1.2rem);
+            padding: clamp(1rem, 2vw, 1.45rem);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1.75rem;
+            background: linear-gradient(145deg, rgba(24,24,27,0.94), rgba(9,9,11,0.98));
+            box-shadow: 0 42px 100px -45px #000, 0 28px 80px -48px rgba(34,197,94,0.62), 0 1px 0 rgba(255,255,255,0.08) inset;
+        }
+        .hero-product-preview::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 42% 52%, rgba(34,197,94,0.12), transparent 36%);
+            pointer-events: none;
+        }
+        .hero-preview-label {
+            position: absolute;
+            top: 1rem;
+            left: 1.15rem;
+            z-index: 3;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            color: #a1a1aa;
+            font-size: 0.58rem;
+            font-weight: 850;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+        .hero-preview-label::before { content: ''; width: 0.42rem; height: 0.42rem; border-radius: 50%; background: #4ade80; box-shadow: 0 0 12px rgba(74,222,128,0.72); }
+        .hero-preview-phone {
+            position: relative;
+            z-index: 2;
+            width: min(100%, 12rem);
+            justify-self: center;
+            margin-top: 1.7rem;
+            padding: 0.45rem;
+            border: 1px solid rgba(255,255,255,0.16);
+            border-radius: 1.7rem;
+            background: linear-gradient(150deg, #34343a, #111115 38%, #050506);
+            box-shadow: 0 28px 52px -28px #000, 0 0 0 1px rgba(255,255,255,0.04) inset;
+            transform: rotateY(2deg);
+        }
+        .hero-preview-phone-screen { position: relative; min-height: 18rem; padding: 2rem 0.8rem 0.8rem; border-radius: 1.3rem; background: #0b0b0e; }
+        .hero-preview-phone-screen::before { content: ''; position: absolute; top: 0.75rem; left: 50%; width: 2.8rem; height: 0.45rem; border-radius: 999px; background: #020203; transform: translateX(-50%); }
+        .hero-preview-brand { color: #f4f4f5; font-size: 0.74rem; font-weight: 850; }
+        .hero-preview-muted { margin-top: 0.25rem; color: #a1a1aa; font-size: 0.58rem; }
+        .hero-preview-product-card { margin-top: 1rem; padding: 0.65rem; border: 1px solid rgba(255,255,255,0.08); border-radius: 0.8rem; background: #111115; }
+        .hero-preview-product-card strong { display: block; color: #fafafa; font-size: 0.72rem; }
+        .hero-preview-product-card span { display: block; margin-top: 0.25rem; color: #4ade80; font-size: 0.64rem; font-weight: 800; }
+        .hero-preview-product-card small { display: block; margin-top: 0.45rem; color: #a1a1aa; font-size: 0.56rem; line-height: 1.45; }
+        .hero-preview-order-button { width: 100%; margin-top: 0.7rem; padding: 0.55rem; border-radius: 0.65rem; background: #4ade80; color: #052e16; font-size: 0.56rem; font-weight: 900; text-align: center; }
+        .hero-preview-real-screen { height: 20rem; min-height: 0; padding: 0; overflow: hidden; }
+        .hero-preview-real-screen::before { display: none; }
+        .hero-preview-real-screen img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+        .hero-preview-kds {
+            position: relative;
+            z-index: 2;
+            min-height: 16.5rem;
+            margin-top: 1.7rem;
+            padding: 1rem;
+            border: 1px solid rgba(255,255,255,0.11);
+            border-radius: 1.1rem;
+            background: #0a0a0d;
+            box-shadow: 0 28px 58px -36px #000;
+        }
+        .hero-preview-kds-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .hero-preview-kds-head strong { color: #f4f4f5; font-size: 0.76rem; }
+        .hero-preview-live { color: #4ade80; font-size: 0.54rem; font-weight: 850; text-transform: uppercase; }
+        .hero-preview-ticket { margin-top: 1rem; padding: 0.85rem; border: 1px solid rgba(74,222,128,0.2); border-radius: 0.8rem; background: rgba(34,197,94,0.055); }
+        .hero-preview-ticket-top { display: flex; justify-content: space-between; gap: 0.6rem; color: #f4f4f5; font-size: 0.7rem; font-weight: 850; }
+        .hero-preview-ticket-top span { color: #fbbf24; font-size: 0.52rem; text-transform: uppercase; }
+        .hero-preview-ticket ul { margin-top: 0.75rem; display: grid; gap: 0.42rem; color: #d4d4d8; font-size: 0.62rem; }
+        .hero-preview-caption { position: absolute; right: 1rem; top: 1rem; z-index: 3; color: #d4d4d8; font-size: 0.62rem; font-weight: 750; }
+        .hero-preview-flow { position: absolute; right: 1rem; bottom: 0.9rem; left: 1rem; z-index: 3; display: flex; align-items: center; justify-content: center; gap: 0.45rem; color: #71717a; font-size: 0.52rem; font-weight: 750; }
+        .hero-preview-flow i { width: 1.8rem; height: 1px; background: linear-gradient(90deg, rgba(74,222,128,0.15), #4ade80); }
+        .sim-mode-switcher {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.8rem;
+            padding: 0.85rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 1.1rem;
+            background: rgba(24,24,27,0.58);
+        }
+        .sim-mode-actions { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+        .sim-mode-button,
+        .sim-playback-button {
+            min-height: 44px;
+            padding: 0.65rem 0.9rem;
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 0.75rem;
+            color: #d4d4d8;
+            background: rgba(9,9,11,0.74);
+            font-size: 0.72rem;
+            font-weight: 800;
+        }
+        .sim-mode-button.is-active { border-color: rgba(74,222,128,0.38); color: #052e16; background: #4ade80; }
+        .sim-mode-button.is-active::before { content: '✓'; margin-right: 0.35rem; font-weight: 950; }
+        .sim-demo-disclosure { display: flex; align-items: center; gap: 0.45rem; color: #a1a1aa; font-size: 0.68rem; font-weight: 650; }
+        .sim-demo-disclosure::before { content: ''; width: 0.4rem; height: 0.4rem; border-radius: 50%; background: #fbbf24; }
+        .sim-playback-controls { display: none; flex-wrap: wrap; align-items: center; gap: 0.55rem; }
+        .sim-playback-controls.is-visible { display: flex; }
+        .sim-playback-status { color: #a1a1aa; font-size: 0.68rem; }
+        #section-simulador.sim-preview-ready .sim-start-callout { display: none; }
+        #section-simulador.sim-preview-ready .sim-panel button { pointer-events: none; }
+        #section-simulador.sim-guided-running .sim-panel button { pointer-events: none; }
+        .sim-preview-order { width: 100%; padding: 1rem; border: 1px solid rgba(74,222,128,0.18); border-radius: 1rem; background: rgba(34,197,94,0.05); text-align: left; }
+        .sim-preview-order span { color: #4ade80; font-size: 0.62rem; font-weight: 850; letter-spacing: 0.1em; text-transform: uppercase; }
+        .sim-preview-order strong { display: block; margin-top: 0.6rem; color: #f4f4f5; font-size: 0.86rem; }
+        .sim-preview-order p { margin-top: 0.3rem; color: #a1a1aa; font-size: 0.7rem; line-height: 1.5; }
+        .sim-plan-scope { color: #a1a1aa; font-size: 0.7rem; line-height: 1.5; text-align: center; }
+        .sim-plan-scope strong { color: #d4d4d8; }
+        .commercial-facts { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0.65rem; margin-top: 1rem; }
+        .commercial-fact { padding: 0.9rem; border: 1px solid rgba(255,255,255,0.075); border-radius: 0.9rem; background: rgba(9,9,11,0.55); }
+        .commercial-fact span { color: #71717a; font-size: 0.58rem; font-weight: 850; letter-spacing: 0.1em; text-transform: uppercase; }
+        .commercial-fact strong { display: block; margin-top: 0.35rem; color: #e4e4e7; font-size: 0.74rem; line-height: 1.45; }
+        .implementation-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 0.75rem; margin-top: 2rem; }
+        .implementation-card { min-height: 10rem; padding: 1.25rem; border: 1px solid rgba(255,255,255,0.075); border-radius: 1.2rem; background: linear-gradient(150deg,rgba(24,24,27,0.8),rgba(9,9,11,0.92)); }
+        .implementation-card span { color: #4ade80; font-size: 0.62rem; font-weight: 900; letter-spacing: 0.13em; }
+        .implementation-card strong { display: block; margin-top: 1.7rem; color: #f4f4f5; font-size: 0.9rem; }
+        .implementation-card p { margin-top: 0.45rem; color: #8f8f99; font-size: 0.72rem; line-height: 1.55; }
+        .plan-conditions { max-width: 48rem; margin: -1.5rem auto 0; padding: 0.9rem 1rem; border: 1px solid rgba(255,255,255,0.075); border-radius: 1rem; color: #a1a1aa; background: rgba(24,24,27,0.42); font-size: 0.75rem; line-height: 1.55; text-align: center; }
+        .landing-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.5rem clamp(1.5rem,5vw,4rem); border-top: 1px solid rgba(255,255,255,0.07); color: #71717a; font-size: 0.7rem; }
+        .landing-footer button,
+        .landing-footer a { min-height: 44px; display: inline-flex; align-items: center; color: #a1a1aa; font-weight: 750; }
+        .landing-footer-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
+        .lead-field-error { min-height: 1rem; margin-top: 0.35rem; color: #fca5a5; font-size: 0.68rem; }
+        .flow-outcomes { grid-template-columns: repeat(2,minmax(0,1fr)); }
+        .flow-compare-card { min-height: auto; }
+        .flow-example-list { display: grid; gap: 0.55rem; margin-top: 1.4rem; }
+        .flow-example-row { display: grid; grid-template-columns: 5.5rem minmax(0,1fr); gap: 0.8rem; align-items: center; min-height: 3.2rem; padding: 0.65rem 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+        .flow-example-row span { color: #71717a; font-size: 0.6rem; font-weight: 850; letter-spacing: 0.1em; text-transform: uppercase; }
+        .flow-example-row strong { color: #e4e4e7; font-size: 0.76rem; }
+        .flow-compare-card-connected .flow-example-row strong { color: #bbf7d0; }
+        .flow-compare-section > .text-center h2 { font-size: clamp(2rem,4vw,3.25rem); }
+
+        @media (max-width: 1023px) {
+            .implementation-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+        }
+        @media (max-width: 767px) {
+            .hero-product-preview { position: relative; inset: auto; min-height: 25rem; grid-template-columns: minmax(0,0.82fr) minmax(0,1.18fr); padding: 0.8rem; }
+            .hero-preview-label { top: 0.75rem; left: 0.85rem; }
+            .hero-preview-caption { display: none; }
+            .hero-preview-phone,
+            .hero-preview-kds { min-width: 0; }
+            .hero-preview-kds-head,
+            .hero-preview-ticket-top { flex-wrap: wrap; }
+            .hero-preview-ticket li { overflow-wrap: anywhere; }
+            .hero-preview-phone-screen { min-height: 15.5rem; }
+            .hero-preview-kds { min-height: 14rem; padding: 0.75rem; }
+            .commercial-facts,
+            .implementation-grid { grid-template-columns: 1fr; }
+            .implementation-card { min-height: auto; }
+            .trust-bridge-card,
+            .trust-bridge-copy,
+            .trust-bridge-facts,
+            .commercial-facts,
+            #section-planos .grid,
+            #section-planos .grid > div { min-width: 0; width: 100%; }
+            .trust-bridge-card *,
+            #section-planos .grid > div * { overflow-wrap: anywhere; }
+            .sim-mode-switcher { align-items: stretch; }
+            .sim-mode-actions,
+            .sim-mode-button { width: 100%; }
+            .sim-playback-controls { width: 100%; }
+            .sim-playback-button { flex: 1; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .hero-preview-phone { transform: none; }
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-brand-charcoal text-zinc-100 antialiased selection:bg-brand selection:text-black">
     <!-- Navigation / Header Bar -->
     <header class="sticky top-0 z-50 w-full px-3 sm:px-4 lg:px-8 py-2 sm:py-3 bg-brand-charcoal/90 backdrop-blur-md border-b border-zinc-800/80 transition-all">
-        <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center justify-between gap-3 max-w-7xl mx-auto">
             <div class="flex items-center gap-2 sm:gap-3 shrink-0">
                 <a href="#" onclick="switchView('landing')" class="flex items-center gap-2 group">
                     <img src="/brand/808pay-logo-horizontal-dark.svg" alt="808Pay" class="w-[112px] sm:w-[132px] h-auto transition-opacity group-hover:opacity-90">
@@ -3278,14 +3541,15 @@
                     Organizando crescimento.
                 </span>
             </div>
-            <!-- Header CTAs -->
+            <nav class="hidden lg:flex items-center gap-6" aria-label="Navegação principal">
+                <a class="site-nav-link" href="#section-validacao">Como funciona</a>
+                <a class="site-nav-link" href="#section-planos">Planos</a>
+                <a class="site-nav-link" href="#section-faq">Dúvidas</a>
+            </nav>
+            <!-- Header CTA -->
             <div class="flex items-center gap-3 shrink-0">
-                <button id="btn-tab-pitch" onclick="switchView('pitch')" class="hidden sm:flex items-center gap-1.5 text-xs text-zinc-500 hover:text-zinc-200 transition-all font-medium px-3 py-1.5 rounded-lg hover:bg-zinc-800/60">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12H4z"/></svg>
-                    <span>Pitch Deck</span>
-                </button>
-                <button onclick="openLeadModal('Demonstração Solicitada')" class="px-4 py-2 bg-brand hover:bg-brand-light text-zinc-950 text-xs font-bold rounded-lg transition-all shadow-md shadow-brand/20 flex items-center gap-2">
-                    <span>Teste Grátis de 15 Dias</span>
+                <button onclick="openLeadModal('Cabeçalho — Teste de 15 dias')" class="min-h-[44px] px-3 sm:px-4 py-2 bg-brand hover:bg-brand-light text-zinc-950 text-[11px] sm:text-xs font-bold rounded-lg transition-all shadow-md shadow-brand/20 flex items-center gap-2">
+                    <span>Solicitar meu teste</span>
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </button>
             </div>
@@ -3299,160 +3563,97 @@
             <section class="hero-stage">
                 <div class="hero-layout">
                     <div class="hero-copy">
-                        <div class="hero-badge hero-enter" style="--hero-delay: 100ms">
+                        <div class="hero-badge hero-enter" style="--hero-delay: 0ms">
                             <span class="hero-badge-mark"></span>
-                            <span>Uma parceria que acompanha a sua operação</span>
+                            <span>Sistema de pedidos para restaurantes e lanchonetes</span>
                         </div>
                         <h1 class="hero-headline">
-                            <span class="hero-enter block" style="--hero-delay: 450ms">Seu restaurante já tem um jeito de funcionar.</span>
+                            <span class="hero-enter block" style="--hero-delay: 70ms">Pedidos, cozinha e retirada no mesmo sistema.</span>
                         </h1>
-                        <p class="hero-story-secondary hero-enter" style="--hero-delay: 1200ms">
-                            A tecnologia deveria <span class="hero-gradient-word">se adaptar</span> a ele.
+                        <p class="hero-support hero-enter" style="--hero-delay: 140ms">
+                            Receba pedidos pelo QR Code, acompanhe o preparo e organize a retirada. A equipe 808Pay acompanha a implantação, respeitando a rotina do seu negócio.
                         </p>
-                        <p class="hero-story-resolution hero-enter" style="--hero-delay: 2000ms">É exatamente isso que a 808Pay faz.</p>
-                        <p class="hero-support hero-enter" style="--hero-delay: 2350ms">
-                            Não vendemos apenas software. Construímos uma parceria transparente e adaptamos o ecossistema 808Pay à realidade de cada operação — para crescer com mais controle e menos risco.
-                        </p>
-                        <div class="hero-actions hero-enter" style="--hero-delay: 2850ms">
+                        <div class="hero-actions hero-enter" style="--hero-delay: 210ms">
                             <button id="hero-primary-cta" onclick="openLeadModal('Hero — Teste de 15 dias')" class="hero-primary-cta group">
-                                <span class="relative z-10">Quero testar a 808Pay por 15 dias</span>
+                                <span class="relative z-10">Solicitar meu teste de 15 dias</span>
                                 <svg class="relative z-10 w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                             </button>
-                            <button onclick="document.getElementById('section-simulador').scrollIntoView({behavior:'smooth'})" class="hero-secondary-cta group">
+                            <button onclick="focusGuidedDemo()" class="hero-secondary-cta group">
                                 <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                <span>Ver a Operação Funcionando</span>
+                                <span>Ver uma demonstração</span>
                             </button>
                         </div>
-                        <p class="hero-offer-copy hero-enter" style="--hero-delay: 3020ms">Planos a partir de R$ 129/mês · Sem fidelidade · Sem comissão adicionada pela 808Pay.</p>
-                        <div class="hero-trust-line hero-enter" style="--hero-delay: 3150ms">
-                            <span>15 dias sem custo</span>
-                            <span>Implantação acompanhada</span>
-                            <span>Sem equipamento novo</span>
+                        <div class="hero-offer-line hero-enter" style="--hero-delay: 280ms">
+                            <strong>Cardápio digital a partir de R$ 129/mês.</strong><br>Cozinha e retirada estão disponíveis no Pro Kiosk, por R$ 329/mês.
                         </div>
                     </div>
 
-                    <div class="hero-product hero-product-enter" aria-hidden="true">
+                    <div class="hero-product hero-product-enter" aria-label="Prévia ilustrativa de um pedido no celular chegando ao painel da cozinha">
                         <div class="hero-product-aura"></div>
-                        <div class="hero-ecosystem">
-                            <svg class="hero-route" viewBox="0 0 600 520" preserveAspectRatio="xMidYMid meet">
-                                <defs>
-                                    <linearGradient id="heroRouteGradient" x1="0" y1="0" x2="1" y2="1">
-                                        <stop offset="0%" stop-color="#22c55e" stop-opacity="0.18"/>
-                                        <stop offset="42%" stop-color="#86efac" stop-opacity="0.9"/>
-                                        <stop offset="100%" stop-color="#22c55e" stop-opacity="0.28"/>
-                                    </linearGradient>
-                                    <filter id="heroRouteGlow" x="-50%" y="-50%" width="200%" height="200%">
-                                        <feGaussianBlur stdDeviation="5" result="blur"/>
-                                        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                                    </filter>
-                                </defs>
-                                <path class="hero-route-base" d="M76 126 C172 42 302 42 390 72 C496 108 558 154 528 222 C501 286 516 353 468 410 C385 490 238 494 139 459"/>
-                                <path class="hero-route-active" d="M76 126 C172 42 302 42 390 72 C496 108 558 154 528 222 C501 286 516 353 468 410 C385 490 238 494 139 459"/>
-                                <circle class="hero-route-pulse" r="5">
-                                    <animateMotion dur="7.5s" repeatCount="indefinite" path="M76 126 C172 42 302 42 390 72 C496 108 558 154 528 222 C501 286 516 353 468 410 C385 490 238 494 139 459"/>
-                                </circle>
-                            </svg>
-
-                            <div class="hero-flow-core">
-                                <span class="hero-core-orbit hero-core-orbit-one"></span>
-                                <span class="hero-core-orbit hero-core-orbit-two"></span>
-                                <div class="hero-core-mark">
-                                    <img src="/brand/808-flow-mark.svg" alt="">
+                        <div class="hero-product-preview">
+                            <span class="hero-preview-label">Demonstração fictícia</span>
+                            <span class="hero-preview-caption">Do pedido do cliente à cozinha</span>
+                            <div class="hero-preview-phone">
+                                <div class="hero-preview-phone-screen hero-preview-real-screen">
+                                    <img src="/product-cardapio-real.png" width="430" height="620" fetchpriority="high" decoding="async" alt="Captura real e anonimizada de um cardápio na plataforma 808Pay">
                                 </div>
-                                <span>808 Flow</span>
-                                <strong>Inteligência operacional<br>em movimento</strong>
                             </div>
-
-                            <div class="hero-station hero-station-order" style="--station-delay: 700ms">
-                                <span class="hero-station-index">01</span>
-                                <span class="hero-station-icon">
-                                    <svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M10 7h4M10 11h4M11 17h2"/></svg>
-                                </span>
-                                <span class="hero-station-copy"><strong>Pedido</strong><small>entra no fluxo</small></span>
+                            <div class="hero-preview-kds">
+                                <div class="hero-preview-kds-head"><strong>Cozinha</strong><span class="hero-preview-live">Ao vivo</span></div>
+                                <div class="hero-preview-ticket">
+                                    <div class="hero-preview-ticket-top"><strong>Pedido nº 1042</strong><span>Recebido</span></div>
+                                    <ul><li>1 × Coxinha de Frango com Catupiry</li><li>Observação: bem quente</li><li>Próxima etapa: em preparo</li></ul>
+                                </div>
+                                <div class="hero-preview-ticket">
+                                    <div class="hero-preview-ticket-top"><strong>Retirada</strong><span>Aguardando</span></div>
+                                    <ul><li>O mesmo pedido será chamado quando ficar pronto.</li></ul>
+                                </div>
                             </div>
-                            <div class="hero-station hero-station-payment" style="--station-delay: 1300ms">
-                                <span class="hero-station-index">02</span>
-                                <span class="hero-station-icon">
-                                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="m8.5 12 2.2 2.2 4.8-4.8"/></svg>
-                                </span>
-                                <span class="hero-station-copy"><strong>Pagamento</strong><small>confirmado</small></span>
-                            </div>
-                            <div class="hero-station hero-station-production" style="--station-delay: 1900ms">
-                                <span class="hero-station-index">03</span>
-                                <span class="hero-station-icon">
-                                    <svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9h8M8 13h5M16.5 15.5h.01"/></svg>
-                                </span>
-                                <span class="hero-station-copy"><strong>Produção</strong><small>organizada</small></span>
-                            </div>
-                            <div class="hero-station hero-station-pickup" style="--station-delay: 2500ms">
-                                <span class="hero-station-index">04</span>
-                                <span class="hero-station-icon">
-                                    <svg viewBox="0 0 24 24"><path d="M6 15h12l-1.5-2V9a4.5 4.5 0 0 0-9 0v4L6 15Z"/><path d="M10 18h4"/></svg>
-                                </span>
-                                <span class="hero-station-copy"><strong>Retirada</strong><small>sem espera</small></span>
-                            </div>
-                            <div class="hero-station hero-station-management" style="--station-delay: 3100ms">
-                                <span class="hero-station-index">05</span>
-                                <span class="hero-station-icon">
-                                    <svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="m7 15 4-4 3 2 5-6"/></svg>
-                                </span>
-                                <span class="hero-station-copy"><strong>Gestão</strong><small>em tempo real</small></span>
-                            </div>
+                            <div class="hero-preview-flow"><span>Cliente</span><i></i><span>Cozinha</span><i></i><span>Retirada</span></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="partnership-strip hero-enter" style="--hero-delay: 3350ms" aria-label="Como a parceria 808Pay funciona">
-                    <div class="partnership-item">
-                        <span class="partnership-index">01 · Entender</span>
-                        <strong>Antes de implantar, escutamos.</strong>
-                        <p>Mapeamos o fluxo, os gargalos e o momento real do estabelecimento.</p>
-                    </div>
-                    <div class="partnership-item">
-                        <span class="partnership-index">02 · Adaptar</span>
-                        <strong>A operação não precisa recomeçar.</strong>
-                        <p>O ecossistema entra no ritmo existente, sem impor uma estrutura genérica.</p>
-                    </div>
-                    <div class="partnership-item">
-                        <span class="partnership-index">03 · Acompanhar</span>
-                        <strong>Decisões claras, lado a lado.</strong>
-                        <p>Configuração, evolução e próximos passos com acompanhamento transparente.</p>
-                    </div>
-                    <div class="partnership-item">
-                        <span class="partnership-index">04 · Crescer</span>
-                        <strong>Evoluir com mais segurança.</strong>
-                        <p>Melhorias graduais reduzem rupturas e criam uma operação mais sólida.</p>
-                    </div>
-                </div>
             </section>
             <!-- SIMULADOR VIVO — prova ao vivo integrada na página principal -->
-            <section id="section-simulador" class="sim-awaiting-start w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8">
+            <section id="section-simulador" class="sim-awaiting-start sim-preview-ready w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8">
             <div class="sim-stage-header text-center space-y-2">
-                <span class="text-xs font-bold text-brand uppercase tracking-widest">Simulação ao vivo e interativa</span>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">A tecnologia entra no seu fluxo — não o contrário.</h2>
-                <p id="sim-intro-text" class="text-zinc-400 text-xs sm:text-sm max-w-3xl mx-auto">Você inicia e acompanha tudo. Adicione um item no celular, conclua o pagamento e veja o pedido avançar pela cozinha, retirada e gestão em tempo real.</p>
+                <span class="text-xs font-bold text-brand uppercase tracking-widest">Demonstração interativa</span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Veja o pedido chegar à cozinha e ficar pronto para retirada.</h2>
+                <p id="sim-intro-text" class="text-zinc-400 text-xs sm:text-sm max-w-3xl mx-auto">O pedido fictício nº 1042 começa no celular. A próxima etapa é a cozinha.</p>
             </div>
+            <div id="sim-mode-switcher" class="sim-mode-switcher">
+                <div class="sim-mode-actions" role="group" aria-label="Modo da demonstração">
+                    <button id="sim-mode-guided" type="button" class="sim-mode-button is-active" onclick="startGuidedDemo()" aria-pressed="true">Ver o pedido avançar</button>
+                    <button id="sim-mode-manual" type="button" class="sim-mode-button" onclick="setSimulatorMode('manual', true)" aria-pressed="false">Experimentar por conta própria</button>
+                </div>
+                <span class="sim-demo-disclosure">Demonstração com dados fictícios</span>
+                <div id="sim-playback-controls" class="sim-playback-controls" aria-label="Controles da demonstração guiada">
+                    <span id="sim-playback-status" class="sim-playback-status" aria-live="polite">Pronta para iniciar</span>
+                    <button id="sim-pause-button" type="button" class="sim-playback-button" onclick="toggleGuidedDemoPause()">Pausar</button>
+                    <button type="button" class="sim-playback-button" onclick="startGuidedDemo()">Reiniciar</button>
+                </div>
+            </div>
+            <p class="sim-plan-scope"><strong>Cardápio digital:</strong> Starter. <strong>Cozinha (KDS), autoatendimento e chamada de retirada:</strong> Pro Kiosk.</p>
             <div class="sim-live-banner" aria-live="polite">
                 <div class="sim-live-signal">
                     <span class="sim-live-dot" aria-hidden="true"></span>
                     <div>
-                        <strong id="sim-live-state">A simulação está pronta para você</strong>
-                        <span id="sim-live-copy">Não é um vídeo: clique em “+ Adicionar” para colocar a operação em movimento.</span>
+                        <strong id="sim-live-state">Pedido nº 1042 · no celular do cliente</strong>
+                        <span id="sim-live-copy">Coxinha de Frango com Catupiry · bem quente. Próxima etapa: cozinha.</span>
                     </div>
                 </div>
-                <span class="sim-live-action">
-                    Comece no passo 1
+                <button type="button" class="sim-live-action" onclick="startGuidedDemo()" aria-label="Ver o pedido fictício avançar pela operação">
+                    Ver pedido avançar
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="m7 10 5 5 5-5"/></svg>
-                </span>
+                </button>
             </div>
             <!-- Mobile step progress (lg:hidden) -->
             <div id="sim-mobile-nav" class="lg:hidden flex items-center gap-1.5 px-1 overflow-x-auto">
-                <button type="button" onclick="goSimMobileStep(1)" id="sim-step-btn-1" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-brand text-zinc-950 transition-all">1. Menu</button>
-                <button type="button" onclick="goSimMobileStep(2)" id="sim-step-btn-2" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-500 transition-all" disabled>2. Pix</button>
-                <button type="button" onclick="goSimMobileStep(3)" id="sim-step-btn-3" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-500 transition-all" disabled>3. Cozinha</button>
-                <button type="button" onclick="goSimMobileStep(4)" id="sim-step-btn-4" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-500 transition-all" disabled>4. Senha</button>
-                <button type="button" onclick="goSimMobileStep(5)" id="sim-step-btn-5" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-500 transition-all" disabled>5. Pronto</button>
-                <button type="button" onclick="goSimMobileStep(6)" id="sim-step-btn-6" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-500 transition-all" disabled>6. Painel</button>
+                <button type="button" onclick="goSimMobileStep(1)" id="sim-step-btn-1" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-brand text-zinc-950 transition-all" aria-current="step">1. Cliente</button>
+                <button type="button" onclick="goSimMobileStep(2)" id="sim-step-btn-2" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-500 transition-all" disabled>2. Cozinha</button>
+                <button type="button" onclick="goSimMobileStep(3)" id="sim-step-btn-3" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-500 transition-all" disabled>3. Retirada</button>
+                <button type="button" onclick="goSimMobileStep(4)" id="sim-step-btn-4" class="shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-500 transition-all" disabled>4. Gestão</button>
             </div>
             <!-- Simulator Container -->
             <div id="sim-panels-grid" class="relative grid lg:grid-cols-4 gap-10 lg:gap-5 items-start">
@@ -3461,7 +3662,7 @@
                 <div id="sim-connector-2" class="sim-connector hidden lg:block" style="left: 50%;"><span class="sim-connector-dot"></span></div>
                 <div id="sim-connector-3" class="sim-connector hidden lg:block" style="left: 75%;"><span class="sim-connector-dot"></span></div>
 
-                <!-- SIMULATOR STEP 1 / 6: CELULAR DO CLIENTE (mockup de smartphone) -->
+                <!-- ETAPA 1: CELULAR DO CLIENTE (mockup de smartphone) -->
                 <div id="sim-panel-totem" class="sim-panel space-y-3">
                     <div class="flex items-center justify-between px-1">
                         <div class="flex items-center gap-2">
@@ -3489,11 +3690,11 @@
                                 <div class="space-y-3">
                                     <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/80 flex items-center justify-between">
                                         <div>
-                                            <h4 class="text-xs font-bold text-white">808 Burger Duplo</h4>
-                                            <p class="text-[10px] text-zinc-500">Pão brioche, 2x smash 90g, queijo cheddar</p>
-                                            <span class="text-xs font-bold text-brand mt-1 block">R$ 32,90</span>
+                                            <h4 class="text-xs font-bold text-white">Coxinha de Frango com Catupiry</h4>
+                                            <p class="text-[10px] text-zinc-500">Produto exibido no cardápio real da plataforma</p>
+                                            <span class="text-xs font-bold text-brand mt-1 block">R$ 10,00</span>
                                         </div>
-                                        <button id="sim-first-add" onclick="addSimItem('808 Burger Duplo', 32.90)" class="px-4 py-2.5 sm:px-3 sm:py-1.5 bg-brand text-zinc-950 text-xs font-black rounded-lg hover:bg-brand-light transition-all min-h-[44px] sm:min-h-0">+ Adicionar</button>
+                                        <button id="sim-first-add" onclick="addSimItem('Coxinha de Frango com Catupiry', 10.00)" class="px-4 py-2.5 sm:px-3 sm:py-1.5 bg-brand text-zinc-950 text-xs font-black rounded-lg hover:bg-brand-light transition-all min-h-[44px] sm:min-h-0">+ Adicionar</button>
                                     </div>
                                     <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800/80 flex items-center justify-between">
                                         <div>
@@ -3545,12 +3746,12 @@
                         <div class="device-contact-shadow"></div>
                     </div>
                 </div>
-                <!-- SIMULATOR STEP 3: KDS DA COZINHA (mockup de monitor) -->
+                <!-- ETAPA 2: KDS DA COZINHA (mockup de monitor) -->
                 <div id="sim-panel-kds" class="sim-panel space-y-3">
                     <div class="flex items-center justify-between px-1">
                         <div class="flex items-center gap-2">
                             <span class="w-2.5 h-2.5 rounded-full bg-amber-500 animate-ping"></span>
-                            <h3 class="text-sm font-bold text-white">3. Cozinha (KDS)</h3>
+                            <h3 class="text-sm font-bold text-white">2. Cozinha (KDS)</h3>
                         </div>
                         <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded font-mono">Produção</span>
                     </div>
@@ -3559,7 +3760,7 @@
                             <div class="device-cam-dot"></div>
                             <div class="device-screen p-4 sm:p-5">
                                 <div id="sim-kds-container" class="space-y-3 min-h-[300px] lg:min-h-[360px] flex flex-col justify-center items-center text-center p-6 border border-dashed border-zinc-800 rounded-xl text-zinc-600 text-xs">
-                                    Aguardando envio do pedido pelo Totem...
+                                    <div class="sim-preview-order"><span>Próxima etapa · Cozinha</span><strong>Pedido nº 1042</strong><p>Coxinha de Frango com Catupiry<br>Observação: bem quente</p></div>
                                 </div>
                             </div>
                         </div>
@@ -3568,12 +3769,12 @@
                         <div class="device-contact-shadow"></div>
                     </div>
                 </div>
-                <!-- SIMULATOR STEP 4: PAINEL DE SENHAS NA TV (mockup de TV) -->
+                <!-- ETAPA 3: PAINEL DE SENHAS NA TV (mockup de TV) -->
                 <div id="sim-panel-tv" class="sim-panel space-y-3">
                     <div class="flex items-center justify-between px-1">
                         <div class="flex items-center gap-2">
                             <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-                            <h3 class="text-sm font-bold text-white">4. Chamada de Senha</h3>
+                            <h3 class="text-sm font-bold text-white">3. Retirada</h3>
                         </div>
                         <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded font-mono">Painel TV</span>
                     </div>
@@ -3583,8 +3784,8 @@
                             <div class="device-screen p-2">
                                 <div id="sim-tv-container" class="bg-black rounded-md p-6 text-center space-y-4 min-h-[300px] lg:min-h-[360px] flex flex-col justify-center items-center">
                                     <span class="text-[10px] font-mono tracking-widest text-zinc-500 uppercase">Status do Pedido</span>
-                                    <div id="sim-tv-number" class="text-5xl font-black text-zinc-700"># ---</div>
-                                    <div id="sim-tv-status" class="text-xs text-zinc-500 font-semibold">Nenhum pedido pronto no momento</div>
+                                    <div id="sim-tv-number" class="text-5xl font-black text-zinc-700"># 1042</div>
+                                    <div id="sim-tv-status" class="text-xs text-zinc-500 font-semibold">Aguardando preparo na cozinha</div>
                                 </div>
                                 <div id="sim-tv-flash" class="tv-flash-overlay"></div>
                             </div>
@@ -3594,12 +3795,12 @@
                         <div class="device-contact-shadow"></div>
                     </div>
                 </div>
-                <!-- SIMULATOR STEP 6: DASHBOARD DO DONO (mockup de notebook) — fecha o fluxo -->
+                <!-- ETAPA 4: DASHBOARD DO DONO (mockup de notebook) — fecha o fluxo -->
                 <div id="sim-panel-dashboard" class="sim-panel space-y-3">
                     <div class="flex items-center justify-between px-1">
                         <div class="flex items-center gap-2">
                             <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
-                            <h3 class="text-sm font-bold text-white">6. Dashboard do Dono</h3>
+                            <h3 class="text-sm font-bold text-white">4. Gestão</h3>
                         </div>
                         <span class="text-[10px] bg-zinc-800 text-zinc-400 px-2 py-0.5 rounded font-mono">Gestão</span>
                     </div>
@@ -3617,11 +3818,11 @@
                                 <div class="grid grid-cols-2 gap-3">
                                     <div class="sim-dash-kpi bg-zinc-950 border border-zinc-800/80 rounded-lg p-3">
                                         <span class="text-[9px] text-zinc-500 block">Pedidos hoje</span>
-                                        <span id="sim-dash-orders-count" class="text-lg font-black text-white">0</span>
+                                        <span id="sim-dash-orders-count" class="text-lg font-black text-white">—</span>
                                     </div>
                                     <div class="sim-dash-kpi bg-zinc-950 border border-zinc-800/80 rounded-lg p-3">
                                         <span class="text-[9px] text-zinc-500 block">Faturamento hoje</span>
-                                        <span id="sim-dash-revenue" class="text-lg font-black text-brand">R$ 0,00</span>
+                                        <span id="sim-dash-revenue" class="text-lg font-black text-brand">—</span>
                                     </div>
                                 </div>
                                 <div id="sim-dash-chart" class="sim-finance-chart">
@@ -3646,7 +3847,7 @@
                                     <div class="sim-chart-axis"><span>09h</span><span>12h</span><span>15h</span><span>Agora</span></div>
                                 </div>
                                 <div id="sim-dash-order-card" class="bg-zinc-950 border border-zinc-800/80 rounded-lg p-3">
-                                    <div class="text-[10px] text-zinc-600 text-center py-4">Nenhum pedido concluído ainda.</div>
+                                    <div class="text-[10px] text-zinc-500 text-center py-4">Pedido nº 1042 será registrado após a conclusão.</div>
                                 </div>
                             </div>
                         </div>
@@ -3670,130 +3871,81 @@
                         <span>As taxas da sua adquirente continuam seguindo o contrato que você já possui.</span>
                     </div>
                 </div>
-                <div class="trust-bridge-facts" aria-label="O que permanece e o que evolui com a 808Pay">
+                <div class="trust-bridge-facts" aria-label="Como funcionam mensalidade, comissão e equipamentos">
                     <div class="trust-fact">
-                        <span>O que permanece</span>
-                        <strong>Sua maquininha, sua adquirente e as condições que você já negociou.</strong>
+                        <span>Mensalidade</span>
+                        <strong>Você escolhe um plano da plataforma conforme os recursos da operação.</strong>
                     </div>
                     <div class="trust-fact trust-fact-evolves">
-                        <span>O que evolui</span>
-                        <strong>Pedidos, produção, retirada e gestão passam a compartilhar o mesmo fluxo.</strong>
+                        <span>Comissão 808Pay</span>
+                        <strong>A 808Pay não adiciona comissão sobre cada venda.</strong>
+                    </div>
+                    <div class="trust-fact">
+                        <span>Meio de pagamento</span>
+                        <strong>As taxas continuam sendo as do contrato com sua adquirente ou provedor.</strong>
                     </div>
                 </div>
+                <div class="commercial-facts lg:col-span-2" aria-label="Compatibilidade de equipamentos">
+                    <div class="commercial-fact"><span>Equipamentos existentes</span><strong>Celulares, tablets, computadores e TVs podem ser aproveitados quando forem compatíveis.</strong></div>
+                    <div class="commercial-fact"><span>Recursos específicos</span><strong>Totem, painel de retirada e KDS dependem de dispositivos adequados ao uso escolhido.</strong></div>
+                    <div class="commercial-fact"><span>Antes de implantar</span><strong>A estrutura disponível é entendida com o estabelecimento antes de combinar os próximos passos.</strong></div>
+                </div>
             </article>
-        </section>
-
-        <!-- Validação honesta — substitui prova social fictícia -->
-        <section id="section-validacao" class="validation-section px-4 sm:px-6 max-w-7xl mx-auto">
-            <div class="validation-header">
-                <span class="validation-eyebrow">Teste antes de decidir</span>
-                <h2>O que você poderá validar nos primeiros 15 dias</h2>
-                <p>Você testa no ritmo real do estabelecimento, com acompanhamento da 808Pay, antes de decidir continuar.</p>
-            </div>
-            <div class="validation-grid">
-                <article class="validation-card">
-                    <span class="validation-number">01 · PEDIDO</span>
-                    <strong>Se o pedido chega à produção com menos etapas manuais.</strong>
-                </article>
-                <article class="validation-card">
-                    <span class="validation-number">02 · EQUIPE</span>
-                    <strong>Se cada pessoa identifica o status do pedido com mais clareza.</strong>
-                </article>
-                <article class="validation-card">
-                    <span class="validation-number">03 · GESTÃO</span>
-                    <strong>Se o gestor acompanha a operação em um único fluxo.</strong>
-                </article>
-            </div>
-            <div class="validation-cta">
-                <button onclick="openLeadModal('Validação — 15 dias')" class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-brand hover:bg-brand-light text-zinc-950 font-black rounded-xl text-sm transition-all shadow-xl shadow-brand/20 group">
-                    <span>Quero validar na minha operação</span>
-                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0-7 7m7-7H3"/></svg>
-                </button>
-            </div>
         </section>
 
         <!-- Comparativo de fluxo — argumento central de conversão -->
         <section class="flow-compare-section px-6 max-w-7xl mx-auto">
             <div class="text-center space-y-3 mb-10 sm:mb-12">
                 <span class="text-xs font-bold text-brand tracking-widest uppercase">Do improviso ao ecossistema</span>
-                <h2 class="text-3xl sm:text-5xl font-black text-white max-w-5xl mx-auto">Software isolado resolve uma tela.<br class="hidden sm:block"> Parceria conecta a operação.</h2>
-                <p class="text-zinc-400 text-sm sm:text-base max-w-3xl mx-auto">A 808Pay não chega com uma fórmula pronta. Entendemos como seu estabelecimento funciona, conectamos os pontos certos e evoluímos o fluxo junto com você.</p>
+                <h2 class="text-3xl sm:text-4xl font-black text-white max-w-4xl mx-auto">Cliente, cozinha e retirada acompanham o mesmo pedido.</h2>
+                <p class="text-zinc-400 text-sm sm:text-base max-w-3xl mx-auto">Produto, preferência e status permanecem ligados ao pedido nº 1042 durante a demonstração.</p>
             </div>
 
             <div class="flow-compare-grid">
                 <article class="flow-compare-card flow-compare-card-fragmented">
                     <span class="flow-card-status">Operação fragmentada</span>
-                    <h3>Cada etapa funciona.<br>Mas nenhuma conversa.</h3>
-                    <p>Ferramentas isoladas criam conferências manuais, perda de contexto e decisões tardias. O risco cresce junto com o movimento.</p>
-                    <div class="flow-map" aria-label="Fluxo fragmentado entre pedido, pagamento, produção, retirada e gestão">
-                        <svg viewBox="0 0 520 230" preserveAspectRatio="none" aria-hidden="true">
-                            <path class="fragment-line" d="M62 42 L220 112 L455 44 M220 112 L65 192 M220 112 L455 190"/>
-                            <path class="fragment-line" d="M125 18 L180 72 M356 78 L420 130 M150 173 L222 215"/>
-                        </svg>
-                        <span class="flow-map-node flow-node-one">Pedido</span>
-                        <span class="flow-map-node flow-node-two">Pagamento</span>
-                        <span class="flow-map-node flow-node-three">Produção</span>
-                        <span class="flow-map-node flow-node-four">Retirada</span>
-                        <span class="flow-map-node flow-node-five">Gestão</span>
-                        <span class="flow-friction flow-friction-one">conferência</span>
-                        <span class="flow-friction flow-friction-two">espera</span>
-                        <span class="flow-friction flow-friction-three">retrabalho</span>
+                    <h3>Informações espalhadas exigem mais conferência.</h3>
+                    <p>O pedido muda de tela ou de pessoa, e a equipe precisa reconstruir o contexto.</p>
+                    <div class="flow-example-list" aria-label="Exemplo de informações separadas">
+                        <div class="flow-example-row"><span>Produto</span><strong>Coxinha de Frango com Catupiry</strong></div>
+                        <div class="flow-example-row"><span>Preferência</span><strong>Registrada em outro ponto</strong></div>
+                        <div class="flow-example-row"><span>Status</span><strong>Depende de conferência</strong></div>
+                        <div class="flow-example-row"><span>Retirada</span><strong>Aguardando confirmação</strong></div>
                     </div>
-                    <div class="flow-outcomes">
-                        <div class="flow-outcome"><strong>Visão parcial</strong>Informações espalhadas entre pessoas e telas.</div>
-                        <div class="flow-outcome"><strong>Mais dependência</strong>A operação para quando alguém não confere.</div>
-                        <div class="flow-outcome"><strong>Risco invisível</strong>Problemas aparecem somente quando viram urgência.</div>
-                    </div>
+                    <div class="flow-outcomes"><div class="flow-outcome"><strong>Mais conferência manual</strong>A equipe precisa confirmar o que já aconteceu.</div><div class="flow-outcome"><strong>Menos visão do todo</strong>O gestor acompanha partes da operação.</div></div>
                 </article>
 
                 <article class="flow-compare-card flow-compare-card-connected">
                     <span class="flow-card-status">Ecossistema 808Pay</span>
-                    <h3>Um fluxo contínuo.<br>Cada decisão visível.</h3>
-                    <p>Pedido, pagamento, produção, retirada e gestão compartilham o mesmo contexto. A tecnologia sustenta a evolução sem apagar a identidade da operação.</p>
-                    <div class="flow-map" aria-label="Fluxo conectado do ecossistema 808Pay">
-                        <svg viewBox="0 0 520 230" preserveAspectRatio="none" aria-hidden="true">
-                            <defs>
-                                <linearGradient id="flowConnectedGradient" x1="0" y1="0" x2="1" y2="1">
-                                    <stop offset="0%" stop-color="#22c55e" stop-opacity="0.35"/>
-                                    <stop offset="50%" stop-color="#bbf7d0" stop-opacity="0.95"/>
-                                    <stop offset="100%" stop-color="#22c55e" stop-opacity="0.45"/>
-                                </linearGradient>
-                            </defs>
-                            <path class="connected-line-base" d="M62 42 C160 16 370 16 455 44 C512 78 470 126 455 190 C358 220 160 220 65 192 C12 150 28 78 62 42"/>
-                            <path class="connected-line" d="M62 42 C160 16 370 16 455 44 C512 78 470 126 455 190 C358 220 160 220 65 192 C12 150 28 78 62 42"/>
-                            <circle class="connected-pulse" r="5">
-                                <animateMotion dur="6.5s" repeatCount="indefinite" path="M62 42 C160 16 370 16 455 44 C512 78 470 126 455 190 C358 220 160 220 65 192 C12 150 28 78 62 42"/>
-                            </circle>
-                        </svg>
-                        <span class="flow-map-node flow-node-one">Pedido</span>
-                        <span class="flow-map-node flow-node-two">Pagamento</span>
-                        <span class="flow-map-node flow-node-three">Produção</span>
-                        <span class="flow-map-node flow-node-four">Retirada</span>
-                        <span class="flow-map-node flow-node-five">Gestão</span>
+                    <h3>Veja o que preparar e qual pedido liberar.</h3>
+                    <p>O mesmo identificador acompanha as informações necessárias em cada etapa.</p>
+                    <div class="flow-example-list" aria-label="Exemplo conectado do pedido 1042">
+                        <div class="flow-example-row"><span>Produto</span><strong>Coxinha de Frango com Catupiry</strong></div>
+                        <div class="flow-example-row"><span>Preferência</span><strong>Bem quente</strong></div>
+                        <div class="flow-example-row"><span>Status</span><strong>Em preparo</strong></div>
+                        <div class="flow-example-row"><span>Retirada</span><strong>Pedido nº 1042</strong></div>
                     </div>
-                    <div class="flow-outcomes">
-                        <div class="flow-outcome"><strong>Clareza operacional</strong>O que acontece agora fica visível para decidir melhor.</div>
-                        <div class="flow-outcome"><strong>Adaptação real</strong>A solução respeita o ritmo e a maturidade do negócio.</div>
-                        <div class="flow-outcome"><strong>Evolução segura</strong>Cada melhoria reduz atrito sem criar uma nova ruptura.</div>
-                    </div>
+                    <div class="flow-outcomes"><div class="flow-outcome"><strong>Status visível</strong>A equipe acompanha pedido, preparo e retirada.</div><div class="flow-outcome"><strong>Gestão conectada</strong>As informações disponíveis chegam ao painel.</div></div>
                 </article>
             </div>
+        </section>
 
-            <div class="partnership-journey" aria-label="Etapas da parceria 808Pay">
-                <div class="partnership-journey-step"><span>Primeiro</span><strong>Entendemos sua operação</strong></div>
-                <svg class="partnership-journey-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-4-4 4 4-4 4"/></svg>
-                <div class="partnership-journey-step"><span>Depois</span><strong>Adaptamos o ecossistema</strong></div>
-                <svg class="partnership-journey-arrow w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-4-4 4 4-4 4"/></svg>
-                <div class="partnership-journey-step"><span>Sempre</span><strong>Evoluímos lado a lado</strong></div>
+        <!-- Implantação e teste — posicionamento apoiado por etapas concretas -->
+        <section id="section-validacao" class="validation-section px-4 sm:px-6 max-w-7xl mx-auto">
+            <div class="validation-header">
+                <span class="validation-eyebrow">Implantação acompanhada</span>
+                <h2>Implantação acompanhada, no ritmo do seu restaurante.</h2>
+                <p>Começamos entendendo o jeito que sua operação já funciona. Depois, o teste permite avaliar pedido, cozinha, retirada e gestão antes de decidir continuar.</p>
             </div>
-
-            <div class="conversion-cta-panel">
-                <div>
-                    <strong>Antes de oferecer um plano, queremos entender o seu fluxo.</strong>
-                    <p>Uma conversa objetiva, sem compromisso e sem empurrar uma solução pronta.</p>
-                </div>
-                <button onclick="openLeadModal('Comparativo de Fluxo')" class="inline-flex shrink-0 items-center gap-2 px-6 py-3.5 bg-brand hover:bg-brand-light text-zinc-950 font-black rounded-xl text-sm transition-all shadow-lg shadow-brand/20 group">
-                    <span>Conversar sobre minha operação</span>
+            <div class="implementation-grid">
+                <article class="implementation-card"><span>01</span><strong>Você solicita o teste</strong><p>Deixa os dados essenciais e abre a conversa no WhatsApp.</p></article>
+                <article class="implementation-card"><span>02</span><strong>Entendemos sua operação</strong><p>Conversamos sobre rotina, fluxo e estrutura disponível.</p></article>
+                <article class="implementation-card"><span>03</span><strong>Combinamos a implantação</strong><p>Definimos os próximos passos compatíveis com o cenário.</p></article>
+                <article class="implementation-card"><span>04</span><strong>Você testa e avalia</strong><p>O estabelecimento valida o fluxo e decide sobre a continuidade.</p></article>
+            </div>
+            <div class="validation-cta">
+                <button onclick="openLeadModal('Implantação — Teste de 15 dias')" class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-brand hover:bg-brand-light text-zinc-950 font-black rounded-xl text-sm transition-all shadow-xl shadow-brand/20 group">
+                    <span>Solicitar meu teste de 15 dias</span>
                     <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0-7 7m7-7H3"/></svg>
                 </button>
             </div>
@@ -3802,8 +3954,8 @@
             <section id="section-planos" class="px-6 max-w-7xl mx-auto space-y-12">
                 <div class="text-center space-y-3">
                     <span class="text-xs font-bold text-brand tracking-widest uppercase">Investimento Transparente</span>
-                    <h2 class="text-3xl sm:text-5xl font-black text-white">Uma parceria que respeita o momento do seu negócio</h2>
-                    <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto">Investimento claro, implantação acompanhada e liberdade para evoluir sem fidelidade forçada.</p>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white">Escolha o ponto de partida</h2>
+                    <p class="text-zinc-400 text-sm sm:text-base max-w-2xl mx-auto">Os recursos aumentam conforme a complexidade da operação.</p>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8">
                     <!-- Starter -->
@@ -3811,7 +3963,7 @@
                         <div class="space-y-4">
                             <span class="text-xs font-bold text-zinc-500 uppercase tracking-widest">Iniciante</span>
                             <h3 class="text-2xl font-bold text-white">Starter</h3>
-                            <p class="text-xs text-zinc-400">Ideal para cafeterias, docerias e pequenos balcões.</p>
+                            <p class="text-xs text-zinc-400">Para começar com pedidos digitais.</p>
                             <div>
                                 <span class="block text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-1">A partir de</span>
                                 <div class="text-3xl font-black text-white">R$ 129 <span class="text-xs font-normal text-zinc-500">/mês</span></div>
@@ -3822,15 +3974,16 @@
                                 <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Pagamento Pix conferido automaticamente</li>
                             </ul>
                         </div>
-                        <button onclick="openLeadModal('Plano Starter')" class="w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs rounded-xl transition-all">Começar no Starter</button>
+                        <button onclick="openLeadModal('Plano Starter')" class="w-full min-h-[44px] py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs rounded-xl transition-all">Solicitar teste do Starter</button>
                     </div>
                     <!-- Pro (Featured) -->
                     <div class="bg-zinc-900 border-2 border-brand p-8 rounded-2xl flex flex-col justify-between space-y-6 neon-glow relative">
-                        <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-brand text-zinc-950 px-3 py-0.5 rounded-full text-[10px] font-black uppercase tracking-widest">Mais Escolhido</span>
+                        <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap bg-brand text-zinc-950 px-3 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider">Para cozinha e retirada</span>
                         <div class="space-y-4">
                             <span class="text-xs font-bold text-brand uppercase tracking-widest">Recomendado</span>
                             <h3 class="text-2xl font-bold text-white">Pro Kiosk</h3>
-                            <p class="text-xs text-zinc-400">Para hamburguerias, restaurantes e operações de ritmo alto.</p>
+                            <p class="text-xs text-zinc-400">Para integrar autoatendimento, cozinha e retirada.</p>
+                            <p class="text-[10px] text-zinc-500">Kiosk significa autoatendimento por totem.</p>
                             <div class="text-3xl font-black text-brand">R$ 329 <span class="text-xs font-normal text-zinc-400">/mês</span></div>
                             <ul class="space-y-2.5 text-xs text-zinc-200 pt-4 border-t border-zinc-800">
                                 <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Tudo do Starter +</li>
@@ -3839,14 +3992,14 @@
                                 <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Chamada de senha automática na TV</li>
                             </ul>
                         </div>
-                        <button onclick="openLeadModal('Plano Pro Kiosk')" class="w-full py-3.5 bg-brand hover:bg-brand-light text-zinc-950 font-black text-xs rounded-xl transition-all shadow-lg shadow-brand/20">Solicitar Teste Grátis (15 Dias)</button>
+                        <button onclick="openLeadModal('Plano Pro Kiosk')" class="w-full min-h-[44px] py-3.5 bg-brand hover:bg-brand-light text-zinc-950 font-black text-xs rounded-xl transition-all shadow-lg shadow-brand/20">Solicitar teste do Pro Kiosk</button>
                     </div>
                     <!-- Enterprise -->
                     <div class="bg-zinc-900/40 p-8 rounded-2xl border border-zinc-800 flex flex-col justify-between space-y-6">
                         <div class="space-y-4">
                             <span class="text-xs font-bold text-zinc-500 uppercase tracking-widest">Multi-lojas</span>
                             <h3 class="text-2xl font-bold text-white">Enterprise</h3>
-                            <p class="text-xs text-zinc-400">Para redes de franquias e praças de alimentação.</p>
+                            <p class="text-xs text-zinc-400">Para operações com várias unidades.</p>
                             <div class="text-3xl font-black text-white">Sob Consulta</div>
                             <ul class="space-y-2.5 text-xs text-zinc-300 pt-4 border-t border-zinc-800">
                                 <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Operação padronizada em todas as unidades</li>
@@ -3854,9 +4007,10 @@
                                 <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Integração com ERP Próprio</li>
                             </ul>
                         </div>
-                        <button onclick="openLeadModal('Plano Enterprise')" class="w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs rounded-xl transition-all">Falar com Consultor</button>
+                        <button onclick="openLeadModal('Plano Enterprise — Conversa consultiva')" class="w-full min-h-[44px] py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs rounded-xl transition-all">Conversar sobre o Enterprise</button>
                     </div>
                 </div>
+                <p class="plan-conditions">O teste é combinado com a equipe. Depois dos 15 dias, o estabelecimento avalia a continuidade e escolhe o plano adequado.</p>
             </section>
             <!-- FAQ — respostas para as objeções finais -->
             <section id="section-faq" class="faq-section px-4 sm:px-6 max-w-6xl mx-auto">
@@ -3864,24 +4018,32 @@
                     <div class="faq-header">
                         <span class="faq-eyebrow">Decida com clareza</span>
                         <h2>Antes de começar, tire suas dúvidas</h2>
-                        <p>Respostas diretas sobre equipamentos, investimento e o início da parceria.</p>
+                        <p>Respostas diretas sobre teste, equipamentos e custos.</p>
                     </div>
                     <div class="faq-list">
                         <details class="faq-item">
                             <summary><span>Vou precisar trocar minha maquininha?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
-                            <div class="faq-answer">Não. Você continua utilizando a maquininha e as condições que já negociou. A 808Pay organiza o fluxo do pedido e não obriga você a mudar a forma como recebe.</div>
+                            <div class="faq-answer">A 808Pay pode trabalhar sem substituir a forma de recebimento já usada pelo estabelecimento. A compatibilidade é avaliada antes da implantação.</div>
                         </details>
                         <details class="faq-item">
-                            <summary><span>Quanto custa depois dos 15 dias?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
-                            <div class="faq-answer">Os planos começam em R$ 129 por mês. Antes do teste, mostramos com clareza qual configuração atende sua operação e quanto ela custará, sem fidelidade ou cobranças escondidas.</div>
+                            <summary><span>Como funciona o teste de 15 dias?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+                            <div class="faq-answer">Você solicita o teste, conversa com a equipe sobre a operação e combina a implantação. O estabelecimento então avalia pedido, cozinha, retirada e gestão antes de decidir continuar.</div>
                         </details>
                         <details class="faq-item">
-                            <summary><span>Preciso comprar computadores ou telas novas?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
-                            <div class="faq-answer">Na maioria das operações, não. A 808Pay foi desenvolvida para aproveitar celulares, tablets, computadores e TVs compatíveis que o estabelecimento já possui. Durante o entendimento inicial, avaliamos a estrutura disponível e indicamos somente o que for realmente necessário.</div>
+                            <summary><span>Quanto custa depois do teste?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+                            <div class="faq-answer">Os planos começam em R$ 129 por mês. O Pro Kiosk custa R$ 329 por mês e o Enterprise é sob consulta. A configuração adequada é combinada conforme os recursos necessários.</div>
                         </details>
                         <details class="faq-item">
-                            <summary><span>E se acontecer um problema durante o horário de pico?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
-                            <div class="faq-answer">Durante a implantação, apresentamos os canais de atendimento, horários de suporte e procedimentos de contingência disponíveis para sua operação. Assim, sua equipe sabe exatamente como agir caso ocorra algum incidente.</div>
+                            <summary><span>Existe comissão da 808Pay por pedido?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+                            <div class="faq-answer">A 808Pay não adiciona comissão sobre cada venda. As taxas do meio de pagamento continuam seguindo o contrato do estabelecimento com sua adquirente ou provedor.</div>
+                        </details>
+                        <details class="faq-item">
+                            <summary><span>Quais equipamentos posso utilizar?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+                            <div class="faq-answer">Celulares, tablets, computadores e TVs existentes podem ser aproveitados quando forem compatíveis. Totem, KDS e painel de retirada dependem de dispositivos adequados ao recurso escolhido.</div>
+                        </details>
+                        <details class="faq-item">
+                            <summary><span>Como funciona o suporte?</span><span class="faq-toggle" aria-hidden="true"></span></summary>
+                            <div class="faq-answer">Os canais, horários e procedimentos disponíveis são apresentados durante a implantação, de acordo com a configuração combinada para a operação.</div>
                         </details>
                     </div>
                 </div>
@@ -3890,19 +4052,29 @@
             <!-- Final CTA -->
             <section id="section-final-cta" class="px-6 max-w-3xl mx-auto text-center pb-8">
                 <div class="bg-gradient-to-b from-zinc-900 to-zinc-950 border border-zinc-800 rounded-3xl p-8 sm:p-12 space-y-6">
-                    <span class="text-xs font-bold text-brand tracking-widest uppercase">O próximo passo é uma conversa</span>
-                    <h2 class="text-2xl sm:text-4xl font-black text-white leading-tight">Vamos construir um fluxo que<br class="hidden sm:block"> cresça junto com seu negócio?</h2>
-                    <p class="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto">Conhecemos sua operação, adaptamos o ecossistema e acompanhamos a implantação. Você testa por 15 dias, sem contrato e sem precisar comprar equipamento novo.</p>
+                    <span class="text-xs font-bold text-brand tracking-widest uppercase">Próximo passo</span>
+                    <h2 class="text-2xl sm:text-4xl font-black text-white leading-tight">Veja como a 808Pay funciona na sua operação.</h2>
+                    <p class="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto">Solicite o teste acompanhado de 15 dias e combine com nossa equipe os próximos passos.</p>
                     <button onclick="openLeadModal('Final CTA')" class="inline-flex items-center gap-2 px-8 py-4 bg-brand hover:bg-brand-light text-zinc-950 font-black rounded-xl text-base transition-all shadow-xl shadow-brand/20 group">
-                        <span>Quero conversar sobre minha operação</span>
+                        <span>Solicitar meu teste de 15 dias</span>
                         <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                     </button>
                 </div>
             </section>
+            <footer class="landing-footer">
+                <span>808Pay · Inteligência operacional para restaurantes</span>
+                <div class="landing-footer-actions">
+                    <a href="https://wa.me/5531993005806" target="_blank" rel="noopener noreferrer">WhatsApp: (31) 9 9300-5806</a>
+                    <button type="button" onclick="switchView('pitch')" class="inline-flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M3 4h18M4 4h16v12H4z"/></svg>
+                        Ver Pitch Deck
+                    </button>
+                </div>
+            </footer>
         </div>
         <!-- CTA de conversão contextual — exibido somente no mobile fora do Hero e do simulador -->
         <aside id="mobile-conversion-bar" class="mobile-conversion-bar" aria-label="Começar teste da 808Pay">
-            <button type="button" class="mobile-conversion-main" onclick="openLeadModal('CTA Mobile — Teste de 15 dias')">Testar por 15 dias</button>
+            <button type="button" class="mobile-conversion-main" onclick="openLeadModal('CTA Mobile — Teste de 15 dias')">Solicitar meu teste de 15 dias</button>
             <button type="button" class="mobile-conversion-close" onclick="dismissMobileConversionBar()" aria-label="Fechar chamada para teste">&times;</button>
         </aside>
         <!-- Mobile sticky cart bar (Simulador) -->
@@ -4124,34 +4296,35 @@
         </div>
     </main>
     <!-- Modal de Agendamento / Captura de Lead -->
-    <div id="lead-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-2xl p-6 sm:p-8 space-y-6 relative shadow-2xl">
-            <button onclick="closeLeadModal()" class="absolute top-4 right-4 text-zinc-500 hover:text-white text-xl font-bold">&times;</button>
+    <div id="lead-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="lead-modal-title" aria-describedby="lead-modal-description" onclick="handleLeadModalBackdrop(event)">
+        <div id="lead-modal-panel" class="bg-zinc-900 border border-zinc-800 w-full max-w-md max-h-[calc(100svh-2rem)] overflow-y-auto rounded-2xl p-6 sm:p-8 space-y-6 relative shadow-2xl" tabindex="-1">
+            <button type="button" onclick="closeLeadModal()" class="absolute top-3 right-3 min-w-[44px] min-h-[44px] text-zinc-500 hover:text-white text-xl font-bold" aria-label="Fechar formulário">&times;</button>
             
             <div class="space-y-2">
-                <span class="text-xs font-bold text-brand uppercase tracking-widest">Primeiro, vamos ouvir</span>
-                <h3 class="text-xl font-extrabold text-white">Conte rapidamente sobre sua operação</h3>
-                <p class="text-xs text-zinc-400">Leva menos de 1 minuto. Um especialista entra em contato para entender seu fluxo antes de recomendar qualquer solução.</p>
+                <span id="lead-modal-eyebrow" class="text-xs font-bold text-brand uppercase tracking-widest">Primeiro passo para o teste</span>
+                <h3 id="lead-modal-title" class="text-xl font-extrabold text-white">Solicite seu teste acompanhado de 15 dias</h3>
+                <p id="lead-modal-description" class="text-xs text-zinc-400">Após preencher, vamos abrir o WhatsApp com sua mensagem pronta para enviar. Nossa equipe conhecerá sua operação e combinará a implantação e o início do teste.</p>
             </div>
-            <form onsubmit="submitLeadForm(event)" class="space-y-4 text-xs">
+            <form id="lead-form" onsubmit="submitLeadForm(event)" class="space-y-4 text-xs" novalidate>
                 <div>
-                    <label class="block text-zinc-300 font-semibold mb-1">Seu Nome / Responsável:</label>
-                    <input type="text" required id="lead-name" placeholder="Ex: Carlos Silva" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-brand">
+                    <label for="lead-name" class="block text-zinc-300 font-semibold mb-1">Seu nome</label>
+                    <input type="text" required id="lead-name" autocomplete="name" placeholder="Ex.: Carlos Silva" class="w-full min-h-[44px] bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-brand" aria-describedby="lead-name-error">
+                    <p id="lead-name-error" class="lead-field-error" aria-live="polite"></p>
                 </div>
                 <div>
-                    <label class="block text-zinc-300 font-semibold mb-1">Nome do Estabelecimento:</label>
-                    <input type="text" required id="lead-company" placeholder="Ex: Burger 808" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-brand">
+                    <label for="lead-company" class="block text-zinc-300 font-semibold mb-1">Nome do estabelecimento</label>
+                    <input type="text" required id="lead-company" autocomplete="organization" placeholder="Digite o nome do seu negócio" class="w-full min-h-[44px] bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-brand" aria-describedby="lead-company-error">
+                    <p id="lead-company-error" class="lead-field-error" aria-live="polite"></p>
                 </div>
                 <div>
-                    <label class="block text-zinc-300 font-semibold mb-1">WhatsApp de Contato:</label>
-                    <input type="tel" required id="lead-phone" placeholder="(31) 99999-9999" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-brand">
+                    <label for="lead-phone" class="block text-zinc-300 font-semibold mb-1">WhatsApp com DDD</label>
+                    <input type="tel" required id="lead-phone" inputmode="tel" autocomplete="tel" placeholder="(31) 99999-9999" class="w-full min-h-[44px] bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-white focus:outline-none focus:border-brand" aria-describedby="lead-phone-error">
+                    <p id="lead-phone-error" class="lead-field-error" aria-live="polite"></p>
                 </div>
-                <button type="submit" class="w-full py-3.5 bg-brand hover:bg-brand-light text-zinc-950 font-black rounded-xl transition-all text-sm mt-2">
-                    Conversar com um especialista no WhatsApp
+                <button id="lead-submit-button" type="submit" class="w-full min-h-[48px] py-3.5 bg-brand hover:bg-brand-light text-zinc-950 font-black rounded-xl transition-all text-sm mt-2">
+                    Continuar no WhatsApp
                 </button>
-                <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[10px] text-zinc-500">
-                    <span>Sem compromisso</span><span>•</span><span>Sem contrato</span><span>•</span><span>Seus dados não serão compartilhados</span>
-                </div>
+                <p class="text-[10px] leading-relaxed text-zinc-500 text-center">O WhatsApp abrirá com a mensagem pronta. Você ainda precisa tocar em “Enviar” para iniciar a conversa. Os dados informados são usados para preparar esse contato.</p>
             </form>
         </div>
     </div>
@@ -4181,11 +4354,27 @@
             }
             requestAnimationFrame(() => window.updateMobileConversionBar?.());
         }
+
+        function focusSimStart() {
+            const firstAction = document.getElementById('sim-first-add');
+            if (!firstAction) return;
+            firstAction.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            window.setTimeout(() => firstAction.focus({ preventScroll: true }), 520);
+        }
+
+        function focusGuidedDemo() {
+            const modeSwitcher = document.getElementById('sim-mode-switcher');
+            const guidedButton = document.getElementById('sim-mode-guided');
+            if (!modeSwitcher || !guidedButton) return;
+            modeSwitcher.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            window.setTimeout(() => guidedButton.focus({ preventScroll: true }), 520);
+        }
+
         // 3. Live Simulator Logic
         // Fluxo: 1 Menu (celular) -> 2 Pix (overlay) -> 3 Cozinha (KDS, estágios automáticos) -> 4 Senha (TV) -> 5 Pronto (celular) -> 6 Dashboard (notebook, fecha o fluxo) -> reinício automático
         let cartItems = [];
         let pendingOrderItems = [];
-        let simOrderCount = 101;
+        let simOrderCount = 1042;
         let simPixTimer = null;
         let simNotifyTimer = null;
         let simDashTimer = null;
@@ -4205,6 +4394,11 @@
         let simKdsStageTimer3 = null;
         let simAutoResetTimer = null;
         let simPixConfirmed = false;
+        let simFlowTransitionTimer = null;
+        let simGuidedActionTimer = null;
+        let simMode = 'guided';
+        let simGuidedPhase = 'preview';
+        let simGuidedPaused = false;
         const simPanelStateTimers = new Map();
         const KDS_STAGE_DELAY_1 = 2400;  // Recebido -> Em preparo
         const KDS_STAGE_DELAY_2 = 3200;  // Em preparo -> Finalizando
@@ -4219,6 +4413,168 @@
             finishing: { label: 'Finalizando', dot: 'bg-orange-400', badge: 'bg-orange-500/15 text-orange-400 border border-orange-500/30' },
             ready:     { label: 'Pronto',      dot: 'bg-brand',      badge: 'bg-brand/15 text-brand border border-brand/30' }
         };
+
+        function setGuidedPhase(phase, status) {
+            if (simMode !== 'guided') return;
+            simGuidedPhase = phase;
+            const statusEl = document.getElementById('sim-playback-status');
+            if (statusEl && status) statusEl.textContent = status;
+            if (phase === 'management') document.getElementById('section-simulador')?.classList.remove('sim-guided-running');
+            updateSimulatorModeUI();
+        }
+
+        function updateSimulatorModeUI() {
+            const guided = document.getElementById('sim-mode-guided');
+            const manual = document.getElementById('sim-mode-manual');
+            const controls = document.getElementById('sim-playback-controls');
+            const pauseButton = document.getElementById('sim-pause-button');
+            const isGuided = simMode === 'guided';
+            guided?.classList.toggle('is-active', isGuided);
+            manual?.classList.toggle('is-active', !isGuided);
+            guided?.setAttribute('aria-pressed', isGuided ? 'true' : 'false');
+            manual?.setAttribute('aria-pressed', isGuided ? 'false' : 'true');
+            const hasPlayback = isGuided && !['idle', 'preview'].includes(simGuidedPhase);
+            controls?.classList.toggle('is-visible', hasPlayback);
+            if (pauseButton) {
+                pauseButton.disabled = simGuidedPhase === 'management';
+                pauseButton.textContent = simGuidedPhase === 'management' ? 'Concluída' : (simGuidedPaused ? 'Continuar' : 'Pausar');
+            }
+        }
+
+        function prepareGuidedPreview() {
+            simMode = 'guided';
+            simGuidedPhase = 'preview';
+            simGuidedPaused = false;
+            const section = document.getElementById('section-simulador');
+            section?.classList.add('sim-preview-ready');
+            section?.classList.remove('sim-guided-running', 'sim-started');
+            cartItems = [{ name: 'Coxinha de Frango com Catupiry', price: 10.00, note: 'Bem quente' }];
+            pendingOrderItems = [];
+            renderCart();
+            const payButton = document.getElementById('btn-sim-pay');
+            if (payButton) {
+                payButton.disabled = true;
+                payButton.textContent = 'Use “Ver o pedido avançar”';
+                payButton.className = 'hidden lg:block w-full py-3 bg-zinc-800 text-zinc-500 font-bold text-xs rounded-xl cursor-not-allowed';
+            }
+            const kdsContainer = document.getElementById('sim-kds-container');
+            if (kdsContainer) {
+                kdsContainer.className = 'space-y-3 min-h-[300px] lg:min-h-[360px] flex flex-col justify-center items-center text-center p-6 border border-dashed border-zinc-800 rounded-xl text-zinc-600 text-xs';
+                kdsContainer.innerHTML = '<div class="sim-preview-order"><span>Próxima etapa · Cozinha</span><strong>Pedido nº 1042</strong><p>Coxinha de Frango com Catupiry<br>Observação: bem quente</p></div>';
+            }
+            document.getElementById('sim-tv-number').textContent = '# 1042';
+            document.getElementById('sim-tv-number').className = 'text-5xl font-black text-zinc-700';
+            document.getElementById('sim-tv-status').textContent = 'Aguardando preparo na cozinha';
+            document.getElementById('sim-dash-orders-count').textContent = '—';
+            document.getElementById('sim-dash-revenue').textContent = '—';
+            document.getElementById('sim-dash-order-card').innerHTML = '<div class="text-[10px] text-zinc-500 text-center py-4">Pedido nº 1042 será registrado após a conclusão.</div>';
+            const liveState = document.getElementById('sim-live-state');
+            const liveCopy = document.getElementById('sim-live-copy');
+            if (liveState) liveState.textContent = 'Pedido nº 1042 · no celular do cliente';
+            if (liveCopy) liveCopy.textContent = 'Coxinha de Frango com Catupiry · bem quente. Próxima etapa: cozinha.';
+            updateSimulatorModeUI();
+            updateSimMobileView();
+        }
+
+        function clearGuidedTimers() {
+            clearTimeout(simGuidedActionTimer);
+            clearTimeout(simFlowTransitionTimer);
+            clearTimeout(simPixTimer);
+            clearTimeout(simNotifyTimer);
+            clearTimeout(simDashTimer);
+            clearTimeout(simDashboardSyncTimer);
+            clearTimeout(simKdsStageTimer1);
+            clearTimeout(simKdsStageTimer2);
+            clearTimeout(simKdsStageTimer3);
+            clearInterval(simKdsTimerInterval);
+        }
+
+        function setSimulatorMode(mode, shouldFocus = false) {
+            simMode = mode === 'guided' ? 'guided' : 'manual';
+            simGuidedPaused = false;
+            clearGuidedTimers();
+            resetSimFlow(false);
+            if (simMode === 'manual') {
+                simGuidedPhase = 'idle';
+                const statusEl = document.getElementById('sim-playback-status');
+                if (statusEl) statusEl.textContent = 'Explore no seu ritmo';
+                if (shouldFocus) window.setTimeout(focusSimStart, 80);
+            }
+            updateSimulatorModeUI();
+        }
+
+        function startGuidedDemo() {
+            simMode = 'guided';
+            simGuidedPaused = false;
+            clearGuidedTimers();
+            resetSimFlow(false);
+            simOrderCount = 1042;
+            document.getElementById('section-simulador')?.classList.remove('sim-preview-ready');
+            document.getElementById('section-simulador')?.classList.add('sim-guided-running');
+            updateSimulatorModeUI();
+            addSimItem('Coxinha de Frango com Catupiry', 10.00, 'Bem quente');
+            setGuidedPhase('order', '1 de 4 · Pedido escolhido no celular');
+            const liveState = document.getElementById('sim-live-state');
+            const liveCopy = document.getElementById('sim-live-copy');
+            if (liveState) liveState.textContent = 'Pedido nº 1042 · no celular do cliente';
+            if (liveCopy) liveCopy.textContent = 'Coxinha de Frango com Catupiry · bem quente. Próxima etapa: cozinha.';
+            simGuidedActionTimer = setTimeout(() => {
+                if (simGuidedPaused) return;
+                advanceGuidedOrder();
+            }, 1500);
+        }
+
+        function advanceGuidedOrder() {
+            if (!cartItems.length) cartItems = [{ name: 'Coxinha de Frango com Catupiry', price: 10.00, note: 'Bem quente' }];
+            const items = [...cartItems];
+            cartItems = [];
+            renderCart();
+            const orderNum = simOrderCount++;
+            lastCompletedOrder = { orderNum, items, total: items.reduce((sum, item) => sum + item.price, 0) };
+            sendSimOrderToKDS(items, orderNum);
+            simMaxUnlockedStep = 3;
+            simMobileStep = 3;
+            updateSimMobileView();
+        }
+
+        function toggleGuidedDemoPause() {
+            if (simMode !== 'guided' || ['idle', 'preview', 'management'].includes(simGuidedPhase)) return;
+            simGuidedPaused = !simGuidedPaused;
+            if (simGuidedPaused) {
+                clearGuidedTimers();
+                const statusEl = document.getElementById('sim-playback-status');
+                if (statusEl) statusEl.textContent = 'Demonstração pausada';
+            } else {
+                resumeGuidedDemo();
+            }
+            updateSimulatorModeUI();
+        }
+
+        function resumeGuidedDemo() {
+            if (simMode !== 'guided') return;
+            simGuidedPaused = false;
+            if (simGuidedPhase === 'order') {
+                simGuidedActionTimer = setTimeout(advanceGuidedOrder, 500);
+            } else if (simGuidedPhase === 'payment') {
+                simGuidedActionTimer = setTimeout(() => confirmSimPix(), 500);
+            } else if (simGuidedPhase === 'payment_confirmed') {
+                simFlowTransitionTimer = setTimeout(finalizeSimPayment, 500);
+            } else if (['received', 'preparing', 'finishing'].includes(simGuidedPhase) && lastCompletedOrder) {
+                simKdsTimerInterval = setInterval(() => {
+                    kdsElapsedSeconds++;
+                    const timerEl = document.getElementById('sim-kds-timer');
+                    if (timerEl) timerEl.textContent = formatMMSS(kdsElapsedSeconds);
+                }, 1000);
+                scheduleKdsStage(simGuidedPhase, lastCompletedOrder.orderNum);
+            } else if (simGuidedPhase === 'pickup' && lastCompletedOrder) {
+                schedulePostPickupUpdates(lastCompletedOrder.orderNum);
+            } else if (simGuidedPhase === 'notified') {
+                scheduleDashboardReveal();
+            }
+            const statusEl = document.getElementById('sim-playback-status');
+            if (statusEl) statusEl.textContent = 'Demonstração retomada';
+            updateSimulatorModeUI();
+        }
 
         function formatMMSS(totalSeconds) {
             const m = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
@@ -4269,7 +4625,7 @@
             return window.matchMedia('(max-width: 1023px)').matches;
         }
 
-        function addSimItem(name, price) {
+        function addSimItem(name, price, note = '') {
             const simulatorSection = document.getElementById('section-simulador');
             simulatorSection?.classList.remove('sim-awaiting-start');
             simulatorSection?.classList.add('sim-started');
@@ -4277,7 +4633,7 @@
             const liveCopy = document.getElementById('sim-live-copy');
             if (liveState) liveState.textContent = 'Simulação iniciada por você';
             if (liveCopy) liveCopy.textContent = 'Item adicionado. Agora conclua o Pix para acompanhar o fluxo até a gestão.';
-            cartItems.push({ name, price });
+            cartItems.push({ name, price, note });
             renderCart();
         }
 
@@ -4306,7 +4662,7 @@
             }
             const total = cartTotal();
             listEl.innerHTML = cartItems.map(item => {
-                return `<div class="flex justify-between text-zinc-300"><span>• ${item.name}</span><span>R$ ${item.price.toFixed(2).replace('.', ',')}</span></div>`;
+                return `<div class="flex justify-between gap-3 text-zinc-300"><span>• ${item.name}${item.note ? `<small class="block pl-2 text-[9px] text-zinc-500">${item.note}</small>` : ''}</span><span>R$ ${item.price.toFixed(2).replace('.', ',')}</span></div>`;
             }).join('');
             const totalStr = `R$ ${total.toFixed(2).replace('.', ',')}`;
             totalEl.textContent = totalStr;
@@ -4320,14 +4676,32 @@
         }
 
         // --- Mobile step navigation ---
+        const SIM_PUBLIC_TO_INTERNAL_STEP = { 1: 1, 2: 3, 3: 4, 4: 6 };
+
+        function getSimPublicStep(internalStep = simMobileStep) {
+            if (internalStep <= 2) return 1;
+            if (internalStep === 3) return 2;
+            if (internalStep <= 5) return 3;
+            return 4;
+        }
+
+        function getSimMaxPublicStep() {
+            if (simMaxUnlockedStep < 3) return 1;
+            if (simMaxUnlockedStep < 4) return 2;
+            if (simMaxUnlockedStep < 6) return 3;
+            return 4;
+        }
+
         function updateSimMobileNavButtons() {
-            for (let i = 1; i <= 6; i++) {
+            const currentPublicStep = getSimPublicStep();
+            const maxPublicStep = getSimMaxPublicStep();
+            for (let i = 1; i <= 4; i++) {
                 const btn = document.getElementById(`sim-step-btn-${i}`);
                 if (!btn) continue;
-                const unlocked = i <= simMaxUnlockedStep || i === simMobileStep;
-                const isManuallyNavigable = i !== 2; // "Pix" só existe como overlay transitório
-                btn.disabled = !(isManuallyNavigable && i <= simMaxUnlockedStep);
-                if (i === simMobileStep) {
+                const unlocked = i <= maxPublicStep;
+                btn.disabled = !unlocked;
+                btn.setAttribute('aria-current', i === currentPublicStep ? 'step' : 'false');
+                if (i === currentPublicStep) {
                     btn.className = "sim-step-active shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-brand text-zinc-950 transition-all";
                 } else if (unlocked) {
                     btn.className = "shrink-0 px-3 py-2 rounded-lg text-[9px] font-bold uppercase tracking-wide bg-zinc-800 text-zinc-300 transition-all";
@@ -4337,16 +4711,16 @@
             }
         }
 
-        function goSimMobileStep(step) {
-            if (step === 2) return; // "Pix" só aparece via overlay durante o checkout
-            if (step > simMaxUnlockedStep) return;
-            simMobileStep = step;
+        function goSimMobileStep(publicStep) {
+            const internalStep = SIM_PUBLIC_TO_INTERNAL_STEP[publicStep];
+            if (!internalStep || publicStep > getSimMaxPublicStep()) return;
+            simMobileStep = internalStep;
             updateSimMobileView();
         }
 
         function updateSimMobileCartBar() {
             const bar = document.getElementById('sim-mobile-cart-bar');
-            const shouldShow = isMobileSimLayout() && simMobileStep === 1 && cartItems.length > 0;
+            const shouldShow = isMobileSimLayout() && simMode === 'manual' && simMobileStep === 1 && cartItems.length > 0;
             bar.classList.toggle('translate-y-full', !shouldShow);
             document.body.classList.toggle('sim-mobile-cart-visible', shouldShow);
         }
@@ -4386,12 +4760,12 @@
                 return;
             }
             // No mobile só um aparelho fica visível por vez, em destaque (nunca lado a lado)
-            totem.classList.toggle('hidden', ![1, 2, 5].includes(simMobileStep));
+            totem.classList.toggle('hidden', ![1, 2].includes(simMobileStep));
             kds.classList.toggle('hidden', simMobileStep !== 3);
-            tv.classList.toggle('hidden', simMobileStep !== 4);
+            tv.classList.toggle('hidden', ![4, 5].includes(simMobileStep));
             dashboard.classList.toggle('hidden', simMobileStep !== 6);
             if (simLastRenderedStep !== simMobileStep) {
-                const stepPanelMap = { 3: kds, 4: tv, 6: dashboard };
+                const stepPanelMap = { 3: kds, 4: tv, 5: tv, 6: dashboard };
                 const activePanel = stepPanelMap[simMobileStep] || totem;
                 playSimStepTransition(activePanel);
                 simLastRenderedStep = simMobileStep;
@@ -4468,21 +4842,25 @@
             document.getElementById('sim-pix-qr').classList.add('hidden');
             statusEl.className = "flex items-center justify-center gap-2 text-sm text-brand font-bold";
             statusEl.innerHTML = `<svg class="w-6 h-6 pix-check" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg><span>Pagamento confirmado!</span>`;
+            setGuidedPhase('payment_confirmed', 'Pagamento fictício confirmado');
             // A partir daqui, o visitante não clica em mais nada — o fluxo inteiro é automático
-            setTimeout(() => {
-                closeSimPixOverlay();
-                const orderNum = simOrderCount++;
-                lastCompletedOrder = {
-                    orderNum,
-                    items: pendingOrderItems,
-                    total: pendingOrderItems.reduce((sum, i) => sum + i.price, 0)
-                };
-                sendSimOrderToKDS(pendingOrderItems, orderNum);
-                pendingOrderItems = [];
-                simMaxUnlockedStep = 3; // Cozinha já fica disponível
-                simMobileStep = 3;
-                updateSimMobileView();
-            }, 900);
+            clearTimeout(simFlowTransitionTimer);
+            simFlowTransitionTimer = setTimeout(finalizeSimPayment, 900);
+        }
+
+        function finalizeSimPayment() {
+            closeSimPixOverlay();
+            const orderNum = simOrderCount++;
+            lastCompletedOrder = {
+                orderNum,
+                items: pendingOrderItems,
+                total: pendingOrderItems.reduce((sum, i) => sum + i.price, 0)
+            };
+            sendSimOrderToKDS(pendingOrderItems, orderNum);
+            pendingOrderItems = [];
+            simMaxUnlockedStep = 3;
+            simMobileStep = 3;
+            updateSimMobileView();
         }
 
         // --- KDS / TV flow (100% automático após o Pix, com estágios e cronômetro) ---
@@ -4500,7 +4878,7 @@
                         <span id="sim-kds-timer" class="text-[10px] text-zinc-500 font-mono">00:00</span>
                     </div>
                     <div class="space-y-1 text-xs text-zinc-300">
-                        ${items.map(i => `<div>- ${i.name}</div>`).join('')}
+                        ${items.map(i => `<div>- ${i.name}${i.note ? `<small class="block pl-2 text-[9px] text-zinc-500">Observação: ${i.note.toLowerCase()}</small>` : ''}</div>`).join('')}
                     </div>
                     <div id="sim-kds-status-badge" class="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1.5 rounded-lg ${KDS_STAGES.received.badge}">
                         <span id="sim-kds-status-dot" class="w-1.5 h-1.5 rounded-full ${KDS_STAGES.received.dot}"></span>
@@ -4527,24 +4905,65 @@
             badge.className = `flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wide px-2.5 py-1.5 rounded-lg ${info.badge}`;
             dot.className = `w-1.5 h-1.5 rounded-full ${info.dot}`;
             label.textContent = info.label;
+            if (simMode === 'guided') {
+                const phaseLabels = {
+                    received: '2 de 4 · Pedido recebido na cozinha',
+                    preparing: '2 de 4 · Pedido em preparo',
+                    finishing: '2 de 4 · Cozinha finalizando',
+                    ready: '3 de 4 · Pedido pronto para retirada'
+                };
+                const stageCopy = {
+                    received: {
+                        state: 'Pedido nº 1042 · recebido na cozinha',
+                        copy: 'O item e a observação chegaram juntos. Próxima etapa: iniciar o preparo.'
+                    },
+                    preparing: {
+                        state: 'Pedido nº 1042 · em preparo',
+                        copy: 'A cozinha atualizou o andamento do mesmo pedido.'
+                    },
+                    finishing: {
+                        state: 'Pedido nº 1042 · finalizando',
+                        copy: 'O pedido está nos últimos ajustes antes da retirada.'
+                    },
+                    ready: {
+                        state: 'Pedido nº 1042 · pronto',
+                        copy: 'A retirada será avisada e a venda seguirá para a gestão.'
+                    }
+                };
+                const liveState = document.getElementById('sim-live-state');
+                const liveCopy = document.getElementById('sim-live-copy');
+                if (liveState) liveState.textContent = stageCopy[stage].state;
+                if (liveCopy) liveCopy.textContent = stageCopy[stage].copy;
+                setGuidedPhase(stage, phaseLabels[stage]);
+            }
             if (stage === 'ready') setSimPanelState('sim-panel-kds', 'complete');
         }
 
-        function runKdsStageSequence(orderNum) {
+        function scheduleKdsStage(stage, orderNum) {
             clearTimeout(simKdsStageTimer1);
             clearTimeout(simKdsStageTimer2);
             clearTimeout(simKdsStageTimer3);
-            setKdsStage('received');
-            simKdsStageTimer1 = setTimeout(() => {
-                setKdsStage('preparing');
+            if (stage === 'received') {
+                simKdsStageTimer1 = setTimeout(() => {
+                    setKdsStage('preparing');
+                    scheduleKdsStage('preparing', orderNum);
+                }, KDS_STAGE_DELAY_1);
+            } else if (stage === 'preparing') {
                 simKdsStageTimer2 = setTimeout(() => {
                     setKdsStage('finishing');
-                    simKdsStageTimer3 = setTimeout(() => {
-                        setKdsStage('ready');
-                        finishSimOrder(orderNum);
-                    }, KDS_STAGE_DELAY_3);
+                    scheduleKdsStage('finishing', orderNum);
                 }, KDS_STAGE_DELAY_2);
-            }, KDS_STAGE_DELAY_1);
+            } else if (stage === 'finishing') {
+                simKdsStageTimer3 = setTimeout(() => {
+                    setKdsStage('ready');
+                    finishSimOrder(orderNum);
+                }, KDS_STAGE_DELAY_3);
+            }
+        }
+
+        function runKdsStageSequence(orderNum) {
+            setKdsStage('received');
+            scheduleKdsStage('received', orderNum);
         }
 
         function flashTvScreen() {
@@ -4584,10 +5003,18 @@
             document.getElementById('sim-tv-status').className = "text-xs text-brand font-bold uppercase tracking-wider";
             flashTvScreen();
             boostTvGlow();
+            if (lastCompletedOrder && lastCompletedOrder.orderNum === orderNum) lastCompletedOrder.productionTime = productionTime;
             simMaxUnlockedStep = 4;
             simMobileStep = 4;
             updateSimMobileView();
+            setGuidedPhase('pickup', '3 de 4 · Retirada anunciada');
+            const liveCopy = document.getElementById('sim-live-copy');
+            if (simMode === 'guided' && liveCopy) liveCopy.textContent = 'A senha do pedido apareceu no painel de retirada.';
+            schedulePostPickupUpdates(orderNum);
+        }
 
+        function schedulePostPickupUpdates(orderNum) {
+            const productionTime = lastCompletedOrder?.productionTime ?? kdsElapsedSeconds;
             // KDS -> Dashboard: a venda é registrada automaticamente, em tempo real
             pulseConnector(3);
             if (lastCompletedOrder && lastCompletedOrder.orderNum === orderNum) {
@@ -4605,15 +5032,25 @@
                 simMaxUnlockedStep = 5;
                 simMobileStep = 5;
                 updateSimMobileView();
-                // Revela o dashboard já atualizado, fechando o ciclo
-                clearTimeout(simDashTimer);
-                simDashTimer = setTimeout(() => {
-                    simMaxUnlockedStep = 6;
-                    simMobileStep = 6;
-                    updateSimMobileView();
-                    // Fluxo termina aqui. O visitante clica em "Fazer Novo Pedido" para reiniciar.
-                }, SIM_DASHBOARD_REVEAL_DELAY);
+                setGuidedPhase('notified', 'Pedido pronto e cliente avisado');
+                scheduleDashboardReveal();
             }, SIM_NOTIFY_DELAY);
+        }
+
+        function scheduleDashboardReveal() {
+            clearTimeout(simDashTimer);
+            simDashTimer = setTimeout(() => {
+                simMaxUnlockedStep = 6;
+                simMobileStep = 6;
+                updateSimMobileView();
+                setGuidedPhase('management', '4 de 4 · Gestão atualizada');
+                const liveState = document.getElementById('sim-live-state');
+                const liveCopy = document.getElementById('sim-live-copy');
+                if (simMode === 'guided') {
+                    if (liveState) liveState.textContent = 'Demonstração concluída';
+                    if (liveCopy) liveCopy.textContent = 'O pedido fictício chegou ao painel de gestão.';
+                }
+            }, SIM_DASHBOARD_REVEAL_DELAY);
         }
 
         const SIM_DASH_CHART_PROFILES = [
@@ -4678,20 +5115,23 @@
             `).join('');
         }
 
-        function resetSimFlow() {
+        function resetSimFlow(showGuidedPreview = simMode === 'guided') {
             const simulatorSection = document.getElementById('section-simulador');
             simulatorSection?.classList.remove('sim-started');
+            simulatorSection?.classList.remove('sim-guided-running', 'sim-preview-ready');
             simulatorSection?.classList.add('sim-awaiting-start');
             const liveState = document.getElementById('sim-live-state');
             const liveCopy = document.getElementById('sim-live-copy');
-            if (liveState) liveState.textContent = 'A simulação está pronta para você';
-            if (liveCopy) liveCopy.textContent = 'Não é um vídeo: clique em “+ Adicionar” para colocar a operação em movimento.';
+            if (liveState) liveState.textContent = 'Comece pelo pedido';
+            if (liveCopy) liveCopy.textContent = 'Clique em “+ Adicionar”. O restante acontece ao vivo.';
             simPixConfirmed = false;
             clearTimeout(simPixTimer);
             clearTimeout(simNotifyTimer);
             clearTimeout(simDashTimer);
             clearTimeout(simDashboardSyncTimer);
             clearTimeout(simAutoResetTimer);
+            clearTimeout(simFlowTransitionTimer);
+            clearTimeout(simGuidedActionTimer);
             clearTimeout(simKdsStageTimer1);
             clearTimeout(simKdsStageTimer2);
             clearTimeout(simKdsStageTimer3);
@@ -4713,12 +5153,14 @@
             simDashOrdersCount = 0;
             simDashRevenue = 0;
             simDashTransactions = [];
+            simGuidedPhase = 'idle';
+            simGuidedPaused = false;
             document.getElementById('sim-dash-orders-count').textContent = '0';
             document.getElementById('sim-dash-revenue').textContent = 'R$ 0,00';
             renderDashboardChart(false);
             document.getElementById('sim-dash-order-card').innerHTML = '<div class="text-[10px] text-zinc-600 text-center py-4">Nenhum pedido concluído ainda.</div>';
             const kdsContainer = document.getElementById('sim-kds-container');
-            kdsContainer.innerHTML = 'Aguardando envio do pedido pelo Totem...';
+            kdsContainer.innerHTML = 'Aguardando o pedido do cliente...';
             kdsContainer.className = "space-y-3 min-h-[300px] lg:min-h-[360px] flex flex-col justify-center items-center text-center p-6 border border-dashed border-zinc-800 rounded-xl text-zinc-600 text-xs";
             document.getElementById('sim-tv-number').innerHTML = '# ---';
             document.getElementById('sim-tv-number').className = "text-5xl font-black text-zinc-700";
@@ -4728,6 +5170,8 @@
             renderCart();
             updateSimMobileView();
             setSimPanelState('sim-panel-totem', 'processing');
+            updateSimulatorModeUI();
+            if (showGuidedPreview) prepareGuidedPreview();
         }
 
         // Re-avalia o layout mobile/desktop ao redimensionar ou girar o dispositivo
@@ -4735,7 +5179,7 @@
             if (!document.getElementById('view-pitch').classList.contains('hidden')) return;
             updateSimMobileView();
         });
-        updateSimMobileView();
+        prepareGuidedPreview();
         setSimPanelState('sim-panel-totem', 'processing');
 
         // 4. Pitch Deck Navigation
@@ -4792,6 +5236,7 @@
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             const pitchView = document.getElementById('view-pitch');
+            if (!document.getElementById('lead-modal')?.classList.contains('hidden')) return;
             if (!pitchView.classList.contains('hidden')) {
                 if (e.key === 'ArrowRight' || e.key === ' ') {
                     e.preventDefault();
@@ -4806,16 +5251,82 @@
         });
         // 5. Lead Modal Handlers
         let currentLeadSource = 'Landing Page';
+        let leadModalReturnFocus = null;
+
+        function clearLeadErrors() {
+            ['name', 'company', 'phone'].forEach((field) => {
+                const input = document.getElementById(`lead-${field}`);
+                const error = document.getElementById(`lead-${field}-error`);
+                input?.removeAttribute('aria-invalid');
+                if (error) error.textContent = '';
+            });
+        }
+
         function openLeadModal(source) {
             currentLeadSource = source || 'Landing Page';
+            leadModalReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+            const consultative = currentLeadSource.includes('Conversa consultiva');
+            const selectedPlan = currentLeadSource.match(/^Plano (Starter|Pro Kiosk)/)?.[1] || '';
+            const eyebrow = document.getElementById('lead-modal-eyebrow');
+            const title = document.getElementById('lead-modal-title');
+            const description = document.getElementById('lead-modal-description');
+            if (eyebrow) eyebrow.textContent = consultative
+                ? 'Conversa consultiva'
+                : (selectedPlan ? `${selectedPlan} · Teste acompanhado` : 'Primeiro passo para o teste');
+            if (title) title.textContent = consultative
+                ? 'Converse com a equipe 808Pay'
+                : (selectedPlan ? `Solicite o teste do ${selectedPlan}` : 'Solicite seu teste acompanhado de 15 dias');
+            if (description) description.textContent = consultative
+                ? 'Após preencher, vamos abrir o WhatsApp com sua mensagem pronta para enviar. Nossa equipe conhecerá a operação e conversará sobre a configuração Enterprise.'
+                : (selectedPlan
+                    ? `Após preencher, vamos abrir o WhatsApp com uma mensagem que identifica seu interesse no ${selectedPlan}. Você ainda decide se deseja enviá-la.`
+                    : 'Após preencher, vamos abrir o WhatsApp com sua mensagem pronta para enviar. Nossa equipe conhecerá sua operação e combinará a implantação e o início do teste.');
+            clearLeadErrors();
             document.getElementById('mobile-conversion-bar')?.classList.remove('is-visible');
-            document.getElementById('lead-modal').classList.remove('hidden');
+            const modal = document.getElementById('lead-modal');
+            modal.classList.remove('hidden');
+            modal.setAttribute('aria-hidden', 'false');
+            document.querySelector('header')?.setAttribute('inert', '');
+            document.querySelector('main')?.setAttribute('inert', '');
+            document.body.style.overflow = 'hidden';
             setTimeout(() => document.getElementById('lead-name')?.focus(), 120);
         }
         function closeLeadModal() {
-            document.getElementById('lead-modal').classList.add('hidden');
+            const modal = document.getElementById('lead-modal');
+            modal.classList.add('hidden');
+            modal.setAttribute('aria-hidden', 'true');
+            document.querySelector('header')?.removeAttribute('inert');
+            document.querySelector('main')?.removeAttribute('inert');
+            document.body.style.overflow = '';
+            leadModalReturnFocus?.focus?.({ preventScroll: true });
             window.updateMobileConversionBar?.();
         }
+
+        function handleLeadModalBackdrop(event) {
+            if (event.target === event.currentTarget) closeLeadModal();
+        }
+
+        document.addEventListener('keydown', (event) => {
+            const modal = document.getElementById('lead-modal');
+            if (!modal || modal.classList.contains('hidden')) return;
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                closeLeadModal();
+                return;
+            }
+            if (event.key !== 'Tab') return;
+            const focusable = Array.from(modal.querySelectorAll('button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+            if (!focusable.length) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+            }
+        });
 
         // CTA mobile contextual: aparece após a experiência do simulador e sai antes dos planos.
         let mobileConversionDismissed = false;
@@ -4854,13 +5365,38 @@
 
         function submitLeadForm(e) {
             e.preventDefault();
-            const name = document.getElementById('lead-name').value;
-            const company = document.getElementById('lead-company').value;
-            const phone = document.getElementById('lead-phone').value;
-            const msg = `Olá! Meu nome é ${name}, do estabelecimento ${company}. Quero conversar sobre como o ecossistema 808Pay pode se adaptar à nossa operação e conhecer o teste de 15 dias. Meu telefone é ${phone}. Origem: ${currentLeadSource}.`;
+            clearLeadErrors();
+            const nameInput = document.getElementById('lead-name');
+            const companyInput = document.getElementById('lead-company');
+            const phoneInput = document.getElementById('lead-phone');
+            const name = nameInput.value.trim();
+            const company = companyInput.value.trim();
+            const phone = phoneInput.value.trim();
+            const phoneDigits = phone.replace(/\D/g, '');
+            const validation = [
+                { input: nameInput, error: document.getElementById('lead-name-error'), valid: name.length >= 2, message: 'Informe seu nome.' },
+                { input: companyInput, error: document.getElementById('lead-company-error'), valid: company.length >= 2, message: 'Informe o nome do estabelecimento.' },
+                { input: phoneInput, error: document.getElementById('lead-phone-error'), valid: phoneDigits.length === 10 || phoneDigits.length === 11, message: 'Informe um WhatsApp válido com DDD.' }
+            ];
+            const firstInvalid = validation.find((field) => !field.valid);
+            validation.forEach((field) => {
+                if (!field.valid) {
+                    field.input.setAttribute('aria-invalid', 'true');
+                    field.error.textContent = field.message;
+                }
+            });
+            if (firstInvalid) {
+                firstInvalid.input.focus();
+                return;
+            }
+            const isConsultative = currentLeadSource.includes('Conversa consultiva');
+            const intention = isConsultative
+                ? 'Quero conversar sobre a configuração Enterprise para a minha operação.'
+                : 'Quero solicitar o teste acompanhado de 15 dias e combinar os próximos passos.';
+            const msg = `Olá! Meu nome é ${name}, do estabelecimento ${company}. ${intention} Meu telefone é ${phone}. Origem: ${currentLeadSource}.`;
             const whatsappUrl = `https://wa.me/5531993005806?text=${encodeURIComponent(msg)}`;
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
             closeLeadModal();
-            window.open(whatsappUrl, '_blank');
         }
 
         // ===== Microinterações premium (camada aditiva — só lê o DOM/estado existente, nunca chama ou reescreve as funções do simulador/ROI acima) =====
@@ -4975,7 +5511,7 @@
             premiumCards.push(...document.querySelectorAll('.validation-card, .flow-compare-card, #section-planos .grid > div'));
             premiumCards.forEach((el) => el && el.classList.add('premium-card'));
 
-            // Métricas do Hero exibem valores textuais (ex: "≈ zero", "Automático") — sem count-up
+            // Evidências do Hero usam mensagens qualitativas — sem count-up
 
             // ---- 2. Count Up: Dashboard do dono (apenas a primeira mudança de valor; atualizações seguintes continuam 100% como já eram, sem qualquer alteração na lógica do simulador) ----
             ['sim-dash-orders-count', 'sim-dash-revenue'].forEach((id) => {
