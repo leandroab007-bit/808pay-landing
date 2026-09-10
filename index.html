@@ -3492,8 +3492,408 @@
         .flow-compare-card-connected .flow-example-row strong { color: #bbf7d0; }
         .flow-compare-section > .text-center h2 { font-size: clamp(2rem,4vw,3.25rem); }
 
+        /* ===== Apresentação dos recursos — compacta, escaneável e alinhada ao produto ===== */
+        #section-contextos,
+        #section-recursos { scroll-margin-top: 6.5rem; }
+        .hero-operating-promise {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 0.75rem;
+            margin-top: 1.1rem;
+            color: #a1a1aa;
+            font-size: clamp(0.77rem, 1.15vw, 0.9rem);
+            line-height: 1.5;
+        }
+        .hero-operating-promise strong { color: #f4f4f5; font-weight: 850; }
+        .hero-operating-promise span { color: #86efac; font-weight: 760; }
+        .section-intro { max-width: 48rem; margin: 0 auto 2rem; }
+        .section-intro-split {
+            max-width: none;
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(16rem, 0.7fr);
+            align-items: end;
+            gap: 2rem;
+        }
+        .section-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            margin-bottom: 0.85rem;
+            color: #4ade80;
+            font-size: 0.65rem;
+            font-weight: 900;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+        .section-eyebrow::before { content: ''; width: 1.55rem; height: 1px; background: linear-gradient(90deg, transparent, #4ade80); }
+        .section-intro h2 {
+            color: #fafafa;
+            font-size: clamp(2rem, 4vw, 3.25rem);
+            font-weight: 920;
+            letter-spacing: -0.045em;
+            line-height: 1.03;
+        }
+        .section-intro > p,
+        .section-intro-split > p {
+            margin-top: 0.9rem;
+            color: #a1a1aa;
+            font-size: clamp(0.82rem, 1.25vw, 0.98rem);
+            line-height: 1.65;
+        }
+        .section-intro-split > p { margin-top: 0; }
+        .service-modes-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+        .service-mode-card {
+            position: relative;
+            min-height: 19rem;
+            padding: clamp(1.4rem, 3vw, 2.15rem);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.09);
+            border-radius: 1.5rem;
+            background: linear-gradient(145deg, rgba(24,24,27,0.88), rgba(9,9,11,0.96));
+            box-shadow: 0 34px 75px -58px rgba(0,0,0,0.95);
+        }
+        .service-mode-card::before {
+            content: '';
+            position: absolute;
+            width: 17rem;
+            height: 17rem;
+            right: -7rem;
+            bottom: -9rem;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(34,197,94,0.11), transparent 67%);
+            pointer-events: none;
+        }
+        .service-mode-head { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .service-mode-head span { color: #4ade80; font-size: 0.65rem; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; }
+        .service-mode-head svg { width: 1.6rem; height: 1.6rem; color: #71717a; }
+        .service-mode-card h3 { position: relative; max-width: 29rem; margin-top: 3.2rem; color: #f4f4f5; font-size: clamp(1.45rem, 2.7vw, 2.15rem); font-weight: 900; letter-spacing: -0.035em; line-height: 1.08; }
+        .service-mode-card > p { position: relative; max-width: 31rem; margin-top: 0.8rem; color: #a1a1aa; font-size: 0.82rem; line-height: 1.65; }
+        .service-flow-tags { position: relative; display: flex; align-items: center; gap: 0.6rem; margin-top: 2rem; color: #d4d4d8; font-size: 0.64rem; font-weight: 780; }
+        .service-flow-tags span { padding: 0.45rem 0.65rem; border: 1px solid rgba(74,222,128,0.18); border-radius: 999px; background: rgba(34,197,94,0.055); }
+        .service-flow-tags i { width: clamp(0.8rem, 3vw, 2.3rem); height: 1px; background: linear-gradient(90deg, rgba(74,222,128,0.16), #4ade80); }
+        .table-consultation-note { position: relative; display: grid; gap: 0.25rem; margin-top: 1.6rem; padding: 0.85rem 1rem; border-left: 2px solid rgba(212,175,55,0.72); border-radius: 0 0.75rem 0.75rem 0; background: rgba(212,175,55,0.055); }
+        .table-consultation-note strong { color: #f4f4f5; font-size: 0.72rem; }
+        .table-consultation-note span { color: #8f8f99; font-size: 0.65rem; line-height: 1.45; }
+        .resources-section { position: relative; }
+        .resources-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.9rem; }
+        .resource-card {
+            position: relative;
+            min-height: 28rem;
+            padding: clamp(1.35rem, 2.5vw, 1.8rem);
+            border: 1px solid rgba(255,255,255,0.085);
+            border-radius: 1.4rem;
+            background: linear-gradient(150deg, rgba(24,24,27,0.82), rgba(9,9,11,0.94));
+            transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+        }
+        .resource-card:hover { transform: translateY(-3px); border-color: rgba(74,222,128,0.2); box-shadow: 0 28px 60px -48px rgba(34,197,94,0.55); }
+        .resource-card-head { display: flex; align-items: flex-start; gap: 0.9rem; }
+        .resource-icon { flex: 0 0 auto; display: grid; place-items: center; width: 2.7rem; height: 2.7rem; border: 1px solid rgba(74,222,128,0.2); border-radius: 0.85rem; color: #4ade80; background: rgba(34,197,94,0.055); }
+        .resource-icon svg { width: 1.3rem; height: 1.3rem; }
+        .resource-card-head > div > span { color: #71717a; font-size: 0.6rem; font-weight: 900; letter-spacing: 0.13em; text-transform: uppercase; }
+        .resource-card h3 { max-width: 25rem; margin-top: 0.35rem; color: #f4f4f5; font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 880; letter-spacing: -0.025em; line-height: 1.2; }
+        .resource-list { display: grid; gap: 0.72rem; margin-top: 1.8rem; }
+        .resource-list li { position: relative; padding-left: 1.15rem; color: #a1a1aa; font-size: 0.76rem; line-height: 1.55; }
+        .resource-list li::before { content: ''; position: absolute; left: 0; top: 0.57rem; width: 0.35rem; height: 0.35rem; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 4px rgba(34,197,94,0.07); }
+        .resource-list strong { color: #e4e4e7; font-weight: 820; }
+        .resource-footnote { margin-top: 1.1rem; padding-top: 0.9rem; border-top: 1px solid rgba(255,255,255,0.065); color: #71717a; font-size: 0.65rem; line-height: 1.5; }
+        .management-preview { display: grid; gap: 0.65rem; margin-top: 1.45rem; padding: 0.9rem; border: 1px solid rgba(255,255,255,0.065); border-radius: 0.9rem; background: #09090b; }
+        .management-preview > div { display: grid; grid-template-columns: 4.6rem minmax(0,1fr); align-items: center; gap: 0.7rem; }
+        .management-preview span { color: #a1a1aa; font-size: 0.62rem; font-weight: 780; }
+        .management-preview i { position: relative; height: 0.36rem; overflow: hidden; border-radius: 999px; background: #27272a; }
+        .management-preview i::after { content: ''; position: absolute; inset: 0 auto 0 0; width: var(--unit-progress); border-radius: inherit; background: linear-gradient(90deg, #166534, #4ade80); }
+        .management-preview small { color: #52525b; font-size: 0.56rem; text-align: right; }
+        .waiter-call-preview { margin-top: 1.45rem; padding: 0.95rem; border: 1px solid rgba(255,255,255,0.07); border-radius: 1rem; background: #09090b; }
+        .waiter-call-preview > div { display: flex; justify-content: space-between; gap: 0.75rem; }
+        .waiter-call-preview > div span { color: #f4f4f5; font-size: 0.72rem; font-weight: 850; }
+        .waiter-call-preview > div small { color: #52525b; font-size: 0.55rem; }
+        .waiter-call-button { position: relative; width: 100%; margin-top: 0.85rem; padding: 0.72rem; border: 1px solid rgba(74,222,128,0.25); border-radius: 0.7rem; color: #052e16; background: #4ade80; font-size: 0.7rem; font-weight: 900; text-align: center; }
+        .new-feature-badge { position: absolute; top: -0.45rem; right: 0.5rem; padding: 0.2rem 0.42rem; border-radius: 999px; color: #fef3c7; background: #78350f; font-size: 0.48rem; letter-spacing: 0.08em; text-transform: uppercase; }
+        .waiter-call-preview > p { margin-top: 0.65rem; color: #86efac; font-size: 0.6rem; text-align: center; }
+        .waiter-call-preview > p i { display: inline-block; width: 0.38rem; height: 0.38rem; margin-right: 0.22rem; border-radius: 50%; background: #4ade80; box-shadow: 0 0 10px rgba(74,222,128,0.6); }
+        .resource-clarity-strip { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0.7rem; margin-top: 0.9rem; padding: 1.1rem; border: 1px solid rgba(74,222,128,0.14); border-radius: 1.1rem; background: rgba(34,197,94,0.035); }
+        .resource-clarity-strip div { padding: 0.2rem 0.4rem; }
+        .resource-clarity-strip span { color: #4ade80; font-size: 0.57rem; font-weight: 900; letter-spacing: 0.11em; text-transform: uppercase; }
+        .resource-clarity-strip strong { display: block; margin-top: 0.3rem; color: #e4e4e7; font-size: 0.72rem; line-height: 1.45; }
+        .resource-clarity-strip > p { grid-column: 1 / -1; padding: 0.75rem 0.4rem 0.1rem; border-top: 1px solid rgba(255,255,255,0.06); color: #71717a; font-size: 0.64rem; line-height: 1.5; }
+        .support-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+        .support-card { min-height: 15.5rem; padding: 1.5rem; border: 1px solid rgba(255,255,255,0.08); border-radius: 1.2rem; background: rgba(24,24,27,0.55); }
+        .support-card > span { color: #4ade80; font-size: 0.6rem; font-weight: 900; letter-spacing: 0.15em; }
+        .support-card h3 { margin-top: 2rem; color: #f4f4f5; font-size: 1.05rem; font-weight: 850; }
+        .support-card p { margin-top: 0.65rem; color: #8f8f99; font-size: 0.73rem; line-height: 1.6; }
+        .support-card > strong { display: inline-flex; margin-top: 1rem; color: #d6b85a; font-size: 0.68rem; font-weight: 850; }
+        .support-card-highlight { border-color: rgba(212,175,55,0.2); background: linear-gradient(150deg, rgba(212,175,55,0.055), rgba(9,9,11,0.85)); }
+        .support-cta { display: flex; justify-content: center; margin-top: 1.2rem; }
+
+        /* ===== Produto real — recortes fiéis com acabamento editorial ===== */
+        .hero-real-composition {
+            inset: 2% -2% 1% 0;
+            display: block;
+            padding: 0;
+            overflow: visible;
+            border: 0;
+            border-radius: 0;
+            background: transparent;
+            box-shadow: none;
+        }
+        .hero-real-composition::before {
+            inset: 9% 3% 8% 5%;
+            border-radius: 45%;
+            background: radial-gradient(circle at 58% 54%, rgba(34,197,94,0.18), rgba(34,197,94,0.055) 34%, transparent 68%);
+            filter: blur(20px);
+        }
+        .hero-real-composition::after {
+            content: '';
+            position: absolute;
+            z-index: 0;
+            right: 7%;
+            bottom: 10%;
+            left: 39%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(74,222,128,0.54), rgba(212,175,55,0.28), transparent);
+            transform: rotate(10deg);
+            transform-origin: left center;
+        }
+        .hero-real-composition .hero-preview-label { top: 0.35rem; left: 0.6rem; }
+        .hero-screen-frame {
+            position: absolute;
+            z-index: 2;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.13);
+            border-radius: 1.15rem;
+            background: #09090b;
+            box-shadow: 0 34px 64px -32px rgba(0,0,0,0.98), 0 1px 0 rgba(255,255,255,0.075) inset;
+            transition: transform 420ms cubic-bezier(0.16,1,0.3,1), border-color 280ms ease, box-shadow 280ms ease;
+        }
+        .hero-screen-frame:hover {
+            border-color: rgba(134,239,172,0.24);
+            box-shadow: 0 38px 72px -32px rgba(0,0,0,0.98), 0 24px 48px -34px rgba(34,197,94,0.62), 0 1px 0 rgba(255,255,255,0.09) inset;
+        }
+        .hero-screen-pdv {
+            top: 3.15rem;
+            left: 0;
+            width: 88%;
+            transform: perspective(1100px) rotateY(3deg) rotateZ(-0.6deg);
+        }
+        .hero-screen-pdv:hover { transform: perspective(1100px) rotateY(1deg) rotateZ(0deg) translateY(-3px); }
+        .hero-screen-dashboard {
+            right: -0.15rem;
+            bottom: 0.4rem;
+            width: 48%;
+            border-color: rgba(212,175,55,0.2);
+            transform: perspective(1100px) rotateY(-4deg) rotateZ(1deg);
+        }
+        .hero-screen-dashboard:hover { transform: perspective(1100px) rotateY(-1deg) rotateZ(0deg) translateY(-3px); }
+        .hero-screen-chrome {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            min-height: 2rem;
+            padding: 0 0.7rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            color: #d4d4d8;
+            background: linear-gradient(180deg, rgba(39,39,42,0.9), rgba(17,17,20,0.92));
+            font-size: 0.57rem;
+            font-weight: 800;
+        }
+        .hero-screen-chrome > span:first-child { display: inline-flex; align-items: center; gap: 0.42rem; }
+        .hero-screen-chrome > span:first-child::before { content: ''; width: 0.38rem; height: 0.38rem; border-radius: 50%; background: #4ade80; box-shadow: 0 0 10px rgba(74,222,128,0.62); }
+        .hero-screen-chrome small { color: #71717a; font-size: 0.5rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+        .hero-screen-viewport { position: relative; overflow: hidden; background: #0a0a0b; }
+        .hero-screen-pdv .hero-screen-viewport { aspect-ratio: 1460 / 820; }
+        .hero-screen-dashboard .hero-screen-viewport { aspect-ratio: 1230 / 980; }
+        .hero-screen-viewport img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+        .hero-screen-frame figcaption {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 2.15rem;
+            padding: 0 0.72rem;
+            border-top: 1px solid rgba(255,255,255,0.065);
+            color: #f4f4f5;
+            background: rgba(11,11,14,0.96);
+            font-size: 0.62rem;
+            font-weight: 850;
+        }
+        .hero-screen-frame figcaption::after { content: 'Tela real'; color: #4ade80; font-size: 0.5rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+        .service-mode-card { min-height: 0; }
+        .service-real-shot,
+        .resource-real-shot {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.09);
+            background: #09090b;
+            box-shadow: 0 24px 55px -42px rgba(34,197,94,0.58), 0 1px 0 rgba(255,255,255,0.055) inset;
+        }
+        .service-real-shot {
+            z-index: 1;
+            aspect-ratio: 16 / 8.2;
+            margin-top: 1.35rem;
+            border-radius: 1rem;
+        }
+        .service-real-shot::after,
+        .resource-real-shot::after {
+            content: '';
+            position: absolute;
+            inset: 45% 0 0;
+            pointer-events: none;
+            background: linear-gradient(to bottom, transparent, rgba(4,4,5,0.55));
+        }
+        .service-real-shot img,
+        .resource-real-shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 520ms cubic-bezier(0.16,1,0.3,1); }
+        .service-mode-card:hover .service-real-shot img,
+        .resource-card:hover .resource-real-shot img { transform: scale(1.018); }
+        .service-real-shot figcaption,
+        .resource-real-shot figcaption {
+            position: absolute;
+            z-index: 2;
+            right: 0.7rem;
+            bottom: 0.65rem;
+            left: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            color: #f4f4f5;
+            font-size: 0.59rem;
+            font-weight: 850;
+        }
+        .service-real-shot figcaption::before,
+        .resource-real-shot figcaption::before { content: ''; width: 0.38rem; height: 0.38rem; flex: 0 0 auto; margin-right: auto; border-radius: 50%; background: #4ade80; box-shadow: 0 0 12px rgba(74,222,128,0.72); }
+        .service-mode-card h3 { margin-top: 1.55rem; }
+        .service-flow-tags { margin-top: 1.45rem; }
+
+        .resource-card { display: flex; min-height: 0; flex-direction: column; }
+        .resource-real-shot {
+            aspect-ratio: 16 / 8.8;
+            margin-top: 1.3rem;
+            border-radius: 0.95rem;
+        }
+        .resource-real-shot--contained { aspect-ratio: 16 / 9.5; }
+        .resource-real-shot--contained img { object-fit: contain; background: #08090a; }
+        .resource-list { margin-top: 1.35rem; }
+        .resource-concept-shot {
+            border-color: rgba(212,175,55,0.16);
+            box-shadow: 0 28px 65px -45px rgba(34,197,94,0.66), 0 1px 0 rgba(255,255,255,0.06) inset;
+        }
+        .resource-concept-shot img { object-position: center; }
+        .resource-concept-shot figcaption::before {
+            background: #d4af37;
+            box-shadow: 0 0 12px rgba(212,175,55,0.5);
+        }
+        .support-card,
+        #section-planos .grid > div,
+        .faq-item { box-shadow: 0 1px 0 rgba(255,255,255,0.045) inset, 0 30px 60px -58px rgba(0,0,0,0.96); }
+        .faq-item:hover { border-color: rgba(74,222,128,0.16); }
+
+        /* ===== Demonstração dedicada + prévia compacta na Landing ===== */
+        #view-landing > #section-simulador { display: none; }
+        body.demo-mode .mobile-conversion-bar { display: none !important; }
+        body.demo-mode #nav-demo { color: #86efac; }
+        .landing-flow-preview-card {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(17rem, 0.72fr) minmax(0, 1.28fr);
+            align-items: center;
+            gap: clamp(2rem, 5vw, 5rem);
+            min-height: 24rem;
+            padding: clamp(1.5rem, 4vw, 3.25rem);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.085);
+            border-radius: 1.6rem;
+            background:
+                radial-gradient(circle at 82% 50%, rgba(34,197,94,0.105), transparent 30%),
+                linear-gradient(145deg, rgba(24,24,27,0.82), rgba(7,7,9,0.96));
+            box-shadow: 0 38px 85px -62px rgba(34,197,94,0.45);
+        }
+        .landing-flow-preview-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.14;
+            background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 52px 52px;
+            mask-image: linear-gradient(90deg, transparent, black 45%, black);
+            pointer-events: none;
+        }
+        .landing-flow-copy,
+        .flow-preview-track { position: relative; z-index: 1; }
+        .landing-flow-copy h2 { color: #fafafa; font-size: clamp(1.75rem, 3.5vw, 2.85rem); font-weight: 920; letter-spacing: -0.045em; line-height: 1.03; }
+        .landing-flow-copy p { max-width: 29rem; margin-top: 0.85rem; color: #a1a1aa; font-size: 0.8rem; line-height: 1.65; }
+        .flow-preview-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.65rem;
+            min-height: 3rem;
+            margin-top: 1.4rem;
+            padding: 0 1rem;
+            border: 1px solid rgba(74,222,128,0.24);
+            border-radius: 0.8rem;
+            color: #052e16;
+            background: #4ade80;
+            font-size: 0.72rem;
+            font-weight: 900;
+            transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+        }
+        .flow-preview-cta:hover { transform: translateY(-2px); background: #86efac; box-shadow: 0 18px 34px -20px rgba(74,222,128,0.8); }
+        .flow-preview-track { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.65rem; }
+        .flow-preview-line { position: absolute; top: 1.35rem; right: 9%; left: 9%; height: 1px; background: rgba(74,222,128,0.18); }
+        .flow-preview-line::before { content: ''; position: absolute; inset: -1px 0 auto; height: 3px; background: linear-gradient(90deg, transparent, rgba(74,222,128,0.7), transparent); transform: scaleX(0); transform-origin: left; animation: flowPreviewDraw 8.8s cubic-bezier(0.16,1,0.3,1) infinite; }
+        .flow-preview-line i { position: absolute; top: -0.28rem; left: 0; width: 0.62rem; height: 0.62rem; border-radius: 50%; background: #86efac; box-shadow: 0 0 18px rgba(74,222,128,0.9); animation: flowPreviewSignal 8.8s cubic-bezier(0.45,0,0.2,1) infinite; }
+        .flow-preview-step { position: relative; display: grid; justify-items: center; padding-top: 3.1rem; text-align: center; }
+        .flow-preview-step::before { content: ''; position: absolute; top: 0.85rem; width: 1rem; height: 1rem; border: 1px solid rgba(74,222,128,0.28); border-radius: 50%; background: #101014; box-shadow: 0 0 0 6px rgba(9,9,11,0.92); animation: flowPreviewNode 8.8s ease-in-out infinite; animation-delay: calc(var(--flow-step) * 1.65s); }
+        .flow-preview-step > span { color: #52525b; font-size: 0.55rem; font-weight: 900; letter-spacing: 0.13em; }
+        .flow-preview-step strong { margin-top: 0.35rem; color: #f4f4f5; font-size: 0.74rem; font-weight: 850; }
+        .flow-preview-step small { margin-top: 0.2rem; color: #71717a; font-size: 0.58rem; }
+        @keyframes flowPreviewDraw {
+            0%, 6% { transform: scaleX(0); opacity: 0; }
+            18%, 76% { transform: scaleX(1); opacity: 1; }
+            90%, 100% { transform: scaleX(1); opacity: 0; }
+        }
+        @keyframes flowPreviewSignal {
+            0%, 5% { left: 0; opacity: 0; }
+            10% { opacity: 1; }
+            76% { left: calc(100% - 0.62rem); opacity: 1; }
+            88%, 100% { left: calc(100% - 0.62rem); opacity: 0; }
+        }
+        @keyframes flowPreviewNode {
+            0%, 12%, 100% { border-color: rgba(74,222,128,0.25); background: #101014; box-shadow: 0 0 0 6px rgba(9,9,11,0.92); }
+            18%, 34% { border-color: #86efac; background: #4ade80; box-shadow: 0 0 0 6px rgba(34,197,94,0.08), 0 0 18px rgba(74,222,128,0.72); }
+        }
+        .demo-view-shell {
+            width: 100%;
+            min-height: calc(100svh - 4rem);
+            padding: clamp(1rem, 3vw, 2rem) 0 4rem;
+            background: radial-gradient(circle at 50% 8%, rgba(34,197,94,0.07), transparent 25%);
+        }
+        .demo-view-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            width: min(100% - 2rem, 80rem);
+            margin: 0 auto 1rem;
+            padding: 0.85rem 1rem;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 1rem;
+            background: rgba(24,24,27,0.56);
+        }
+        .demo-view-toolbar > div { display: grid; gap: 0.2rem; }
+        .demo-view-toolbar span { color: #4ade80; font-size: 0.57rem; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; }
+        .demo-view-toolbar strong { color: #d4d4d8; font-size: 0.75rem; }
+        .demo-view-toolbar button { display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem; min-height: 2.75rem; padding: 0 0.85rem; border: 1px solid rgba(255,255,255,0.09); border-radius: 0.7rem; color: #d4d4d8; background: #111115; font-size: 0.67rem; font-weight: 800; }
+        .demo-view-toolbar button:hover { border-color: rgba(74,222,128,0.24); color: #f4f4f5; }
+        .demo-view-toolbar svg { width: 0.95rem; height: 0.95rem; }
+        #demo-simulator-mount { width: 100%; }
+
         @media (max-width: 1023px) {
             .implementation-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+            .support-grid { grid-template-columns: 1fr; }
+            .support-card { min-height: auto; }
+            .support-card h3 { margin-top: 1.3rem; }
+            .landing-flow-preview-card { grid-template-columns: 1fr; min-height: auto; }
         }
         @media (max-width: 767px) {
             .hero-product-preview { position: relative; inset: auto; min-height: 25rem; grid-template-columns: minmax(0,0.82fr) minmax(0,1.18fr); padding: 0.8rem; }
@@ -3522,10 +3922,55 @@
             .sim-mode-button { width: 100%; }
             .sim-playback-controls { width: 100%; }
             .sim-playback-button { flex: 1; }
+            .section-intro-split,
+            .service-modes-grid,
+            .resources-grid,
+            .resource-clarity-strip { grid-template-columns: 1fr; }
+            .section-intro-split { gap: 1rem; }
+            .service-mode-card { min-height: auto; }
+            .service-mode-card h3 { margin-top: 2.2rem; }
+            .service-flow-tags { gap: 0.35rem; overflow-x: auto; }
+            .service-flow-tags span { white-space: nowrap; }
+            .resource-card { min-height: auto; }
+            .resource-clarity-strip > p { grid-column: auto; }
+            .hero-operating-promise { display: grid; }
+            .landing-flow-preview-card { gap: 2.2rem; }
+            .flow-preview-track { gap: 0.25rem; }
+            .flow-preview-step strong { font-size: 0.66rem; }
+            .flow-preview-step small { font-size: 0.52rem; }
+            .flow-preview-cta { width: 100%; }
+            .demo-view-toolbar { align-items: stretch; flex-direction: column; }
+            .demo-view-toolbar button { width: 100%; }
+            .hero-product { min-height: 22rem; }
+            .hero-real-composition { min-height: 22rem; }
+            .hero-real-composition .hero-preview-label { top: 0; left: 0.25rem; }
+            .hero-screen-pdv { top: 2.25rem; width: 97%; transform: rotateZ(-0.45deg); }
+            .hero-screen-dashboard { right: -0.2rem; bottom: 0.1rem; width: 52%; transform: rotateZ(0.7deg); }
+            .hero-screen-chrome { min-height: 1.7rem; padding-inline: 0.55rem; }
+            .hero-screen-chrome small { display: none; }
+            .hero-screen-frame figcaption { min-height: 1.85rem; padding-inline: 0.55rem; font-size: 0.56rem; }
+            .hero-screen-frame figcaption::after { font-size: 0.44rem; }
+            .service-real-shot { aspect-ratio: 16 / 10; }
+            .service-mode-card h3 { margin-top: 1.4rem; }
+            .resource-real-shot,
+            .resource-real-shot--contained { aspect-ratio: 16 / 10; }
         }
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
             .hero-preview-phone { transform: none; }
+            .hero-screen-frame,
+            .service-real-shot img,
+            .resource-real-shot img,
+            .resource-card { transition: none; }
+            .hero-screen-pdv:hover { transform: perspective(1100px) rotateY(3deg) rotateZ(-0.6deg); }
+            .hero-screen-dashboard:hover { transform: perspective(1100px) rotateY(-4deg) rotateZ(1deg); }
+            .service-mode-card:hover .service-real-shot img,
+            .resource-card:hover .resource-real-shot img { transform: none; }
+            .flow-preview-line::before,
+            .flow-preview-line i,
+            .flow-preview-step::before { animation: none; }
+            .flow-preview-line::before { transform: scaleX(1); opacity: 0.65; }
+            .flow-preview-line i { left: calc(100% - 0.62rem); opacity: 1; }
         }
     </style>
 </head>
@@ -3542,9 +3987,11 @@
                 </span>
             </div>
             <nav class="hidden lg:flex items-center gap-6" aria-label="Navegação principal">
-                <a class="site-nav-link" href="#section-validacao">Como funciona</a>
-                <a class="site-nav-link" href="#section-planos">Planos</a>
-                <a class="site-nav-link" href="#section-faq">Dúvidas</a>
+                <a class="site-nav-link" href="#section-validacao" onclick="switchView('landing')">Como funciona</a>
+                <a class="site-nav-link" href="#section-recursos" onclick="switchView('landing')">Recursos</a>
+                <button id="nav-demo" type="button" class="site-nav-link" onclick="focusGuidedDemo()">Demonstração</button>
+                <a class="site-nav-link" href="#section-planos" onclick="switchView('landing')">Planos</a>
+                <a class="site-nav-link" href="#section-faq" onclick="switchView('landing')">Dúvidas</a>
             </nav>
             <!-- Header CTA -->
             <div class="flex items-center gap-3 shrink-0">
@@ -3565,14 +4012,15 @@
                     <div class="hero-copy">
                         <div class="hero-badge hero-enter" style="--hero-delay: 0ms">
                             <span class="hero-badge-mark"></span>
-                            <span>Sistema de pedidos para restaurantes e lanchonetes</span>
+                            <span>Para lanchonetes e restaurantes</span>
                         </div>
                         <h1 class="hero-headline">
-                            <span class="hero-enter block" style="--hero-delay: 70ms">Pedidos, cozinha e retirada no mesmo sistema.</span>
+                            <span class="hero-enter block" style="--hero-delay: 70ms">Atendimento, cozinha, caixa e gestão no mesmo sistema.</span>
                         </h1>
                         <p class="hero-support hero-enter" style="--hero-delay: 140ms">
-                            Receba pedidos pelo QR Code, acompanhe o preparo e organize a retirada. A equipe 808Pay acompanha a implantação, respeitando a rotina do seu negócio.
+                            Conecte a operação sem mudar o jeito que ela funciona. A equipe trabalha com simplicidade, e você acompanha uma ou várias unidades pelo celular, de onde estiver com acesso à internet.
                         </p>
+                        <p class="hero-operating-promise hero-enter" style="--hero-delay: 175ms"><strong>Atendimento simples para a equipe.</strong><span>Controle na palma da mão para o gestor.</span></p>
                         <div class="hero-actions hero-enter" style="--hero-delay: 210ms">
                             <button id="hero-primary-cta" onclick="openLeadModal('Hero — Teste de 15 dias')" class="hero-primary-cta group">
                                 <span class="relative z-10">Solicitar meu teste de 15 dias</span>
@@ -3588,34 +4036,83 @@
                         </div>
                     </div>
 
-                    <div class="hero-product hero-product-enter" aria-label="Prévia ilustrativa de um pedido no celular chegando ao painel da cozinha">
+                    <div class="hero-product hero-product-enter" aria-label="Telas reais do PDV e do painel de gestão da 808Pay">
                         <div class="hero-product-aura"></div>
-                        <div class="hero-product-preview">
-                            <span class="hero-preview-label">Demonstração fictícia</span>
-                            <span class="hero-preview-caption">Do pedido do cliente à cozinha</span>
-                            <div class="hero-preview-phone">
-                                <div class="hero-preview-phone-screen hero-preview-real-screen">
-                                    <img src="/product-cardapio-real.png" width="430" height="620" fetchpriority="high" decoding="async" alt="Captura real e anonimizada de um cardápio na plataforma 808Pay">
+                        <div class="hero-product-preview hero-real-composition">
+                            <span class="hero-preview-label">Produto real em operação</span>
+                            <figure class="hero-screen-frame hero-screen-pdv">
+                                <div class="hero-screen-chrome"><span>PDV 808Pay</span><small>Atendimento</small></div>
+                                <div class="hero-screen-viewport">
+                                    <img src="/product-real/pdv-real.jpg" width="1460" height="820" fetchpriority="high" decoding="async" alt="Tela real e anonimizada do PDV 808Pay com produtos e comanda">
                                 </div>
-                            </div>
-                            <div class="hero-preview-kds">
-                                <div class="hero-preview-kds-head"><strong>Cozinha</strong><span class="hero-preview-live">Ao vivo</span></div>
-                                <div class="hero-preview-ticket">
-                                    <div class="hero-preview-ticket-top"><strong>Pedido nº 1042</strong><span>Recebido</span></div>
-                                    <ul><li>1 × Coxinha de Frango com Catupiry</li><li>Observação: bem quente</li><li>Próxima etapa: em preparo</li></ul>
+                                <figcaption>Sua equipe atende.</figcaption>
+                            </figure>
+                            <figure class="hero-screen-frame hero-screen-dashboard">
+                                <div class="hero-screen-chrome"><span>Visão geral</span><small>Gestão</small></div>
+                                <div class="hero-screen-viewport">
+                                    <img src="/product-real/dashboard-real.jpg" width="1230" height="980" fetchpriority="high" decoding="async" alt="Tela real e anonimizada do dashboard 808Pay com indicadores da operação">
                                 </div>
-                                <div class="hero-preview-ticket">
-                                    <div class="hero-preview-ticket-top"><strong>Retirada</strong><span>Aguardando</span></div>
-                                    <ul><li>O mesmo pedido será chamado quando ficar pronto.</li></ul>
-                                </div>
-                            </div>
-                            <div class="hero-preview-flow"><span>Cliente</span><i></i><span>Cozinha</span><i></i><span>Retirada</span></div>
+                                <figcaption>Você acompanha.</figcaption>
+                            </figure>
                         </div>
                     </div>
                 </div>
 
             </section>
-            <!-- SIMULADOR VIVO — prova ao vivo integrada na página principal -->
+            <!-- Formas de atendimento — apresenta os dois contextos sem limitar a plataforma à retirada -->
+            <section id="section-contextos" class="service-modes-section px-4 sm:px-6 max-w-7xl mx-auto">
+                <div class="section-intro section-intro-split">
+                    <div>
+                        <span class="section-eyebrow">Formas de atendimento</span>
+                        <h2>No balcão ou na mesa. A 808Pay acompanha sua operação.</h2>
+                    </div>
+                    <p>O fluxo se adapta ao tipo de serviço do estabelecimento, mantendo atendimento e gestão conectados.</p>
+                </div>
+                <div class="service-modes-grid">
+                    <article class="service-mode-card service-mode-counter">
+                        <div class="service-mode-head"><span>Para lanchonetes</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h5M8 16h3" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+                        <figure class="service-real-shot">
+                            <img src="/product-real/pdv-real.jpg" width="1460" height="820" loading="lazy" decoding="async" alt="Tela real e anonimizada do caixa PDV 808Pay">
+                            <figcaption>PDV em operação</figcaption>
+                        </figure>
+                        <h3>Escolheu, pagou, retirou.</h3>
+                        <p>Atenda pelo caixa (PDV) ou autoatendimento, receba o pagamento integrado e mantenha o cliente informado sobre o pedido.</p>
+                        <div class="service-flow-tags" aria-label="Fluxo para lanchonetes"><span>PDV</span><i></i><span>Autoatendimento</span><i></i><span>Retirada</span></div>
+                    </article>
+                    <article class="service-mode-card service-mode-table">
+                        <div class="service-mode-head"><span>Para restaurantes</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 3v8M4 3v5a3 3 0 006 0V3M17 3v18M14 3c4 0 4 7 0 9" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                        <figure class="service-real-shot">
+                            <img src="/product-real/mesas-real.jpg" width="1040" height="910" loading="lazy" decoding="async" alt="Tela real e anonimizada da operação de mesas na 808Pay">
+                            <figcaption>Operação de mesas</figcaption>
+                        </figure>
+                        <h3>O atendimento da mesa conectado à equipe.</h3>
+                        <p>O garçom registra o pedido. Pelo QR da mesa, o cliente consulta o cardápio, chama a equipe, acompanha o consumo e deixa sua opinião.</p>
+                        <div class="table-consultation-note"><strong>QR da mesa é consulta e atendimento</strong><span>Sem carrinho, pedido ou pagamento pelo QR da mesa.</span></div>
+                    </article>
+                </div>
+            </section>
+            <!-- Prévia compacta — prova visual sem interromper a jornada de conversão -->
+            <section id="section-preview" class="landing-flow-preview px-4 sm:px-6 max-w-7xl mx-auto">
+                <div class="landing-flow-preview-card">
+                    <div class="landing-flow-copy">
+                        <span class="section-eyebrow">Prévia do fluxo</span>
+                        <h2>Um pedido. Quatro pontos conectados.</h2>
+                        <p>Veja como a informação percorre atendimento, cozinha, retirada e gestão sem perder o contexto.</p>
+                        <button type="button" onclick="focusGuidedDemo()" class="flow-preview-cta group">
+                            <span>Abrir demonstração interativa</span>
+                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0-7 7m7-7H3"/></svg>
+                        </button>
+                    </div>
+                    <div class="flow-preview-track" aria-label="Prévia ilustrativa do fluxo Pedido, Cozinha, Retirada e Gestão">
+                        <div class="flow-preview-line"><i></i></div>
+                        <div class="flow-preview-step" style="--flow-step:0"><span>01</span><strong>Pedido</strong><small>registrado</small></div>
+                        <div class="flow-preview-step" style="--flow-step:1"><span>02</span><strong>Cozinha</strong><small>em preparo</small></div>
+                        <div class="flow-preview-step" style="--flow-step:2"><span>03</span><strong>Retirada</strong><small>pedido pronto</small></div>
+                        <div class="flow-preview-step" style="--flow-step:3"><span>04</span><strong>Gestão</strong><small>fluxo atualizado</small></div>
+                    </div>
+                </div>
+            </section>
+            <!-- SIMULADOR VIVO — movido via DOM para a experiência dedicada -->
             <section id="section-simulador" class="sim-awaiting-start sim-preview-ready w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-8">
             <div class="sim-stage-header text-center space-y-2">
                 <span class="text-xs font-bold text-brand uppercase tracking-widest">Demonstração interativa</span>
@@ -3859,91 +4356,88 @@
             </div>
         </section>
 
-        <!-- Transparência comercial — quebra a objeção de troca e taxas -->
-        <section id="section-transparencia" class="trust-bridge-section px-4 sm:px-6 max-w-7xl mx-auto">
-            <article class="trust-bridge-card">
-                <div class="trust-bridge-copy">
-                    <span class="trust-bridge-eyebrow">Liberdade para continuar</span>
-                    <h2>Continue com a sua maquininha e as suas taxas.</h2>
-                    <p>A 808Pay organiza o fluxo sem obrigar você a trocar a forma como recebe. Continue usando a maquininha e as condições que já negociou. A 808Pay não adiciona comissão sobre as suas vendas.</p>
-                    <div class="trust-bridge-note">
-                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 4.5h.008v.008H12v-.008z"/></svg>
-                        <span>As taxas da sua adquirente continuam seguindo o contrato que você já possui.</span>
-                    </div>
-                </div>
-                <div class="trust-bridge-facts" aria-label="Como funcionam mensalidade, comissão e equipamentos">
-                    <div class="trust-fact">
-                        <span>Mensalidade</span>
-                        <strong>Você escolhe um plano da plataforma conforme os recursos da operação.</strong>
-                    </div>
-                    <div class="trust-fact trust-fact-evolves">
-                        <span>Comissão 808Pay</span>
-                        <strong>A 808Pay não adiciona comissão sobre cada venda.</strong>
-                    </div>
-                    <div class="trust-fact">
-                        <span>Meio de pagamento</span>
-                        <strong>As taxas continuam sendo as do contrato com sua adquirente ou provedor.</strong>
-                    </div>
-                </div>
-                <div class="commercial-facts lg:col-span-2" aria-label="Compatibilidade de equipamentos">
-                    <div class="commercial-fact"><span>Equipamentos existentes</span><strong>Celulares, tablets, computadores e TVs podem ser aproveitados quando forem compatíveis.</strong></div>
-                    <div class="commercial-fact"><span>Recursos específicos</span><strong>Totem, painel de retirada e KDS dependem de dispositivos adequados ao uso escolhido.</strong></div>
-                    <div class="commercial-fact"><span>Antes de implantar</span><strong>A estrutura disponível é entendida com o estabelecimento antes de combinar os próximos passos.</strong></div>
-                </div>
-            </article>
-        </section>
-
-        <!-- Comparativo de fluxo — argumento central de conversão -->
-        <section class="flow-compare-section px-6 max-w-7xl mx-auto">
-            <div class="text-center space-y-3 mb-10 sm:mb-12">
-                <span class="text-xs font-bold text-brand tracking-widest uppercase">Do improviso ao ecossistema</span>
-                <h2 class="text-3xl sm:text-4xl font-black text-white max-w-4xl mx-auto">Cliente, cozinha e retirada acompanham o mesmo pedido.</h2>
-                <p class="text-zinc-400 text-sm sm:text-base max-w-3xl mx-auto">Produto, preferência e status permanecem ligados ao pedido nº 1042 durante a demonstração.</p>
+        <!-- Recursos — visão completa e agrupada da plataforma -->
+        <section id="section-recursos" class="resources-section px-4 sm:px-6 max-w-7xl mx-auto">
+            <div class="section-intro text-center">
+                <span class="section-eyebrow">Recursos da plataforma</span>
+                <h2>O que você encontra na 808Pay</h2>
+                <p>Um ecossistema para atender, produzir e acompanhar a operação — com módulos definidos conforme a necessidade de cada estabelecimento.</p>
             </div>
-
-            <div class="flow-compare-grid">
-                <article class="flow-compare-card flow-compare-card-fragmented">
-                    <span class="flow-card-status">Operação fragmentada</span>
-                    <h3>Informações espalhadas exigem mais conferência.</h3>
-                    <p>O pedido muda de tela ou de pessoa, e a equipe precisa reconstruir o contexto.</p>
-                    <div class="flow-example-list" aria-label="Exemplo de informações separadas">
-                        <div class="flow-example-row"><span>Produto</span><strong>Coxinha de Frango com Catupiry</strong></div>
-                        <div class="flow-example-row"><span>Preferência</span><strong>Registrada em outro ponto</strong></div>
-                        <div class="flow-example-row"><span>Status</span><strong>Depende de conferência</strong></div>
-                        <div class="flow-example-row"><span>Retirada</span><strong>Aguardando confirmação</strong></div>
-                    </div>
-                    <div class="flow-outcomes"><div class="flow-outcome"><strong>Mais conferência manual</strong>A equipe precisa confirmar o que já aconteceu.</div><div class="flow-outcome"><strong>Menos visão do todo</strong>O gestor acompanha partes da operação.</div></div>
+            <div class="resources-grid">
+                <article class="resource-card">
+                    <div class="resource-card-head"><span class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 5h16v11H4zM8 20h8M12 16v4M7 9h4M15 9h2M15 12h2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><span>Atendimento e venda</span><h3>Fácil de aprender e direto para operar.</h3></div></div>
+                    <figure class="resource-real-shot">
+                        <img src="/product-real/pdv-real.jpg" width="1460" height="820" loading="lazy" decoding="async" alt="Tela real e anonimizada do atendimento no PDV 808Pay">
+                        <figcaption>Tela real do PDV</figcaption>
+                    </figure>
+                    <ul class="resource-list">
+                        <li><strong>Caixa (PDV)</strong> para registrar pedidos e pagamentos.</li>
+                        <li><strong>Autoatendimento</strong> por tablet ou QR Code, quando habilitado.</li>
+                        <li><strong>Pix integrado:</strong> o status avança após a confirmação da integração.</li>
+                        <li><strong>Modo garçom</strong> para registrar e acompanhar pedidos das mesas.</li>
+                    </ul>
                 </article>
-
-                <article class="flow-compare-card flow-compare-card-connected">
-                    <span class="flow-card-status">Ecossistema 808Pay</span>
-                    <h3>Veja o que preparar e qual pedido liberar.</h3>
-                    <p>O mesmo identificador acompanha as informações necessárias em cada etapa.</p>
-                    <div class="flow-example-list" aria-label="Exemplo conectado do pedido 1042">
-                        <div class="flow-example-row"><span>Produto</span><strong>Coxinha de Frango com Catupiry</strong></div>
-                        <div class="flow-example-row"><span>Preferência</span><strong>Bem quente</strong></div>
-                        <div class="flow-example-row"><span>Status</span><strong>Em preparo</strong></div>
-                        <div class="flow-example-row"><span>Retirada</span><strong>Pedido nº 1042</strong></div>
-                    </div>
-                    <div class="flow-outcomes"><div class="flow-outcome"><strong>Status visível</strong>A equipe acompanha pedido, preparo e retirada.</div><div class="flow-outcome"><strong>Gestão conectada</strong>As informações disponíveis chegam ao painel.</div></div>
+                <article class="resource-card resource-card-kds">
+                    <div class="resource-card-head"><span class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 5h18v12H3zM8 21h8M12 17v4M7 9h10M7 13h6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><span>Cozinha e acompanhamento</span><h3>O pedido certo, na etapa certa.</h3></div></div>
+                    <figure class="resource-real-shot resource-concept-shot">
+                        <img src="/product-real/kds-ecosystem-concept.jpg" width="1460" height="821" loading="lazy" decoding="async" alt="Visual conceitual do ecossistema de cozinha em monitor KDS, celular e impressora térmica">
+                        <figcaption>Visual conceitual · KDS</figcaption>
+                    </figure>
+                    <ul class="resource-list">
+                        <li><strong>Painel de cozinha (KDS)</strong> para visualizar e organizar pedidos.</li>
+                        <li><strong>Encaminhamento</strong> conforme o fluxo configurado para a operação.</li>
+                        <li><strong>Etapas de preparo</strong> atualizadas pela equipe no painel.</li>
+                        <li><strong>Acompanhamento pelo cliente</strong> conforme o status disponível no aplicativo.</li>
+                    </ul>
+                    <p class="resource-footnote">Telas compatíveis e impressão térmica são possibilidades distintas, avaliadas conforme a configuração.</p>
+                </article>
+                <article class="resource-card resource-card-management">
+                    <div class="resource-card-head"><span class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><span>Gestão pelo celular</span><h3>Controle de uma ou várias unidades.</h3></div></div>
+                    <figure class="resource-real-shot resource-real-shot--contained">
+                        <img src="/product-real/dashboard-real.jpg" width="1230" height="980" loading="lazy" decoding="async" alt="Tela real e anonimizada do dashboard 808Pay">
+                        <figcaption>Dashboard real</figcaption>
+                    </figure>
+                    <ul class="resource-list">
+                        <li><strong>Vendas por unidade</strong> e acesso às lojas autorizadas.</li>
+                        <li><strong>Movimentações de caixa</strong> e indicadores financeiros disponíveis.</li>
+                        <li><strong>Gráficos</strong> atualizados conforme a sincronização dos dados.</li>
+                        <li><strong>Cupom fiscal</strong> conforme configuração, disponibilidade e condições aplicáveis.</li>
+                    </ul>
+                </article>
+                <article class="resource-card resource-card-table">
+                    <div class="resource-card-head"><span class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M7 16h10M9 20h6M8 16a4 4 0 118 0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><span>Experiência na mesa</span><h3>Mais autonomia sem afastar a equipe.</h3></div></div>
+                    <figure class="resource-real-shot resource-real-shot--contained">
+                        <img src="/product-real/mesa-experience-real.jpg" width="850" height="680" loading="lazy" decoding="async" alt="Tela real e anonimizada com cardápio, chamada do garçom, consumo e opinião">
+                        <figcaption>Experiência real na mesa</figcaption>
+                    </figure>
+                    <ul class="resource-list">
+                        <li><strong>Cardápio</strong> para consulta pelo QR da mesa.</li>
+                        <li><strong>Chamar garçom</strong> com envio da solicitação à equipe.</li>
+                        <li><strong>Consumo da mesa</strong> para o cliente acompanhar.</li>
+                        <li><strong>Sua opinião</strong> para sugestões, elogios ou comentários.</li>
+                    </ul>
                 </article>
             </div>
+            <aside class="resource-clarity-strip">
+                <div><span>Sem troca obrigatória</span><strong>Continue com sua maquininha e as taxas que já negociou.</strong></div>
+                <div><span>Sem comissão 808Pay</span><strong>A plataforma não adiciona comissão sobre cada venda.</strong></div>
+                <p>Os recursos disponíveis variam conforme plano, configuração, compatibilidade e integrações contratadas. Nem todos pertencem ao plano Starter.</p>
+            </aside>
         </section>
 
-        <!-- Implantação e teste — posicionamento apoiado por etapas concretas -->
-        <section id="section-validacao" class="validation-section px-4 sm:px-6 max-w-7xl mx-auto">
-            <div class="validation-header">
-                <span class="validation-eyebrow">Implantação acompanhada</span>
-                <h2>Implantação acompanhada, no ritmo do seu restaurante.</h2>
-                <p>Começamos entendendo o jeito que sua operação já funciona. Depois, o teste permite avaliar pedido, cozinha, retirada e gestão antes de decidir continuar.</p>
+        <!-- Início acompanhado — suporte, identidade e serviço comercial -->
+        <section id="section-validacao" class="support-section px-4 sm:px-6 max-w-7xl mx-auto">
+            <div class="section-intro text-center">
+                <span class="section-eyebrow">Começar com clareza</span>
+                <h2>Tecnologia com apoio para começar e continuar.</h2>
+                <p>A implantação parte da rotina que já existe e combina os próximos passos com o estabelecimento.</p>
             </div>
-            <div class="implementation-grid">
-                <article class="implementation-card"><span>01</span><strong>Você solicita o teste</strong><p>Deixa os dados essenciais e abre a conversa no WhatsApp.</p></article>
-                <article class="implementation-card"><span>02</span><strong>Entendemos sua operação</strong><p>Conversamos sobre rotina, fluxo e estrutura disponível.</p></article>
-                <article class="implementation-card"><span>03</span><strong>Combinamos a implantação</strong><p>Definimos os próximos passos compatíveis com o cenário.</p></article>
-                <article class="implementation-card"><span>04</span><strong>Você testa e avalia</strong><p>O estabelecimento valida o fluxo e decide sobre a continuidade.</p></article>
+            <div class="support-grid">
+                <article class="support-card"><span>01</span><h3>Implantação e suporte</h3><p>Entendemos o fluxo, avaliamos os equipamentos compatíveis e orientamos a configuração inicial. Os canais e horários de suporte são apresentados na implantação.</p></article>
+                <article class="support-card"><span>02</span><h3>A identidade do estabelecimento</h3><p>Produtos, imagens, logotipo e banners podem compor a experiência do cardápio conforme a configuração disponível.</p></article>
+                <article class="support-card support-card-highlight"><span>03</span><h3>Imagens profissionais</h3><p>Serviço comercial opcional para produção de imagens do cardápio.</p><strong>Consulte condições.</strong></article>
             </div>
-            <div class="validation-cta">
+            <div class="support-cta">
                 <button onclick="openLeadModal('Implantação — Teste de 15 dias')" class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-brand hover:bg-brand-light text-zinc-950 font-black rounded-xl text-sm transition-all shadow-xl shadow-brand/20 group">
                     <span>Solicitar meu teste de 15 dias</span>
                     <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0-7 7m7-7H3"/></svg>
@@ -3970,8 +4464,8 @@
                             </div>
                             <ul class="space-y-2.5 text-xs text-zinc-300 pt-4 border-t border-zinc-800">
                                 <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Pedido no balcão sem fila (QR Code)</li>
-                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cardápio interativo com sugestões automáticas</li>
-                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Pagamento Pix conferido automaticamente</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cardápio digital configurável</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Pix integrado conforme contratação</li>
                             </ul>
                         </div>
                         <button onclick="openLeadModal('Plano Starter')" class="w-full min-h-[44px] py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs rounded-xl transition-all">Solicitar teste do Starter</button>
@@ -3989,7 +4483,7 @@
                                 <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Tudo do Starter +</li>
                                 <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Autoatendimento completo por totem</li>
                                 <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Cozinha organizada com painel de produção (KDS)</li>
-                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Chamada de senha automática na TV</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Painel de chamada de retirada na TV</li>
                             </ul>
                         </div>
                         <button onclick="openLeadModal('Plano Pro Kiosk')" class="w-full min-h-[44px] py-3.5 bg-brand hover:bg-brand-light text-zinc-950 font-black text-xs rounded-xl transition-all shadow-lg shadow-brand/20">Solicitar teste do Pro Kiosk</button>
@@ -4002,15 +4496,15 @@
                             <p class="text-xs text-zinc-400">Para operações com várias unidades.</p>
                             <div class="text-3xl font-black text-white">Sob Consulta</div>
                             <ul class="space-y-2.5 text-xs text-zinc-300 pt-4 border-t border-zinc-800">
-                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Operação padronizada em todas as unidades</li>
-                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Gerente de Conta Dedicado</li>
-                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Integração com ERP Próprio</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Acesso a uma ou várias unidades autorizadas</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Configuração definida conforme a operação</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Integrações avaliadas sob consulta</li>
                             </ul>
                         </div>
                         <button onclick="openLeadModal('Plano Enterprise — Conversa consultiva')" class="w-full min-h-[44px] py-3 bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs rounded-xl transition-all">Conversar sobre o Enterprise</button>
                     </div>
                 </div>
-                <p class="plan-conditions">O teste é combinado com a equipe. Depois dos 15 dias, o estabelecimento avalia a continuidade e escolhe o plano adequado.</p>
+                <p class="plan-conditions">O teste é combinado com a equipe. Depois dos 15 dias, o estabelecimento avalia a continuidade e escolhe o plano adequado. A disponibilidade de cada módulo depende do plano, da configuração e das integrações contratadas.</p>
             </section>
             <!-- FAQ — respostas para as objeções finais -->
             <section id="section-faq" class="faq-section px-4 sm:px-6 max-w-6xl mx-auto">
@@ -4071,6 +4565,17 @@
                     </button>
                 </div>
             </footer>
+        </div>
+        <!-- VIEW 2: DEMONSTRAÇÃO INTERATIVA — experiência dedicada, sem sair da 808Pay -->
+        <div id="view-demo" class="hidden demo-view-shell">
+            <div class="demo-view-toolbar">
+                <div><span>Demonstração 808Pay</span><strong>Explore o fluxo completo no seu ritmo.</strong></div>
+                <button type="button" onclick="switchView('landing')" aria-label="Voltar para a página principal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="m15 18-6-6 6-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Voltar para a página principal
+                </button>
+            </div>
+            <div id="demo-simulator-mount"></div>
         </div>
         <!-- CTA de conversão contextual — exibido somente no mobile fora do Hero e do simulador -->
         <aside id="mobile-conversion-bar" class="mobile-conversion-bar" aria-label="Começar teste da 808Pay">
@@ -4330,27 +4835,50 @@
     </div>
     <!-- SCRIPT LOGIC -->
     <script>
-        // 1. Navigation — somente Pitch Deck é view separada; o restante é página única
+        // O simulador permanece único, mas é montado na experiência dedicada antes da interação.
+        const simulatorNode = document.getElementById('section-simulador');
+        const demoSimulatorMount = document.getElementById('demo-simulator-mount');
+        if (simulatorNode && demoSimulatorMount) demoSimulatorMount.appendChild(simulatorNode);
+
+        // 1. Navigation — Landing, demonstração e Pitch Deck compartilham a mesma página.
         function switchView(viewName) {
             const landingView = document.getElementById('view-landing');
+            const demoView = document.getElementById('view-demo');
             const pitchView = document.getElementById('view-pitch');
             const btnPitch = document.getElementById('btn-tab-pitch');
             if (viewName === 'pitch') {
                 document.body.classList.add('pitch-mode');
+                document.body.classList.remove('demo-mode');
                 landingView.classList.add('hidden');
+                demoView.classList.add('hidden');
                 pitchView.classList.remove('hidden');
                 if (btnPitch) btnPitch.className = "hidden sm:flex items-center gap-1.5 text-xs text-zinc-200 bg-zinc-800 transition-all font-medium px-3 py-1.5 rounded-lg";
                 currentPitchSlide = 0;
                 pitchSlides.forEach((slide) => slide.classList.remove('is-active'));
                 void pitchWrapper.offsetWidth;
                 updatePitchSlider();
+                window.scrollTo(0, 0);
+            } else if (viewName === 'demo') {
+                document.body.classList.remove('pitch-mode');
+                document.body.classList.add('demo-mode');
+                landingView.classList.add('hidden');
+                pitchView.classList.add('hidden');
+                demoView.classList.remove('hidden');
+                if (btnPitch) btnPitch.className = "hidden sm:flex items-center gap-1.5 text-xs text-zinc-500 hover:text-zinc-200 transition-all font-medium px-3 py-1.5 rounded-lg hover:bg-zinc-800/60";
+                resetSimFlow(true);
+                simulatorNode?.classList.add('sim-in-view');
+                updateSimMobileView();
+                window.scrollTo(0, 0);
             } else {
                 document.body.classList.remove('pitch-mode');
+                document.body.classList.remove('demo-mode');
                 pitchView.classList.add('hidden');
+                demoView.classList.add('hidden');
                 landingView.classList.remove('hidden');
                 if (btnPitch) btnPitch.className = "hidden sm:flex items-center gap-1.5 text-xs text-zinc-500 hover:text-zinc-200 transition-all font-medium px-3 py-1.5 rounded-lg hover:bg-zinc-800/60";
                 resetSimFlow();
                 updateSimMobileView();
+                window.scrollTo(0, 0);
             }
             requestAnimationFrame(() => window.updateMobileConversionBar?.());
         }
@@ -4363,11 +4891,11 @@
         }
 
         function focusGuidedDemo() {
+            switchView('demo');
             const modeSwitcher = document.getElementById('sim-mode-switcher');
             const guidedButton = document.getElementById('sim-mode-guided');
             if (!modeSwitcher || !guidedButton) return;
-            modeSwitcher.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            window.setTimeout(() => guidedButton.focus({ preventScroll: true }), 520);
+            window.setTimeout(() => guidedButton.focus({ preventScroll: true }), 180);
         }
 
         // 3. Live Simulator Logic
@@ -5176,7 +5704,7 @@
 
         // Re-avalia o layout mobile/desktop ao redimensionar ou girar o dispositivo
         window.addEventListener('resize', () => {
-            if (!document.getElementById('view-pitch').classList.contains('hidden')) return;
+            if (document.getElementById('view-demo').classList.contains('hidden')) return;
             updateSimMobileView();
         });
         prepareGuidedPreview();
@@ -5338,17 +5866,17 @@
         function updateMobileConversionBar() {
             const bar = document.getElementById('mobile-conversion-bar');
             const landing = document.getElementById('view-landing');
-            const simulator = document.getElementById('section-simulador');
+            const flowPreview = document.querySelector('.landing-flow-preview');
             const plans = document.getElementById('section-planos');
             const modal = document.getElementById('lead-modal');
-            if (!bar || !landing || !simulator || !plans || !modal) return;
+            if (!bar || !landing || !flowPreview || !plans || !modal) return;
 
             const isMobile = window.matchMedia('(max-width: 767px)').matches;
-            const simulatorFinished = simulator.getBoundingClientRect().bottom <= 0;
+            const previewFinished = flowPreview.getBoundingClientRect().bottom <= 0;
             const plansApproaching = plans.getBoundingClientRect().top <= window.innerHeight * 0.82;
             const landingActive = !landing.classList.contains('hidden') && !document.body.classList.contains('pitch-mode');
             const modalClosed = modal.classList.contains('hidden');
-            const shouldShow = isMobile && simulatorFinished && !plansApproaching && landingActive && modalClosed && !mobileConversionDismissed;
+            const shouldShow = isMobile && previewFinished && !plansApproaching && landingActive && modalClosed && !mobileConversionDismissed;
             bar.classList.toggle('is-visible', shouldShow);
         }
         window.updateMobileConversionBar = updateMobileConversionBar;
@@ -5477,18 +6005,25 @@
                     if (glow) glow.classList.add('hero-glow');
                 }
 
-                // O simulador possui interação própria; os blocos seguintes entram por evidência e objeção.
-                reveal(document.querySelector('.trust-bridge-card'), 0);
-                reveal(document.querySelector('.validation-header'), 0);
-                document.querySelectorAll('.validation-card').forEach((card, i) => reveal(card, 100 + i * 90));
-                reveal(document.querySelector('.validation-cta'), 340);
+                // O simulador possui interação própria; os blocos editoriais entram em sequência curta.
+                const serviceModes = document.querySelector('.service-modes-section');
+                if (serviceModes) {
+                    reveal(serviceModes.querySelector('.section-intro'), 0);
+                    serviceModes.querySelectorAll('.service-mode-card').forEach((card, i) => reveal(card, 100 + i * 100));
+                }
 
-                const flowSection = document.querySelector('.flow-compare-section');
-                if (flowSection) {
-                    reveal(flowSection.children[0], 0);
-                    flowSection.querySelectorAll('.flow-compare-card').forEach((card, i) => reveal(card, 100 + i * 100));
-                    reveal(flowSection.querySelector('.partnership-journey'), 260);
-                    reveal(flowSection.querySelector('.conversion-cta-panel'), 320);
+                const resourcesSection = document.querySelector('.resources-section');
+                if (resourcesSection) {
+                    reveal(resourcesSection.querySelector('.section-intro'), 0);
+                    resourcesSection.querySelectorAll('.resource-card').forEach((card, i) => reveal(card, 100 + i * 75));
+                    reveal(resourcesSection.querySelector('.resource-clarity-strip'), 360);
+                }
+
+                const supportSection = document.querySelector('.support-section');
+                if (supportSection) {
+                    reveal(supportSection.querySelector('.section-intro'), 0);
+                    supportSection.querySelectorAll('.support-card').forEach((card, i) => reveal(card, 100 + i * 90));
+                    reveal(supportSection.querySelector('.support-cta'), 340);
                 }
 
                 const plansSection = document.getElementById('section-planos');
@@ -5508,7 +6043,7 @@
                 const metricsGrid = hero.querySelector('.grid.grid-cols-2');
                 if (metricsGrid) premiumCards.push(...metricsGrid.children);
             }
-            premiumCards.push(...document.querySelectorAll('.validation-card, .flow-compare-card, #section-planos .grid > div'));
+            premiumCards.push(...document.querySelectorAll('.service-mode-card, .resource-card, .support-card, #section-planos .grid > div'));
             premiumCards.forEach((el) => el && el.classList.add('premium-card'));
 
             // Evidências do Hero usam mensagens qualitativas — sem count-up
