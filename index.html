@@ -3669,16 +3669,16 @@
             box-shadow: 0 38px 72px -32px rgba(0,0,0,0.98), 0 24px 48px -34px rgba(34,197,94,0.62), 0 1px 0 rgba(255,255,255,0.09) inset;
         }
         .hero-screen-pdv {
-            top: 3.15rem;
+            top: 2.8rem;
             left: 0;
-            width: 88%;
+            width: 94%;
             transform: perspective(1100px) rotateY(3deg) rotateZ(-0.6deg);
         }
         .hero-screen-pdv:hover { transform: perspective(1100px) rotateY(1deg) rotateZ(0deg) translateY(-3px); }
         .hero-screen-dashboard {
             right: -0.15rem;
-            bottom: 0.4rem;
-            width: 48%;
+            bottom: 0.15rem;
+            width: 52%;
             border-color: rgba(212,175,55,0.2);
             transform: perspective(1100px) rotateY(-4deg) rotateZ(1deg);
         }
@@ -3701,8 +3701,10 @@
         .hero-screen-chrome small { color: #71717a; font-size: 0.5rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
         .hero-screen-viewport { position: relative; overflow: hidden; background: #0a0a0b; }
         .hero-screen-pdv .hero-screen-viewport { aspect-ratio: 1460 / 820; }
-        .hero-screen-dashboard .hero-screen-viewport { aspect-ratio: 1230 / 980; }
+        .hero-screen-dashboard .hero-screen-viewport { aspect-ratio: 16 / 10; }
         .hero-screen-viewport img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+        .hero-screen-pdv .hero-screen-viewport img { transform: scale(1.055); transform-origin: 58% 18%; }
+        .hero-screen-dashboard .hero-screen-viewport img { object-position: top center; }
         .hero-screen-frame figcaption {
             display: flex;
             align-items: center;
@@ -3772,7 +3774,10 @@
         }
         .resource-real-shot--contained { aspect-ratio: 16 / 9.5; }
         .resource-real-shot--contained img { object-fit: contain; background: #08090a; }
-        .resource-list { margin-top: 1.35rem; }
+        .resource-list { margin-top: 1.25rem; }
+        .resource-list li { font-size: 0.82rem; line-height: 1.5; }
+        .resource-dashboard-shot { aspect-ratio: 16 / 9.2; }
+        .resource-dashboard-shot img { object-fit: cover; object-position: top center; }
         .resource-concept-shot {
             border-color: rgba(212,175,55,0.16);
             box-shadow: 0 28px 65px -45px rgba(34,197,94,0.66), 0 1px 0 rgba(255,255,255,0.06) inset;
@@ -3794,10 +3799,10 @@
         .landing-flow-preview-card {
             position: relative;
             display: grid;
-            grid-template-columns: minmax(17rem, 0.72fr) minmax(0, 1.28fr);
-            align-items: center;
-            gap: clamp(2rem, 5vw, 5rem);
-            min-height: 24rem;
+            grid-template-columns: minmax(16rem, 0.62fr) minmax(0, 1.38fr);
+            align-items: start;
+            gap: clamp(2rem, 4vw, 4rem);
+            min-height: 31rem;
             padding: clamp(1.5rem, 4vw, 3.25rem);
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.085);
@@ -3818,7 +3823,9 @@
             pointer-events: none;
         }
         .landing-flow-copy,
+        .flow-preview-demo,
         .flow-preview-track { position: relative; z-index: 1; }
+        .landing-flow-copy { padding-top: 0.35rem; }
         .landing-flow-copy h2 { color: #fafafa; font-size: clamp(1.75rem, 3.5vw, 2.85rem); font-weight: 920; letter-spacing: -0.045em; line-height: 1.03; }
         .landing-flow-copy p { max-width: 29rem; margin-top: 0.85rem; color: #a1a1aa; font-size: 0.8rem; line-height: 1.65; }
         .flow-preview-cta {
@@ -3838,30 +3845,46 @@
             transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
         }
         .flow-preview-cta:hover { transform: translateY(-2px); background: #86efac; box-shadow: 0 18px 34px -20px rgba(74,222,128,0.8); }
-        .flow-preview-track { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.65rem; }
+        .flow-preview-demo { min-width: 0; }
+        .flow-preview-track { --flow-progress: 0%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.45rem; }
         .flow-preview-line { position: absolute; top: 1.35rem; right: 9%; left: 9%; height: 1px; background: rgba(74,222,128,0.18); }
-        .flow-preview-line::before { content: ''; position: absolute; inset: -1px 0 auto; height: 3px; background: linear-gradient(90deg, transparent, rgba(74,222,128,0.7), transparent); transform: scaleX(0); transform-origin: left; animation: flowPreviewDraw 8.8s cubic-bezier(0.16,1,0.3,1) infinite; }
-        .flow-preview-line i { position: absolute; top: -0.28rem; left: 0; width: 0.62rem; height: 0.62rem; border-radius: 50%; background: #86efac; box-shadow: 0 0 18px rgba(74,222,128,0.9); animation: flowPreviewSignal 8.8s cubic-bezier(0.45,0,0.2,1) infinite; }
-        .flow-preview-step { position: relative; display: grid; justify-items: center; padding-top: 3.1rem; text-align: center; }
-        .flow-preview-step::before { content: ''; position: absolute; top: 0.85rem; width: 1rem; height: 1rem; border: 1px solid rgba(74,222,128,0.28); border-radius: 50%; background: #101014; box-shadow: 0 0 0 6px rgba(9,9,11,0.92); animation: flowPreviewNode 8.8s ease-in-out infinite; animation-delay: calc(var(--flow-step) * 1.65s); }
+        .flow-preview-line::before { content: ''; position: absolute; top: -1px; bottom: auto; left: 0; width: var(--flow-progress); height: 3px; background: linear-gradient(90deg, rgba(74,222,128,0.28), #4ade80); transition: width 360ms cubic-bezier(0.16,1,0.3,1); }
+        .flow-preview-line i { position: absolute; top: -0.28rem; left: var(--flow-progress); width: 0.62rem; height: 0.62rem; border-radius: 50%; background: #86efac; box-shadow: 0 0 18px rgba(74,222,128,0.72); transform: translateX(-50%); transition: left 360ms cubic-bezier(0.16,1,0.3,1); }
+        .flow-preview-step { position: relative; display: grid; min-width: 0; min-height: 4.7rem; justify-items: center; padding: 3.1rem 0.2rem 0.25rem; border-radius: 0.75rem; color: inherit; text-align: center; cursor: pointer; transition: background-color 180ms ease; }
+        .flow-preview-step:hover { background: rgba(255,255,255,0.025); }
+        .flow-preview-step::before { content: ''; position: absolute; top: 0.85rem; width: 1rem; height: 1rem; border: 1px solid rgba(74,222,128,0.28); border-radius: 50%; background: #101014; box-shadow: 0 0 0 6px rgba(9,9,11,0.92); transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease; }
+        .flow-preview-step[aria-pressed="true"]::before { border-color: #86efac; background: #4ade80; box-shadow: 0 0 0 6px rgba(34,197,94,0.08), 0 0 18px rgba(74,222,128,0.62); }
         .flow-preview-step > span { color: #52525b; font-size: 0.55rem; font-weight: 900; letter-spacing: 0.13em; }
         .flow-preview-step strong { margin-top: 0.35rem; color: #f4f4f5; font-size: 0.74rem; font-weight: 850; }
         .flow-preview-step small { margin-top: 0.2rem; color: #71717a; font-size: 0.58rem; }
-        @keyframes flowPreviewDraw {
-            0%, 6% { transform: scaleX(0); opacity: 0; }
-            18%, 76% { transform: scaleX(1); opacity: 1; }
-            90%, 100% { transform: scaleX(1); opacity: 0; }
+        .flow-preview-step[aria-pressed="true"] > span,
+        .flow-preview-step[aria-pressed="true"] small { color: #86efac; }
+        .flow-preview-details { min-height: 17rem; margin-top: 1rem; }
+        .flow-preview-detail {
+            display: grid;
+            grid-template-columns: minmax(0, 1.16fr) minmax(13rem, 0.84fr);
+            min-height: 17rem;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 1.1rem;
+            background: rgba(7,7,9,0.82);
+            animation: flowDetailIn 260ms cubic-bezier(0.16,1,0.3,1) both;
         }
-        @keyframes flowPreviewSignal {
-            0%, 5% { left: 0; opacity: 0; }
-            10% { opacity: 1; }
-            76% { left: calc(100% - 0.62rem); opacity: 1; }
-            88%, 100% { left: calc(100% - 0.62rem); opacity: 0; }
-        }
-        @keyframes flowPreviewNode {
-            0%, 12%, 100% { border-color: rgba(74,222,128,0.25); background: #101014; box-shadow: 0 0 0 6px rgba(9,9,11,0.92); }
-            18%, 34% { border-color: #86efac; background: #4ade80; box-shadow: 0 0 0 6px rgba(34,197,94,0.08), 0 0 18px rgba(74,222,128,0.72); }
-        }
+        .flow-preview-detail[hidden] { display: none; }
+        .flow-preview-visual { position: relative; min-height: 17rem; overflow: hidden; background: #08090a; }
+        .flow-preview-visual::after { content: ''; position: absolute; inset: 45% 0 0; background: linear-gradient(to bottom, transparent, rgba(4,4,5,0.7)); pointer-events: none; }
+        .flow-preview-visual img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+        .flow-preview-visual figcaption { position: absolute; z-index: 2; right: 0.8rem; bottom: 0.7rem; left: 0.8rem; color: #f4f4f5; font-size: 0.6rem; font-weight: 850; }
+        .flow-preview-explanation { align-self: center; padding: 1.35rem; }
+        .flow-preview-explanation > span { color: #4ade80; font-size: 0.58rem; font-weight: 900; letter-spacing: 0.14em; text-transform: uppercase; }
+        .flow-preview-explanation strong { display: block; margin-top: 0.55rem; color: #f4f4f5; font-size: 1rem; line-height: 1.28; }
+        .flow-preview-explanation p { margin-top: 0.65rem; color: #a1a1aa; font-size: 0.75rem; line-height: 1.58; }
+        .flow-preview-ready-state { display: grid; place-items: center; padding: 1.2rem; background: radial-gradient(circle at 50% 45%, rgba(34,197,94,0.16), transparent 54%), #08090a; }
+        .flow-preview-ready-card { position: relative; z-index: 1; width: min(100%, 15rem); padding: 1.25rem; border: 1px solid rgba(74,222,128,0.25); border-radius: 1rem; background: rgba(17,24,20,0.92); box-shadow: 0 24px 55px -34px rgba(34,197,94,0.65); text-align: center; }
+        .flow-preview-ready-card span { color: #86efac; font-size: 0.57rem; font-weight: 900; letter-spacing: 0.15em; text-transform: uppercase; }
+        .flow-preview-ready-card strong { display: block; margin-top: 0.55rem; color: #fff; font-size: 2.4rem; letter-spacing: -0.04em; }
+        .flow-preview-ready-card p { margin-top: 0.15rem; color: #d4d4d8; font-size: 0.72rem; font-weight: 750; }
+        @keyframes flowDetailIn { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
         .demo-view-shell {
             width: 100%;
             min-height: calc(100svh - 4rem);
@@ -3939,13 +3962,16 @@
             .flow-preview-step strong { font-size: 0.66rem; }
             .flow-preview-step small { font-size: 0.52rem; }
             .flow-preview-cta { width: 100%; }
+            .flow-preview-detail { grid-template-columns: 1fr; }
+            .flow-preview-visual { min-height: 13rem; aspect-ratio: 16 / 9.5; }
+            .flow-preview-explanation { padding: 1.1rem; }
             .demo-view-toolbar { align-items: stretch; flex-direction: column; }
             .demo-view-toolbar button { width: 100%; }
             .hero-product { min-height: 22rem; }
             .hero-real-composition { min-height: 22rem; }
             .hero-real-composition .hero-preview-label { top: 0; left: 0.25rem; }
-            .hero-screen-pdv { top: 2.25rem; width: 97%; transform: rotateZ(-0.45deg); }
-            .hero-screen-dashboard { right: -0.2rem; bottom: 0.1rem; width: 52%; transform: rotateZ(0.7deg); }
+            .hero-screen-pdv { top: 2.15rem; width: 100%; transform: rotateZ(-0.45deg); }
+            .hero-screen-dashboard { right: -0.2rem; bottom: 0.1rem; width: 55%; transform: rotateZ(0.7deg); }
             .hero-screen-chrome { min-height: 1.7rem; padding-inline: 0.55rem; }
             .hero-screen-chrome small { display: none; }
             .hero-screen-frame figcaption { min-height: 1.85rem; padding-inline: 0.55rem; font-size: 0.56rem; }
@@ -3961,16 +3987,15 @@
             .hero-screen-frame,
             .service-real-shot img,
             .resource-real-shot img,
+            .flow-preview-line::before,
+            .flow-preview-line i,
+            .flow-preview-step,
             .resource-card { transition: none; }
             .hero-screen-pdv:hover { transform: perspective(1100px) rotateY(3deg) rotateZ(-0.6deg); }
             .hero-screen-dashboard:hover { transform: perspective(1100px) rotateY(-4deg) rotateZ(1deg); }
             .service-mode-card:hover .service-real-shot img,
             .resource-card:hover .resource-real-shot img { transform: none; }
-            .flow-preview-line::before,
-            .flow-preview-line i,
-            .flow-preview-step::before { animation: none; }
-            .flow-preview-line::before { transform: scaleX(1); opacity: 0.65; }
-            .flow-preview-line i { left: calc(100% - 0.62rem); opacity: 1; }
+            .flow-preview-detail { animation: none; }
         }
     </style>
 </head>
@@ -4018,9 +4043,8 @@
                             <span class="hero-enter block" style="--hero-delay: 70ms">Atendimento, cozinha, caixa e gestão no mesmo sistema.</span>
                         </h1>
                         <p class="hero-support hero-enter" style="--hero-delay: 140ms">
-                            Conecte a operação sem mudar o jeito que ela funciona. A equipe trabalha com simplicidade, e você acompanha uma ou várias unidades pelo celular, de onde estiver com acesso à internet.
+                            Mais agilidade no atendimento e mais clareza para acompanhar a operação de uma ou várias unidades.
                         </p>
-                        <p class="hero-operating-promise hero-enter" style="--hero-delay: 175ms"><strong>Atendimento simples para a equipe.</strong><span>Controle na palma da mão para o gestor.</span></p>
                         <div class="hero-actions hero-enter" style="--hero-delay: 210ms">
                             <button id="hero-primary-cta" onclick="openLeadModal('Hero — Teste de 15 dias')" class="hero-primary-cta group">
                                 <span class="relative z-10">Solicitar meu teste de 15 dias</span>
@@ -4103,12 +4127,44 @@
                             <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0-7 7m7-7H3"/></svg>
                         </button>
                     </div>
-                    <div class="flow-preview-track" aria-label="Prévia ilustrativa do fluxo Pedido, Cozinha, Retirada e Gestão">
-                        <div class="flow-preview-line"><i></i></div>
-                        <div class="flow-preview-step" style="--flow-step:0"><span>01</span><strong>Pedido</strong><small>registrado</small></div>
-                        <div class="flow-preview-step" style="--flow-step:1"><span>02</span><strong>Cozinha</strong><small>em preparo</small></div>
-                        <div class="flow-preview-step" style="--flow-step:2"><span>03</span><strong>Retirada</strong><small>pedido pronto</small></div>
-                        <div class="flow-preview-step" style="--flow-step:3"><span>04</span><strong>Gestão</strong><small>fluxo atualizado</small></div>
+                    <div class="flow-preview-demo">
+                        <div class="flow-preview-track" aria-label="Etapas do fluxo Pedido, Produção, Retirada e Gestão" style="--flow-progress: 0%">
+                            <div class="flow-preview-line" aria-hidden="true"><i></i></div>
+                            <button type="button" class="flow-preview-step" aria-pressed="true" aria-controls="flow-preview-detail-0" onclick="setFlowPreviewStep(0)"><span>01</span><strong>Pedido</strong><small>entra no fluxo</small></button>
+                            <button type="button" class="flow-preview-step" aria-pressed="false" aria-controls="flow-preview-detail-1" onclick="setFlowPreviewStep(1)"><span>02</span><strong>Produção</strong><small>quando necessária</small></button>
+                            <button type="button" class="flow-preview-step" aria-pressed="false" aria-controls="flow-preview-detail-2" onclick="setFlowPreviewStep(2)"><span>03</span><strong>Retirada</strong><small>pedido pronto</small></button>
+                            <button type="button" class="flow-preview-step" aria-pressed="false" aria-controls="flow-preview-detail-3" onclick="setFlowPreviewStep(3)"><span>04</span><strong>Gestão</strong><small>visão atualizada</small></button>
+                        </div>
+                        <div class="flow-preview-details" aria-live="polite">
+                            <article id="flow-preview-detail-0" class="flow-preview-detail">
+                                <figure class="flow-preview-visual">
+                                    <img src="/product-real/pdv-real.jpg" width="1460" height="820" loading="lazy" decoding="async" alt="Recorte real do caixa PDV 808Pay">
+                                    <figcaption>Caixa e pedido no mesmo contexto</figcaption>
+                                </figure>
+                                <div class="flow-preview-explanation"><span>Pedido</span><strong>O pedido entra no fluxo com o contexto certo.</strong><p>O caixa registra o pedido e, no pagamento antecipado, confirma o recebimento antes de enviar o que exige preparo.</p></div>
+                            </article>
+                            <article id="flow-preview-detail-1" class="flow-preview-detail" hidden>
+                                <figure class="flow-preview-visual">
+                                    <img src="/product-real/kds-ecosystem-concept.jpg" width="1460" height="821" loading="lazy" decoding="async" alt="Visual conceitual do painel de produção KDS">
+                                    <figcaption>Estado demonstrativo do KDS</figcaption>
+                                </figure>
+                                <div class="flow-preview-explanation"><span>Produção</span><strong>A cozinha vê apenas o que precisa preparar.</strong><p>Itens de pronta entrega seguem direto para a retirada; os demais entram nas etapas de produção configuradas.</p></div>
+                            </article>
+                            <article id="flow-preview-detail-2" class="flow-preview-detail" hidden>
+                                <figure class="flow-preview-visual flow-preview-ready-state">
+                                    <div class="flow-preview-ready-card"><span>Retirada</span><strong>#082</strong><p>Pedido pronto</p></div>
+                                    <figcaption>Estado existente da demonstração</figcaption>
+                                </figure>
+                                <div class="flow-preview-explanation"><span>Retirada</span><strong>A equipe identifica quando o pedido está pronto.</strong><p>O status de retirada aparece somente depois da etapa necessária para aquele pedido.</p></div>
+                            </article>
+                            <article id="flow-preview-detail-3" class="flow-preview-detail" hidden>
+                                <figure class="flow-preview-visual">
+                                    <img src="/product-real/dashboard-real.jpg" width="1230" height="980" loading="lazy" decoding="async" alt="Recorte real do dashboard de gestão 808Pay">
+                                    <figcaption>Dashboard real da operação</figcaption>
+                                </figure>
+                                <div class="flow-preview-explanation"><span>Gestão</span><strong>A operação atualiza a visão de quem decide.</strong><p>Pedidos, pagamentos confirmados e etapas disponíveis alimentam o acompanhamento da unidade.</p></div>
+                            </article>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -4365,56 +4421,56 @@
             </div>
             <div class="resources-grid">
                 <article class="resource-card">
-                    <div class="resource-card-head"><span class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 5h16v11H4zM8 20h8M12 16v4M7 9h4M15 9h2M15 12h2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><span>Atendimento e venda</span><h3>Fácil de aprender e direto para operar.</h3></div></div>
+                    <div class="resource-card-head"><span class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 5h16v11H4zM8 20h8M12 16v4M7 9h4M15 9h2M15 12h2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><span>Atendimento e venda</span><h3>Agilidade no balcão e na mesa.</h3></div></div>
                     <figure class="resource-real-shot">
                         <img src="/product-real/pdv-real.jpg" width="1460" height="820" loading="lazy" decoding="async" alt="Tela real e anonimizada do atendimento no PDV 808Pay">
                         <figcaption>Tela real do PDV</figcaption>
                     </figure>
                     <ul class="resource-list">
-                        <li><strong>Caixa (PDV)</strong> para registrar pedidos e pagamentos.</li>
-                        <li><strong>Autoatendimento</strong> por tablet ou QR Code, quando habilitado.</li>
-                        <li><strong>Pix integrado:</strong> o status avança após a confirmação da integração.</li>
-                        <li><strong>Modo garçom</strong> para registrar e acompanhar pedidos das mesas.</li>
+                        <li><strong>PDV intuitivo</strong> para registrar pedidos e recebimentos.</li>
+                        <li><strong>Autoatendimento</strong> por tablet ou QR, quando habilitado.</li>
+                        <li><strong>Pix integrado</strong> com avanço após a confirmação.</li>
+                        <li><strong>Modo garçom</strong> para registrar pedidos das mesas.</li>
                     </ul>
                 </article>
                 <article class="resource-card resource-card-kds">
-                    <div class="resource-card-head"><span class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 5h18v12H3zM8 21h8M12 17v4M7 9h10M7 13h6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><span>Cozinha e acompanhamento</span><h3>O pedido certo, na etapa certa.</h3></div></div>
+                    <div class="resource-card-head"><span class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M3 5h18v12H3zM8 21h8M12 17v4M7 9h10M7 13h6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><span>Cozinha e acompanhamento</span><h3>Produção organizada sem perder o pedido.</h3></div></div>
                     <figure class="resource-real-shot resource-concept-shot">
                         <img src="/product-real/kds-ecosystem-concept.jpg" width="1460" height="821" loading="lazy" decoding="async" alt="Visual conceitual do ecossistema de cozinha em monitor KDS, celular e impressora térmica">
                         <figcaption>Visual conceitual · KDS</figcaption>
                     </figure>
                     <ul class="resource-list">
-                        <li><strong>Painel de cozinha (KDS)</strong> para visualizar e organizar pedidos.</li>
-                        <li><strong>Encaminhamento</strong> conforme o fluxo configurado para a operação.</li>
-                        <li><strong>Etapas de preparo</strong> atualizadas pela equipe no painel.</li>
-                        <li><strong>Acompanhamento pelo cliente</strong> conforme o status disponível no aplicativo.</li>
+                        <li><strong>KDS</strong> para organizar pedidos que exigem preparo.</li>
+                        <li><strong>Produção organizada</strong> por etapas visíveis à equipe.</li>
+                        <li><strong>Pronta entrega</strong> segue direto para retirada quando aplicável.</li>
+                        <li><strong>Acompanhamento do pedido</strong> conforme o status disponível.</li>
                     </ul>
                     <p class="resource-footnote">Telas compatíveis e impressão térmica são possibilidades distintas, avaliadas conforme a configuração.</p>
                 </article>
                 <article class="resource-card resource-card-management">
-                    <div class="resource-card-head"><span class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><span>Gestão pelo celular</span><h3>Controle de uma ou várias unidades.</h3></div></div>
-                    <figure class="resource-real-shot resource-real-shot--contained">
+                    <div class="resource-card-head"><span class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><span>Gestão</span><h3>Uma ou várias unidades sob controle.</h3></div></div>
+                    <figure class="resource-real-shot resource-dashboard-shot">
                         <img src="/product-real/dashboard-real.jpg" width="1230" height="980" loading="lazy" decoding="async" alt="Tela real e anonimizada do dashboard 808Pay">
                         <figcaption>Dashboard real</figcaption>
                     </figure>
                     <ul class="resource-list">
-                        <li><strong>Vendas por unidade</strong> e acesso às lojas autorizadas.</li>
-                        <li><strong>Movimentações de caixa</strong> e indicadores financeiros disponíveis.</li>
-                        <li><strong>Gráficos</strong> atualizados conforme a sincronização dos dados.</li>
-                        <li><strong>Cupom fiscal</strong> conforme configuração, disponibilidade e condições aplicáveis.</li>
+                        <li><strong>Dashboard</strong> para acompanhar a operação.</li>
+                        <li><strong>Financeiro</strong> com movimentações e indicadores disponíveis.</li>
+                        <li><strong>Uma ou várias unidades</strong> conforme os acessos autorizados.</li>
+                        <li><strong>Emissão fiscal</strong> conforme configuração e disponibilidade.</li>
                     </ul>
                 </article>
                 <article class="resource-card resource-card-table">
-                    <div class="resource-card-head"><span class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M7 16h10M9 20h6M8 16a4 4 0 118 0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><span>Experiência na mesa</span><h3>Mais autonomia sem afastar a equipe.</h3></div></div>
+                    <div class="resource-card-head"><span class="resource-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M7 16h10M9 20h6M8 16a4 4 0 118 0" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><span>Experiência na mesa</span><h3>Autonomia para consultar e pedir atendimento.</h3></div></div>
                     <figure class="resource-real-shot resource-real-shot--contained">
                         <img src="/product-real/mesa-experience-real.jpg" width="850" height="680" loading="lazy" decoding="async" alt="Tela real e anonimizada com cardápio, chamada do garçom, consumo e opinião">
                         <figcaption>Experiência real na mesa</figcaption>
                     </figure>
                     <ul class="resource-list">
-                        <li><strong>Cardápio</strong> para consulta pelo QR da mesa.</li>
-                        <li><strong>Chamar garçom</strong> com envio da solicitação à equipe.</li>
-                        <li><strong>Consumo da mesa</strong> para o cliente acompanhar.</li>
-                        <li><strong>Sua opinião</strong> para sugestões, elogios ou comentários.</li>
+                        <li><strong>Consultar cardápio</strong> pelo QR da mesa.</li>
+                        <li><strong>Chamar garçom</strong> enviando uma solicitação à equipe.</li>
+                        <li><strong>Ver consumo</strong> para acompanhar a conta da mesa.</li>
+                        <li><strong>Enviar opinião</strong> com sugestões ou comentários.</li>
                     </ul>
                 </article>
             </div>
@@ -4888,6 +4944,19 @@
             if (!firstAction) return;
             firstAction.scrollIntoView({ behavior: 'smooth', block: 'center' });
             window.setTimeout(() => firstAction.focus({ preventScroll: true }), 520);
+        }
+
+        function setFlowPreviewStep(stepIndex) {
+            const preview = document.querySelector('.flow-preview-demo');
+            if (!preview) return;
+            const steps = Array.from(preview.querySelectorAll('.flow-preview-step'));
+            const details = Array.from(preview.querySelectorAll('.flow-preview-detail'));
+            const selectedIndex = Math.max(0, Math.min(Number(stepIndex) || 0, steps.length - 1));
+            const progress = steps.length > 1 ? (selectedIndex / (steps.length - 1)) * 100 : 0;
+
+            preview.querySelector('.flow-preview-track')?.style.setProperty('--flow-progress', `${progress}%`);
+            steps.forEach((step, index) => step.setAttribute('aria-pressed', index === selectedIndex ? 'true' : 'false'));
+            details.forEach((detail, index) => { detail.hidden = index !== selectedIndex; });
         }
 
         function focusGuidedDemo() {
